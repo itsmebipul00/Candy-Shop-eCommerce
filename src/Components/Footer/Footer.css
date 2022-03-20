@@ -1,0 +1,4 @@
+.footer {
+  padding: 2rem;
+  border-top: 0.5rem solid hsl(var(--clr-red));
+}
