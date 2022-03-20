@@ -1,0 +1,17 @@
+.filters {
+  position: absolute;
+  background: hsl(var(--clr-white));
+  width: 100vw;
+  height: 30vh;
+  inset: 80% 0% 0% -1%;
+  z-index: 9999;
+  display: none;
+}
+
+.btn-apply-filters:hover + .filters {
+  display: block;
+}
+
+.filters:hover {
+  display: block;
+}

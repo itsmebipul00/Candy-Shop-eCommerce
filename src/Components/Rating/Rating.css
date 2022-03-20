@@ -1,0 +1,9 @@
+.rating {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+
+.rating > * {
+  margin: 2px;
+}
