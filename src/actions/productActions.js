@@ -1,49 +1,94 @@
-import axios from "axios";
-import { useReducer } from "react";
-import { WishListContext } from "../context";
-import { wishListReducer } from "../reducers/productReducers";
+import { ProductsContext } from '../context'
+import { useAxios } from '../utils/useAxios'
+import { filters } from '../utils/filters'
+import { useState } from 'react'
 
-export const getProducts = () => async (dispatch) => {
-  try {
-    dispatch({ type: "PRODUCT_LIST_REQUEST" });
+export const ProductsProvider = props => {
+	const {
+		response: products,
+		loading: productsLoading,
+		error: productsError,
+	} = useAxios({
+		method: 'GET',
+		url: '/api/products',
+	})
 
-    const { data } = await axios.get("/api/products");
+	const [filterData, setFilterData] = useState(filters)
 
-    dispatch({
-      type: "PRODUCT_LIST_SUCCESS",
-      payload: data.products,
-    });
-  } catch (error) {
-    console.log(error);
-    dispatch({
-      type: "PRODUCT_LIST_FAIL",
-      payload: error.response,
-    });
-  }
-};
+	const handleFilters = event => {
+		const { name, value, type, checked } = event.target
+		setFilterData(prevFilterData => {
+			return {
+				...prevFilterData,
+				[name]: type === 'checkbox' ? checked : value,
+			}
+		})
+	}
 
-export const WishListProvider = (props) => {
-  const intialState = {
-    wishList: [],
-  };
+	const getSortedData = (products, filterData) => {
+		if (
+			products &&
+			products.length > 0 &&
+			filterData.sort === 'price-high-to-low'
+		) {
+			return products.sort((a, b) => b['price'] - a['price'])
+		}
+		if (
+			products &&
+			products.length > 0 &&
+			filterData.sort === 'price-low-to-high'
+		) {
+			return products.sort((a, b) => a['price'] - b['price'])
+		}
+		if (
+			products &&
+			products.length > 0 &&
+			filterData.sort === 'rating-high-to-low'
+		) {
+			return products.sort((a, b) => b['rating'] - a['rating'])
+		}
+		if (
+			products &&
+			products.length > 0 &&
+			filterData.sort === 'rating-low-to-high'
+		) {
+			return products.sort((a, b) => a['rating'] - b['rating'])
+		}
+		if (products && products.length > 0 && filterData.sort === '') {
+			return products
+		}
+	}
 
-  const [{ wishList }, dispatch] = useReducer(wishListReducer, intialState);
+	const getfilteredProducts = (products, filterData) => {
+		// getkeys from filterData if true
+		const categories = Object.keys(filterData).filter(
+			k => filterData[k] === true
+		)
+		if (categories && categories.length > 0) {
+			return products.filter(({ categoryName }) =>
+				categories.includes(categoryName)
+			)
+		} else return products
+	}
 
-  const wishedProductsAction = (products) => {
-    dispatch({
-      type: "WISHED_PRODUCTS",
-      payload: products,
-    });
-  };
+	const sortedProducts = getSortedData(products, filterData)
+	const filteredProducts = getfilteredProducts(
+		sortedProducts,
+		filterData
+	)
 
-  return (
-    <WishListContext.Provider
-      value={{
-        wishedProductsAction,
-        wishList,
-      }}
-    >
-      {props.children}
-    </WishListContext.Provider>
-  );
-};
+	console.log(sortedProducts)
+	console.log(filteredProducts)
+	return (
+		<ProductsContext.Provider
+			value={{
+				filteredProducts,
+				productsError,
+				productsLoading,
+				filterData,
+				handleFilters,
+			}}>
+			{props.children}
+		</ProductsContext.Provider>
+	)
+}

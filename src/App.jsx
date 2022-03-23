@@ -8,7 +8,7 @@ import HomeScreen from "./Screens/HomeScreen/HomeScreen";
 import CartScreen from "./Screens/CartScreen/CartScreen";
 import ProductListScreen from "./Screens/ProductListScreen/ProductListScreen";
 import ProductScreen from "./Screens/ProductScreen/ProductScreen";
-import { WishListProvider } from "./actions/productActions";
+import { ProductsProvider } from "./actions/productActions";
 
 import {Header} from "./Components/Header/Header";
 import {Footer} from "./Components/Footer/Footer";
@@ -16,7 +16,7 @@ import {Footer} from "./Components/Footer/Footer";
 function App() {
   return (
     <BrowserRouter>
-      <WishListProvider>
+    <ProductsProvider>
         <header>
           <Header />
         </header>
@@ -32,7 +32,7 @@ function App() {
             <Route path="/profile" element={<ProfileScreen />} />
           </Routes>
         </main>
-      </WishListProvider>
+      </ProductsProvider>
       <footer>
         <Footer />
       </footer>

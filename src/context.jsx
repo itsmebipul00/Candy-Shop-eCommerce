@@ -1,4 +1,7 @@
 import { createContext } from "react";
 
-export const WishListContext = createContext();
+const ProductsContext = createContext();
+
+export { ProductsContext}
+
 

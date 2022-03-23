@@ -35,17 +35,16 @@ const wishlistIconStyle = {
 };
 
 export const Header = () => {
+
   const location = useLocation();
   const isProductListingPage = location.pathname === "/products" ? true : false;
-
-
 
   return (
     <div className="candyshop-header d-grid">
       <div className="d-flex p-relative">
 
  
-        <Link to='/' activeClassName="active" end>
+        <Link to='/'>
           <LogoProvider>
             <GiCandyCanes value={logoStyles} />
           </LogoProvider>

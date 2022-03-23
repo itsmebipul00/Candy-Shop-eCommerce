@@ -1,82 +1,199 @@
 // Components: Search, Pagination
-import "./ProductListScreen.css";
-import { useEffect, useReducer, useContext } from "react";
-import { productListReducer } from "../../reducers/productReducers";
-import { getProducts } from "../../actions/productActions";
-import {Loader} from '../../Components/Loader/Loader.jsx'
-import {Error} from '../../Components/Error/Error.jsx'
-import {ProductCard} from '../../Components/ProductCard/ProductCard.jsx'
-import { WishListContext } from "../../context";
+import './ProductListScreen.css'
+import { useContext } from 'react'
+import { Loader } from '../../Components/Loader/Loader.jsx'
+import { Error } from '../../Components/Error/Error.jsx'
+import { ProductCard } from '../../Components/ProductCard/ProductCard.jsx'
+import { ProductsContext } from '../../context'
 
 const ProductListScreen = () => {
+	const {
+		filteredProducts,
+		products,
+		// filterData,
+		productsLoading,
+		productsError,
+		toggleWish,
+		// wishList,
+	} = useContext(ProductsContext)
 
-  const [{ products, loading, error }, dispatch] = useReducer(
-    productListReducer,
-    {
-      products: [],
-    }
-  );
+	const addtocartHandler = (e, id) => {
+		e.preventDefault()
+	}
 
-  const {wishedProductsAction, wishList} = useContext(WishListContext)
+	// console.log(filterData)
 
-  // getProducts returns IIFE which dispatches actions to reducers
-  // reducers returns a final object of products array, loading state and/or error which is destructured from state that useReducer returns and used here
-  
-  useEffect(() => {
-    getProducts()(dispatch);
-  }, []);
+	// console.log(Object.keys(filters).map())
 
+	// let filteredProducts = products
+	// console.log(filterData)
 
-  const toggleWish = (id) => {
+	// if(Object.keys(filterData).map(category => category === ))
 
-    let wishedProducts
+	//  FilterProducts(filterData, products)
 
-    wishList.length > 0 ? wishedProducts= wishList.map(p => p.id === id ? {...p, wishList: !p.wishList}: p) : wishedProducts = products.map(p => p.id === id ? {...p, wishList: !p.wishList}: p)
+	// const getSortedProducts = (filterData, products) => {
 
-    wishedProductsAction(wishedProducts)
-  }
+	// }
 
-  
-  const addtocartHandler = (e, id) => {
-    e.preventDefault()
-  }
+	// console.log(getSortedProducts(filterData, products))
 
-  return (
-    <div className="product-grid products-section-container">
-      {loading && <Loader />}
-      {error && <Error/>}
+	//  const sorted = getSortedProducts(filterData, products);
 
-      {wishList && wishList.length > 0 ? wishList.map(p => (
-         <ProductCard 
-         key={p._id}
-         id={p.id}
-         addtocartHandler={addtocartHandler}
-         image={p.image}
-         title={p.title}
-         price= {p.price} 
-         rating= {p.rating}
-         toggleWish ={toggleWish}
-         wishList = {p.wishList}
-       />
-      )) :
-        products && products.length && products.map(p => (
-        <ProductCard 
-          key={p._id}
-          id={p.id}
-          addtocartHandler={addtocartHandler}
-          image={p.image}
-          title={p.title}
-          price= {p.price} 
-          rating= {p.rating}
-          toggleWish ={toggleWish}
-          wishList = {p.wishList}
-        />
-      ))}
-    </div>
+	//  console.log(sorted.filter(p => p.rating < 5).sort((a,b) => b['rating'] - a['rating']))
+	// const a = getSortedProducts(filterData, products)
+	// let sortedProducts = products
 
-  );
-};
+	// console.log(sortedProducts)
 
-export default ProductListScreen;
+	// const sortProducts = (filterData, sortedProducts) => {
+	// 	// console.log(filteredProducts)
 
+	// 	if (
+	// 		sortedProducts &&
+	// 		filterData &&
+	// 		filterData.sort === 'price-high-to-low'
+	// 	) {
+	// 		return sortedProducts.sort((a, b) => b['price'] - a['price'])
+	// 	}
 
+	// 	if (
+	// 		sortedProducts &&
+	// 		filterData &&
+	// 		filterData.sort === 'price-low-to-high'
+	// 	) {
+	// 		return sortedProducts.sort((a, b) => a['price'] - b['price'])
+	// 	}
+
+	// 	if (
+	// 		sortedProducts &&
+	// 		filterData &&
+	// 		filterData.sort === 'rating-high-to-low'
+	// 	) {
+	// 		return sortedProducts.sort((a, b) => b['rating'] - a['rating'])
+	// 	}
+
+	// 	if (
+	// 		sortedProducts &&
+	// 		filterData &&
+	// 		filterData.sort === 'rating-low-to-high'
+	// 	) {
+	// 		return sortedProducts.sort((a, b) => a['rating'] - b['rating'])
+	// 	}
+
+	// 	if (
+	// 		sortedProducts &&
+	// 		filterData &&
+	// 		filterData.rating === 'four-stars'
+	// 	) {
+	// 		return sortedProducts.filter(p => p.rating >= 4)
+	// 	}
+
+	// 	if (
+	// 		sortedProducts &&
+	// 		filterData &&
+	// 		filterData.rating === 'three-stars'
+	// 	) {
+	// 		return sortedProducts.filter(p => p.rating >= 3)
+	// 	}
+
+	// 	if (
+	// 		sortedProducts &&
+	// 		filterData &&
+	// 		filterData.rating === 'two-stars'
+	// 	) {
+	// 		return sortedProducts.filter(p => p.rating >= 2)
+	// 	}
+
+	// 	if (
+	// 		sortedProducts &&
+	// 		filterData &&
+	// 		filterData.rating === 'one-star'
+	// 	) {
+	// 		return sortedProducts.filter(p => p.rating >= 1)
+	// 	}
+	// }
+
+	// const finalProducts = sortProducts(filterData, sortedProducts)
+
+	// console.log(finalProducts)
+
+	// const filterWithRatings = (filterData, sortProducted, products) => {
+	// 	let filteredProducts = !sortProducted ? products : sortProducted
+	// 	// console.log(filteredProducts)
+
+	// }
+
+	// const sortProducted = sortProducts(
+	// 	filterData,
+	// 	products,
+	// 	filteredProducts
+	// )
+
+	// const filteredProducts = filterWithRatings(
+	// 	filterData,
+	// 	products,
+	// 	sortProducted
+	// )
+
+	// const finalProducts = !sortProducted
+	// 	? filteredProducts
+	// 	: !filteredProducts
+	// 	? sortProducted
+	// 	: products
+
+	// const filteredProducts = filterWithRatings()
+
+	// const sortedData =  getSortedProducts(filterData, products);
+
+	// if (sorted)
+	// console.log(sorted.filter(p => p.rating<= 4))
+
+	// const b = filterWithRatings(filterData, products)
+
+	// console.log(a, b)
+	// sortedData()
+
+	// const getFilteredData = (filterData, sortedData) => {
+
+	//   const categories = sortedData.map(data => data.categoryName)
+	//   const ratings=   sortedData.map(data => data.rating)
+
+	//   const totalCategories=   Object.keys(filterData).map(p => p)
+
+	// console.log(filterData, categories, totalCategories, ratings)
+	// }
+
+	// getFilteredData(filterData, sortedData)
+	// const filteredData = getFilteredData(filterData, sortedData)
+
+	// const filteredData = getFilteredData(sortedData, {
+	//   showFastDeliveryOnly,
+	//   showInventoryAll
+	// });
+	// console.log(products)
+	return (
+		<div className='product-grid products-section-container'>
+			{productsLoading && <Loader />}
+			{productsError && <Error />}
+
+			{filteredProducts &&
+				filteredProducts.length > 0 &&
+				filteredProducts.map(p => (
+					<ProductCard
+						key={p._id}
+						id={p.id}
+						addtocartHandler={addtocartHandler}
+						image={p.image}
+						title={p.title}
+						price={p.price}
+						rating={p.rating}
+						toggleWish={toggleWish}
+						wishList={p.wishList}
+					/>
+				))}
+		</div>
+	)
+}
+
+export default ProductListScreen

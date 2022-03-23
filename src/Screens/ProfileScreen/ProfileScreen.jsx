@@ -1,15 +1,15 @@
 // Componets: Wishlist, UserInfo, OrderHisttory
 import "./ProfileScreen.css";
 import {  useContext } from "react";
-import { WishListContext } from "../../context";
+import { ProductsContext } from "../../context";
 
 
 const ProfileScreen = () => {
 
 
-  const {wishedProductsAction, wishList} = useContext(WishListContext)
+  const {wishList} = useContext(ProductsContext)
 
-  console.log(wishedProductsAction, wishList)
+  console.log(wishList)
 
   return <div>ProfileScreen</div>;
 };
