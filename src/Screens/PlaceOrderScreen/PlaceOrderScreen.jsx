@@ -1,8 +1,8 @@
-// Components: Address Mang, Payment
-import "./PlaceOrderScreen.css";
+// Components: Payment
+import './PlaceOrderScreen.css'
 
 const PlaceOrderScreen = () => {
-  return <div>PlaceOrderScreen</div>;
-};
+	return <div>PlaceOrderScreen</div>
+}
 
-export default PlaceOrderScreen;
+export default PlaceOrderScreen

@@ -3,10 +3,23 @@ import { useContext } from 'react'
 import { ProductsContext } from '../../context'
 
 export const Filters = () => {
-	const { handleFilters, filterData } = useContext(ProductsContext)
+	const { handleFilters, filterData, resetFilters } =
+		useContext(ProductsContext)
+
+	const isFilterDataEmpty =
+		Object.keys(filterData).filter(k => filterData[k]).length > 0
+			? false
+			: true
 
 	return (
-		<div>
+		<div className='filter-products'>
+			{!isFilterDataEmpty && (
+				<button
+					className='btn btn-clear-filters fs-300 letter-spacing-5 uppercase'
+					onClick={resetFilters}>
+					Clear
+				</button>
+			)}
 			<button className='btn btn-apply-filters fs-300 letter-spacing-5 uppercase'>
 				Filters
 			</button>
@@ -112,107 +125,11 @@ export const Filters = () => {
 					</label>
 				</li>
 
-				<li className='filter-by-rating f-col' role='list'>
-					<h2 className='fs-400'>Ratings</h2>
-
-					<label htmlFor='five-stars'>
-						<input
-							type='radio'
-							id='five-stars'
-							value='five-star'
-							name='rating'
-							className='radio'
-							checked={filterData.rating === 'five-star'}
-							onChange={handleFilters}
-						/>
-						<span className='text'>5 stars</span>
-					</label>
-
-					<label htmlFor='four-stars'>
-						<input
-							type='radio'
-							id='four-stars'
-							value='four-stars'
-							name='rating'
-							className='radio'
-							checked={filterData.rating === 'four-stars'}
-							onChange={handleFilters}
-						/>
-						<span className='text'>4+ stars</span>
-					</label>
-
-					<label htmlFor='three-stars'>
-						<input
-							type='radio'
-							id='three-stars'
-							value='three-stars'
-							name='rating'
-							className='radio'
-							checked={filterData.rating === 'three-stars'}
-							onChange={handleFilters}
-						/>
-						<span className='text'>3+ stars</span>
-					</label>
-
-					<label htmlFor='two-stars'>
-						<input
-							type='radio'
-							id='two-stars'
-							value='two-stars'
-							name='rating'
-							className='radio'
-							checked={filterData.rating === 'two-stars'}
-							onChange={handleFilters}
-						/>
-						<span className='text'>2+ stars</span>
-					</label>
-
-					<label htmlFor='one-star'>
-						<input
-							type='radio'
-							id='one-star'
-							value='one-star'
-							name='rating'
-							className='radio'
-							checked={filterData.rating === 'one-star'}
-							onChange={handleFilters}
-						/>
-						<span className='text'>1+ star</span>
-					</label>
-				</li>
-
 				<li className='sort-by' role='list'>
-					<fieldset className='sort-by-price-and-rating f-col'>
+					<fieldset className='sort-by-price f-col'>
 						<legend>
-							<h2 className='fs-400'>Sort By</h2>
+							<h2 className='fs-400'>Rating</h2>
 						</legend>
-
-						<label htmlFor='price-high-to-low'>
-							<input
-								type='radio'
-								id='price-high-to-low'
-								value='price-high-to-low'
-								name='sort'
-								className='radio'
-								checked={filterData.sort === 'price-high-to-low'}
-								onChange={handleFilters}
-							/>
-							<span className='text'>Price High to Low</span>
-						</label>
-
-						<label htmlFor='price-low-to-high'>
-							<input
-								type='radio'
-								id='price-low-to-high'
-								name='sort'
-								value='price-low-to-high'
-								className='radio'
-								checked={filterData.sort === 'price-low-to-high'}
-								onChange={handleFilters}
-							/>
-							<span className='text'>Price Low to High</span>
-						</label>
-
 						<label htmlFor='rating-high-to-low'>
 							<input
 								type='radio'
@@ -223,7 +140,7 @@ export const Filters = () => {
 								checked={filterData.sort === 'rating-high-to-low'}
 								onChange={handleFilters}
 							/>
-							<span className='text'>Rating High to Low</span>
+							<span className='text'>High to Low</span>
 						</label>
 
 						<label htmlFor='rating-low-to-high'>
@@ -236,14 +153,48 @@ export const Filters = () => {
 								checked={filterData.sort === 'rating-low-to-high'}
 								onChange={handleFilters}
 							/>
-							<span className='text'>Rating Low to High</span>
+							<span className='text'>Low to High</span>
+						</label>
+					</fieldset>
+				</li>
+
+				<li className='sort-by' role='list'>
+					<fieldset className='sort-by-price f-col'>
+						<legend>
+							<h2 className='fs-400'>Price</h2>
+						</legend>
+
+						<label htmlFor='price-high-to-low'>
+							<input
+								type='radio'
+								id='price-high-to-low'
+								value='price-high-to-low'
+								name='sort'
+								className='radio'
+								checked={filterData.sort === 'price-high-to-low'}
+								onChange={handleFilters}
+							/>
+							<span className='text'>High to Low</span>
+						</label>
+
+						<label htmlFor='price-low-to-high'>
+							<input
+								type='radio'
+								id='price-low-to-high'
+								name='sort'
+								value='price-low-to-high'
+								className='radio'
+								checked={filterData.sort === 'price-low-to-high'}
+								onChange={handleFilters}
+							/>
+							<span className='text'>Low to High</span>
 						</label>
 					</fieldset>
 				</li>
 
 				<li className='price-range p-relative'>
 					<h2 className='fs-400 price-range-title'>Price Range:</h2>
-					{/* Will work later */}
+					{/* 2 thumbs Will work later */}
 					{/* <label htmlFor="price-range" className='d-grid grid-stacked'>
                     <input type="range" className="price-slider-1" id='price-range' min="0" max="100" step="1"/>
                     <input type="range" className="price-slider-2"  id='price-range' min="0" max="100" step="1"/>

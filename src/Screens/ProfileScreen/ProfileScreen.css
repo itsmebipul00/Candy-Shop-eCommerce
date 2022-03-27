@@ -1,0 +1,51 @@
+.user-profile {
+	padding-top: 10vh;
+	min-height: 75vh;
+	background-color: hsl(var(---clr-white-99));
+	/* position: fixed; */
+}
+
+@media (min-width: 60em) {
+	.user-profile {
+		padding-top: 15vh;
+	}
+}
+
+.profile-lists {
+	background-color: hsl(var(--clr-light));
+	border-right: 2px solid hsl(var(--clr-red));
+}
+
+.profile-list-item {
+	order: 2;
+}
+
+.active-list {
+	background-color: hsl(var(---clr-white-90));
+	order: 1;
+}
+
+.profile-lists > * {
+	white-space: nowrap;
+}
+
+.profiles-link {
+	width: 100%;
+	text-align: center;
+	color: hsl(var(---clr-black));
+}
+
+.profile-list-item {
+	width: 100%;
+	padding: 2rem 2rem 2rem 1rem;
+}
+
+.user-profile .text {
+	display: none;
+}
+
+@media (min-width: 60em) {
+	.user-profile .text {
+		display: inline;
+	}
+}

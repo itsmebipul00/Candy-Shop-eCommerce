@@ -1,7 +1,7 @@
-import "./ProductScreen.css";
+import './ProductScreen.css'
 
 const ProductScreen = () => {
-  return <div>ProductScreen</div>;
-};
+	return <div>ProductScreen</div>
+}
 
-export default ProductScreen;
+export default ProductScreen

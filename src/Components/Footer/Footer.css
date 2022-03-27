@@ -1,4 +1,10 @@
-.footer {
-  padding: 2rem;
-  border-top: 0.5rem solid hsl(var(--clr-red));
+.candyShop-footer {
+	padding: 2rem;
+	border-top: 0.5rem solid hsl(var(--clr-red));
+	display: flex;
+	justify-content: space-between;
+}
+
+.footer-wrapper > * {
+	margin-left: 1rem;
 }

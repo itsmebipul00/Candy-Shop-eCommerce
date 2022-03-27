@@ -1,94 +1,152 @@
-import "./Header.css";
-import { useLocation } from "react-router-dom";
-import { LogoProvider } from "../../assets/Icons/Icons";
-import { styles } from "../../utils/iconStyles";
-import {Link, NavLink} from 'react-router-dom'
+import './Header.css'
+import { useContext } from 'react'
+import { useLocation } from 'react-router-dom'
+import { LogoProvider } from '../../assets/Icons/Icons'
+import { styles } from '../../utils/iconStyles'
+import { Link, NavLink } from 'react-router-dom'
 
 import {
-  AiOutlineShoppingCart,
-  AiOutlineSearch,
-  AiOutlineHeart,
-} from "react-icons/ai";
+	AiOutlineShoppingCart,
+	AiOutlineSearch,
+	AiOutlineHeart,
+	AiOutlineLogin,
+} from 'react-icons/ai'
 
-import { GiCandyCanes } from "react-icons/gi";
-import { Filters } from "../Filters/Filters";
+import { GiCandyCanes } from 'react-icons/gi'
+import { Filters } from '../Filters/Filters'
+import { UserContext, WishListContext } from '../../context'
+import { isEmptyObject } from '../../utils/isEmptyObject'
 
 const logoStyles = {
-  ...styles,
-  size: "2rem",
-  color: "red",
-};
+	...styles,
+	className: styles.className.concat(' candy-logo'),
+	size: '2rem',
+	color: 'red',
+}
 
 const searchIconStyle = {
-  ...styles,
-  className: styles.className.concat(" search-icon"),
-};
+	...styles,
+	className: styles.className.concat(' search-icon'),
+}
 
 const cartIconStyle = {
-  ...styles,
-  className: styles.className.concat(" cart-icon"),
-};
+	...styles,
+	className: styles.className.concat(' cart-icon'),
+}
 
 const wishlistIconStyle = {
-  ...styles,
-  className: styles.className.concat(" wishlist-icon"),
-};
+	...styles,
+	className: styles.className.concat(' wishlist-icon'),
+}
+
+const loginIconStyle = {
+	...styles,
+	className: styles.className.concat(' login-icon'),
+}
 
 export const Header = () => {
+	const { userInfo, logoutUser } = useContext(UserContext)
 
-  const location = useLocation();
-  const isProductListingPage = location.pathname === "/products" ? true : false;
+	const { clearWishListAction } = useContext(WishListContext)
 
-  return (
-    <div className="candyshop-header d-grid">
-      <div className="d-flex p-relative">
+	const logoutUserHandler = () => {
+		logoutUser()
+		clearWishListAction()
+	}
 
- 
-        <Link to='/'>
-          <LogoProvider>
-            <GiCandyCanes value={logoStyles} />
-          </LogoProvider>
-        </Link>
+	const isUserInfoEmpty = isEmptyObject(userInfo)
 
+	const location = useLocation()
 
-        <h1 className="fs-600 letter-spacing-5">CandyShop</h1>
+	const isProductListingPage =
+		location.pathname === '/products' ? true : false
 
-        <div className="header-ctas margin-l-auto d-flex">
+	const isRegisterPage =
+		location.pathname === '/register' ? true : false
 
-          <NavLink to='/profile'>
-            <LogoProvider>
-              <AiOutlineHeart value={wishlistIconStyle} />
-            </LogoProvider>
-          </NavLink>
+	const isLoginPage = location.pathname === '/login' ? true : false
 
+	return (
+		<>
+			{isRegisterPage ? (
+				<></>
+			) : isLoginPage ? (
+				<></>
+			) : (
+				<header>
+					<div className='candyshop-header d-grid'>
+						<div className='d-flex p-relative'>
+							<Link to='/' state={{ form: location.pathname }}>
+								<LogoProvider>
+									<GiCandyCanes value={logoStyles} />
+								</LogoProvider>
+							</Link>
 
-          <NavLink to='/cart'>
-            <LogoProvider>
-              <AiOutlineShoppingCart value={cartIconStyle} />
-            </LogoProvider>
-          </NavLink>
+							<h1 className='fs-600 letter-spacing-5 brand-name'>
+								CandyShop
+							</h1>
 
+							<div className='header-ctas margin-l-auto d-flex'>
+								{isUserInfoEmpty ? (
+									<NavLink
+										to='/login'
+										state={{ form: location.pathname }}>
+										<LogoProvider>
+											<AiOutlineLogin value={loginIconStyle} />
+										</LogoProvider>
+									</NavLink>
+								) : (
+									<>
+										<h4 className='fs-400 letter-spacing-5 text-blue text-underline'>{`Hi, ${userInfo.foundUser.username}`}</h4>
+										<NavLink to={location.pathname}>
+											<LogoProvider>
+												<AiOutlineLogin
+													value={loginIconStyle}
+													onClick={logoutUserHandler}
+												/>
+											</LogoProvider>
+										</NavLink>
+									</>
+								)}
 
-          {isProductListingPage && <Filters />}
+								<NavLink
+									to='/wishlist'
+									state={{ form: location.pathname }}>
+									<LogoProvider>
+										<AiOutlineHeart value={wishlistIconStyle} />
+									</LogoProvider>
+								</NavLink>
 
+								<NavLink
+									to='/cart'
+									state={{ form: location.pathname }}>
+									<LogoProvider>
+										<AiOutlineShoppingCart value={cartIconStyle} />
+									</LogoProvider>
+								</NavLink>
 
-        </div>
-      </div>
+								{isProductListingPage && <Filters />}
+							</div>
+						</div>
 
-      <div className="search-candies p-relative">
-        <label className="sr-only" htmlFor="input-search" />
+						{isProductListingPage && (
+							<div className='search-candies p-relative'>
+								<label className='sr-only' htmlFor='input-search' />
 
-        <input
-          id="input-search"
-          className="input-search"
-          placeholder="Search for candies..."
-        />
+								<input
+									id='input-search'
+									className='input-search'
+									placeholder='Search for candies...'
+								/>
 
-        <LogoProvider>
-          <AiOutlineSearch value={searchIconStyle} />
-        </LogoProvider>
-      </div>
-    </div>
-  );
-};
-
+								<LogoProvider>
+									<AiOutlineSearch value={searchIconStyle} />
+								</LogoProvider>
+							</div>
+						)}
+					</div>
+				</header>
+			)}
+		</>
+	)
+}

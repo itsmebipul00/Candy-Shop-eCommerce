@@ -15,7 +15,10 @@
 	--fs-200: 0.5rem;
 
 	---clr-white: 0 0% 100%;
-	---clr-white-95: 0 0% 99%;
+	---clr-white-99: 0 0% 99%;
+	---clr-white-98: 0 0% 98%;
+	---clr-white-97: 0 0% 97%;
+	---clr-white-95: 0 0% 95%;
 	---clr-white-90: 0 0% 90%;
 	---clr-white-80: 0 0% 80%;
 	---clr-white-70: 0 0% 70%;
@@ -118,6 +121,12 @@ a:not([class]) {
 #root,
 #__next {
 	isolation: isolate;
+}
+
+aside {
+	display: block;
+	position: unset;
+	width: unset;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

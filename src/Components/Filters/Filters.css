@@ -6,7 +6,7 @@
 	z-index: 9999;
 	border-top: 3px solid hsl(var(--clr-red));
 	justify-content: space-between;
-	background: hsl(var(---clr-white-95));
+	background: hsl(var(---clr-white-99));
 	display: none;
 	padding: 1rem 0;
 }
@@ -64,11 +64,20 @@ input[type='range'] {
 
 .price-range {
 	width: 20%;
+	display: inline;
+}
+
+.react-icon-buttons {
+	margin-right: 0;
 }
 
 @media only screen and (min-width: 40em) {
 	.price-range {
 		width: 30%;
+		display: list-item;
+	}
+	.react-icon-buttons {
+		margin-right: 1rem;
 	}
 }
 .sort-by-heading {
@@ -81,4 +90,20 @@ input[type='range'] {
 
 .price-slider-1 {
 	z-index: 9999;
+}
+
+.filters label:hover {
+	text-decoration: underline;
+	text-decoration-color: hsl(var(--clr-blue));
+	cursor: pointer;
+}
+
+.btn-clear-filters {
+	padding: 0.15rem 0.5rem;
+	display: inline-block;
+	margin-right: 2px;
+}
+
+.filter-products {
+	margin: 0;
 }

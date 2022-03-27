@@ -1,5 +1,5 @@
-import { v4 as uuid } from "uuid";
-import { formatDate } from "../utils/authUtils";
+import { v4 as uuid } from 'uuid'
+import { formatDate } from '../utils/authUtils'
 /**
  * User Database can be added here.
  * You can add default users of your wish with different attributes
@@ -7,13 +7,14 @@ import { formatDate } from "../utils/authUtils";
  * */
 
 export const users = [
-  {
-    _id: uuid(),
-    firstName: "Adarsh",
-    lastName: "Balika",
-    email: "adarshbalika@gmail.com",
-    password: "adarshbalika",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
-  },
-];
+	{
+		_id: uuid(),
+		username: 'Bipul',
+		email: 'itsmebipul00@gmail.com',
+		password: 'itsmebipul00@gmail.com',
+		wishlist: [],
+		cart: [],
+		createdAt: formatDate(),
+		updatedAt: formatDate(),
+	},
+]

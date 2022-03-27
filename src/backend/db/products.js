@@ -14,6 +14,8 @@ export const products = [
 		categoryName: 'marshmello',
 		countInStock: 2,
 		rating: 3.5,
+		description:
+			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
 	},
 	{
 		_id: uuid(),
@@ -23,6 +25,8 @@ export const products = [
 		categoryName: 'chocolates',
 		countInStock: 8,
 		rating: 4.5,
+		description:
+			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
 	},
 	{
 		_id: uuid(),
@@ -32,6 +36,8 @@ export const products = [
 		categoryName: 'darkChocolate',
 		countInStock: 7,
 		rating: 2.5,
+		description:
+			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
 	},
 	{
 		_id: uuid(),
@@ -41,6 +47,8 @@ export const products = [
 		categoryName: 'fizzy',
 		countInStock: 4,
 		rating: 5,
+		description:
+			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
 	},
 	{
 		_id: uuid(),
@@ -50,6 +58,8 @@ export const products = [
 		categoryName: 'gummies',
 		countInStock: 4,
 		rating: 5,
+		description:
+			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
 	},
 	{
 		_id: uuid(),
@@ -59,6 +69,8 @@ export const products = [
 		categoryName: 'jellies',
 		countInStock: 7,
 		rating: 4,
+		description:
+			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
 	},
 	{
 		_id: uuid(),
@@ -68,6 +80,8 @@ export const products = [
 		categoryName: 'lollipops',
 		countInStock: 5,
 		rating: 3.5,
+		description:
+			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
 	},
 	{
 		_id: uuid(),
@@ -77,6 +91,8 @@ export const products = [
 		categoryName: 'rasberry',
 		countInStock: 5,
 		rating: 5,
+		description:
+			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
 	},
 	{
 		_id: uuid(),
@@ -86,6 +102,8 @@ export const products = [
 		categoryName: 'fizzy',
 		countInStock: 6,
 		rating: 4.5,
+		description:
+			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
 	},
 	{
 		_id: uuid(),
@@ -95,5 +113,7 @@ export const products = [
 		categoryName: 'fizzy',
 		countInStock: 3,
 		rating: 3.5,
+		description:
+			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
 	},
 ]
