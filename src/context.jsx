@@ -6,4 +6,6 @@ const UserContext = createContext()
 
 const WishListContext = createContext()
 
-export { ProductsContext, UserContext, WishListContext }
+const CartContext = createContext()
+
+export { ProductsContext, UserContext, WishListContext, CartContext }

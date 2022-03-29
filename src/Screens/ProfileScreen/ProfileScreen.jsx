@@ -83,7 +83,7 @@ const ProfileScreen = () => {
 						</NavLink>
 					</li>
 				</ul>
-				<section>
+				<section className='all-profile-screens'>
 					<Outlet />
 				</section>
 			</div>

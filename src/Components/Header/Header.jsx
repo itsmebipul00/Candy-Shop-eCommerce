@@ -14,7 +14,11 @@ import {
 
 import { GiCandyCanes } from 'react-icons/gi'
 import { Filters } from '../Filters/Filters'
-import { UserContext, WishListContext } from '../../context'
+import {
+	CartContext,
+	UserContext,
+	WishListContext,
+} from '../../context'
 import { isEmptyObject } from '../../utils/isEmptyObject'
 
 const logoStyles = {
@@ -46,12 +50,13 @@ const loginIconStyle = {
 
 export const Header = () => {
 	const { userInfo, logoutUser } = useContext(UserContext)
-
 	const { clearWishListAction } = useContext(WishListContext)
+	const { clearCartAction } = useContext(CartContext)
 
 	const logoutUserHandler = () => {
 		logoutUser()
 		clearWishListAction()
+		clearCartAction()
 	}
 
 	const isUserInfoEmpty = isEmptyObject(userInfo)
@@ -97,7 +102,10 @@ export const Header = () => {
 									</NavLink>
 								) : (
 									<>
-										<h4 className='fs-400 letter-spacing-5 text-blue text-underline'>{`Hi, ${userInfo.foundUser.username}`}</h4>
+										<NavLink
+											to='/userInfo'
+											state={{ from: location.pathname }}
+											className='fs-500 letter-spacing-5 text-blue text-underline'>{`Hi, ${userInfo.foundUser.username}`}</NavLink>
 										<NavLink to={location.pathname}>
 											<LogoProvider>
 												<AiOutlineLogin

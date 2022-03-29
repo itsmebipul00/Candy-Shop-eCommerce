@@ -16,6 +16,7 @@ import {
 	ProductsProvider,
 	WishListProvider,
 } from './actionProviders/productActions'
+import { CartProvider } from './actionProviders/cartActions'
 import { UserProvider } from './actionProviders/userActions'
 
 import { Header } from './Components/Header/Header'
@@ -26,43 +27,48 @@ function App() {
 		<ProductsProvider>
 			<UserProvider>
 				<WishListProvider>
-					<BrowserRouter>
-						<Header />
-						<main>
-							<Routes>
-								<Route path='/' element={<HomeScreen />} />
-								<Route path='/login' element={<LoginScreen />} />
-								<Route
-									path='/placeOrder'
-									element={<PlaceOrderScreen />}
-								/>
-								<Route
-									path='/product/:id'
-									element={<ProductScreen />}
-								/>
-								<Route path='/' element={<ProfileScreen />}>
-									<Route path='cart' element={<CartScreen />} />
-									<Route path='wishlist' element={<WishScreen />} />
+					<CartProvider>
+						<BrowserRouter>
+							<Header />
+							<main>
+								<Routes>
+									<Route path='/' element={<HomeScreen />} />
+									<Route path='/login' element={<LoginScreen />} />
 									<Route
-										path='userInfo'
-										element={<UserInfoScreen />}
+										path='/placeOrder'
+										element={<PlaceOrderScreen />}
 									/>
-									<Route path='address' element={<AddressScreen />} />
-								</Route>
-								<Route
-									path='/register'
-									element={<RegisterScreen />}
-								/>
-								<Route
-									path='/products'
-									element={<ProductListScreen />}
-								/>
-							</Routes>
-						</main>
-						<footer>
-							<Footer />
-						</footer>
-					</BrowserRouter>
+									<Route
+										path='/product/:id'
+										element={<ProductScreen />}
+									/>
+									<Route path='/' element={<ProfileScreen />}>
+										<Route path='cart' element={<CartScreen />} />
+										<Route path='wishlist' element={<WishScreen />} />
+										<Route
+											path='userInfo'
+											element={<UserInfoScreen />}
+										/>
+										<Route
+											path='address'
+											element={<AddressScreen />}
+										/>
+									</Route>
+									<Route
+										path='/register'
+										element={<RegisterScreen />}
+									/>
+									<Route
+										path='/products'
+										element={<ProductListScreen />}
+									/>
+								</Routes>
+							</main>
+							<footer>
+								<Footer />
+							</footer>
+						</BrowserRouter>
+					</CartProvider>
 				</WishListProvider>
 			</UserProvider>
 		</ProductsProvider>

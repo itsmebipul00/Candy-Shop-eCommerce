@@ -1,0 +1,5 @@
+create custom hooks for contextProviders
+dispatch errors from actionsProviders and receive it in reducers
+maintain localStorage for userTokens
+maintain localStorage everytime on api call and state updates so that state persists on hardreload
+settimeout after every api call to a loader
