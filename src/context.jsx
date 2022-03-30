@@ -1,4 +1,9 @@
-import { createContext } from "react";
+import { createContext } from 'react'
 
-export const WishListContext = createContext();
+const ProductsContext = createContext()
 
+const UserContext = createContext()
+
+const WishListContext = createContext()
+
+export { ProductsContext, UserContext, WishListContext }

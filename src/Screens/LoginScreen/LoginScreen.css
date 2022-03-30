@@ -1,0 +1,51 @@
+.form-login {
+	width: 40%;
+	/* margin: 10vh auto 0 auto; */
+}
+.already-done {
+	margin-top: 0.5rem;
+}
+@media (max-width: 60em) {
+	.form-login {
+		width: 60%;
+	}
+}
+@media (max-width: 40em) {
+	.form-login {
+		width: 80%;
+	}
+}
+
+i {
+	inset: 20% 0% 0% 90%;
+}
+
+::-ms-reveal {
+	display: none !important;
+}
+
+header {
+	padding: 1rem;
+}
+
+.rememberMe {
+	display: inline;
+	width: fit-content;
+	margin-right: 0.5rem;
+	width: 1rem;
+}
+
+.forgot-password {
+	margin-left: auto;
+}
+
+label {
+	white-space: nowrap;
+}
+
+form {
+	min-height: 70vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}

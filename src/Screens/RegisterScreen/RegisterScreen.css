@@ -1,0 +1,46 @@
+.form-login {
+	width: 40%;
+	margin: 0 auto;
+}
+.already-done {
+	margin-top: 0.5rem;
+}
+@media (max-width: 60em) {
+	.form-login {
+		width: 60%;
+	}
+}
+@media (max-width: 40em) {
+	.form-login {
+		width: 80%;
+	}
+}
+
+i {
+	inset: 20% 0% 0% 90%;
+}
+
+::-ms-reveal {
+	display: none !important;
+}
+
+header {
+	padding: 1rem;
+}
+
+.remember-me {
+	display: inline;
+	width: fit-content;
+}
+
+.forgot-password {
+	width: fit-content;
+	margin-left: auto;
+}
+
+form {
+	min-height: 70vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
