@@ -6,6 +6,7 @@ import {
 import { filters } from '../utils/filters'
 import { useState, useEffect, useReducer, useContext } from 'react'
 import { wishListReducer } from '../reducers/productReducers'
+import { categoriesReducer } from '../reducers/categoriesReducer'
 import axios from 'axios'
 
 export const ProductsProvider = props => {
@@ -26,9 +27,40 @@ export const ProductsProvider = props => {
 		}
 	}
 
+	const [
+		{
+			categories,
+			loading: categoriesLoading,
+			error: categoriesError,
+		},
+		categoriesDispatcher,
+	] = useReducer(categoriesReducer, {
+		categories: [],
+	})
+
+	const successCategories = data =>
+		categoriesDispatcher({
+			type: 'CATEGORIES_SUCCESS',
+			payload: data,
+		})
+
+	const fetchCategories = async () => {
+		try {
+			categoriesDispatcher({ type: 'CATEGORIES_REQUEST' })
+
+			const res = await axios.get('/api/categories')
+
+			successCategories(res.data.categories)
+		} catch (error) {
+			categoriesDispatcher({ type: 'CATEGORIES_SUCCESS' })
+		}
+	}
+
 	console.log(products)
 	useEffect(() => {
 		fetchProducts()
+		fetchCategories()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const handleFilters = event => {
@@ -100,7 +132,10 @@ export const ProductsProvider = props => {
 	return (
 		<ProductsContext.Provider
 			value={{
+				categories,
+				categoriesLoading,
 				filteredProducts,
+				categoriesError,
 				productsError,
 				productsLoading,
 				filterData,

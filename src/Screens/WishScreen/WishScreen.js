@@ -56,6 +56,7 @@ const WishScreen = () => {
 						title={p.title}
 						price={p.price}
 						rating={p.rating}
+						wishList={wishList}
 						toggleWishListAction={toggleWishListAction}
 					/>
 				))}

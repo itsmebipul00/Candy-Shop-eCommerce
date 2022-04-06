@@ -3,11 +3,18 @@ import { useContext } from 'react'
 import { CartContext, WishListContext } from '../../context'
 import { ProductCard } from '../../Components/ProductCard/ProductCard'
 
-const CartScreen = () => {
-	const { toggleWishListAction } = useContext(WishListContext)
+import { MdiTagOutline } from '../../assets/Icons/Logo'
 
-	const { addtoCartAction, updateCartAction, cartItems } =
-		useContext(CartContext)
+const CartScreen = () => {
+	const { toggleWishListAction, wishList } =
+		useContext(WishListContext)
+
+	const {
+		addtoCartAction,
+		updateCartAction,
+		cartItems,
+		removeFromCartAction,
+	} = useContext(CartContext)
 
 	const updateCartHandler = (e, id) => {
 		e.preventDefault()
@@ -15,7 +22,17 @@ const CartScreen = () => {
 		updateCartAction(value, id, e)
 	}
 
-	// const totalPrice = cartItems.map(item => item.)
+	const totalItems = cartItems.reduce((sum, cv) => sum + cv.qty, 0)
+
+	const totalPrice = cartItems.reduce(
+		(sum, cv) => sum + cv.price * cv.qty,
+		0
+	)
+
+	const updateWishList = pro => {
+		removeFromCartAction(pro._id)
+		toggleWishListAction(pro)
+	}
 
 	return (
 		<div>
@@ -33,23 +50,20 @@ const CartScreen = () => {
 							price={p.price}
 							rating={p.rating}
 							cartItems={cartItems}
-							toggleWishListAction={toggleWishListAction}
+							wishList={wishList}
+							toggleWishListAction={updateWishList}
 						/>
 					))}
 			</div>
 			<div className='cart-summary'>
-				{cartItems.map(item => (
-					<p>
-						{item.title} --- Quantity: {item.qty} Price:{' '}
-						{item.qty * item.price}
-					</p>
-				))}
-				<>
-					{cartItems.reduce(
-						(prev, curr) => prev + curr.price * curr.qty,
-						0
-					)}
-				</>
+				<p className='subtotal fs-600 '>
+					SUBTOTAL ({totalItems}) Items :{' '}
+				</p>
+				<span className='apply-cupons'>
+					Apply Cupons
+					<MdiTagOutline width='1.25rem' height='1.25rem' />
+				</span>
+				<p className='checkout-price'>Pay : {totalPrice} </p>
 			</div>
 		</div>
 	)

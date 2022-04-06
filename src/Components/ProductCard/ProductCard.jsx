@@ -9,9 +9,15 @@ export const ProductCard = props => {
 
 	const iscartPage = location.pathname === '/cart' ? true : false
 
-	const cartItem = props.cartItems.find(
-		item => item._id === props._id
-	)
+	const cartItem =
+		props.cartItems && props.cartItems.length > 0
+			? props.cartItems.find(item => item._id === props._id)
+			: false
+
+	const isInWishList =
+		props.wishList && props.wishList.length > 0
+			? props.wishList.find(item => item._id === props._id)
+			: false
 
 	return (
 		<div className=' product-card'>
@@ -74,14 +80,17 @@ export const ProductCard = props => {
 						<span className='line-through text-dark-70 fw-200 original-price'>
 							9999
 						</span>
-						$ {props.price}
+						$
+						{cartItem && cartItem.qty
+							? props.price * cartItem.qty
+							: props.price}
 					</p>
 					<Rating value={props.rating} />
 				</div>
 				<button
 					onClick={() => props.toggleWishListAction(props)}
 					className='btn-wishlist'>
-					{props.wishList ? <AiFillHeart /> : <AiOutlineHeart />}
+					{isInWishList ? <AiFillHeart /> : <AiOutlineHeart />}
 				</button>
 			</div>
 		</div>

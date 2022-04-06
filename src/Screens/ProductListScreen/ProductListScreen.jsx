@@ -19,15 +19,13 @@ const ProductListScreen = () => {
 	const { filteredProducts, productsLoading, productsError } =
 		useContext(ProductsContext)
 
-	// const [btntoGotoCart, setBtntoGotoCart] = useState('Add to cart')
-
 	const navigate = useNavigate()
 
 	const { addtoCartAction, cartItems, updateCartAction } =
 		useContext(CartContext)
 
-	console.log(cartItems)
-	const { toggleWishListAction } = useContext(WishListContext)
+	const { toggleWishListAction, wishList } =
+		useContext(WishListContext)
 
 	const { userInfo } = useContext(UserContext)
 
@@ -52,12 +50,6 @@ const ProductListScreen = () => {
 			}
 		}
 	}
-
-	console.log(cartItems)
-	// const cId = cartItems.map(c => c._id)
-	// // console.log()
-	// const fId = filteredProducts.map(f => f._id)
-	// console.log(fId.includes(cId))
 
 	const updateCartHandler = (e, id) => {
 		e.preventDefault()
@@ -84,6 +76,7 @@ const ProductListScreen = () => {
 						rating={p.rating}
 						toggleWishListAction={toggleWishListAction}
 						cartItems={cartItems}
+						wishList={wishList}
 					/>
 				))}
 		</div>
