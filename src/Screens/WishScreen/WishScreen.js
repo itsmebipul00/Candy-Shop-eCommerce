@@ -12,10 +12,12 @@ import { isEmptyObject } from '../../utils/isEmptyObject'
 
 const WishScreen = () => {
 	const navigate = useNavigate()
+
 	const { toggleWishListAction, wishList } =
 		useContext(WishListContext)
 
 	const { filteredProducts } = useContext(ProductsContext)
+
 	const { cartItems, addtoCartAction } = useContext(CartContext)
 
 	const { userInfo } = useContext(UserContext)

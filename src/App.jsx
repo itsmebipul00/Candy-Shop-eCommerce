@@ -12,10 +12,10 @@ import WishScreen from './Screens/WishScreen/WishScreen.js'
 import UserInfoScreen from './Screens/UserInfoScreen/UserInfoScreen.js'
 import AddressScreen from './Screens/AddressScreen/AddressScreen.js'
 
-import {
-	ProductsProvider,
-	WishListProvider,
-} from './actionProviders/productActions'
+import { ProductsProvider } from './actionProviders/productActions'
+
+import { WishListProvider } from './actionProviders/wishListAction'
+
 import { CartProvider } from './actionProviders/cartActions'
 import { UserProvider } from './actionProviders/userActions'
 

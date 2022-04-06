@@ -13,6 +13,12 @@ const LoginScreen = () => {
 	const location = useLocation()
 	const { setUserAction } = useContext(UserContext)
 
+	const [showPass, setShowPass] = useState(false)
+
+	const handlePasswordType = () => {
+		setShowPass(prev => !prev)
+	}
+
 	const handleRegisterSubmit = async e => {
 		e.preventDefault()
 		try {
@@ -68,14 +74,17 @@ const LoginScreen = () => {
 				<input
 					id='password'
 					className='form-password'
-					type='password'
+					type={showPass ? 'password' : 'text'}
 					minLength='8'
 					name='password'
 					onChange={handleChange}
 					value={loginFormData.password}
 					required
 				/>
-				<i className='fas fa-eye p-absolute'></i>
+
+				<i
+					className='fas fa-eye p-absolute'
+					onClick={handlePasswordType}></i>
 			</div>
 
 			<div className='d-flex fs-400'>

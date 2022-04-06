@@ -15,7 +15,19 @@ export const CartProvider = props => {
 		},
 	}
 
-	console.log(userInfo)
+	const updateCart = data => {
+		dispatch({
+			type: 'UPDATE_CART',
+			payload: data,
+		})
+	}
+
+	const errorInCart = data => {
+		dispatch({
+			type: 'CART_ERROR',
+			payload: data,
+		})
+	}
 
 	const addtoCartAction = async cartItem => {
 		try {
@@ -24,32 +36,21 @@ export const CartProvider = props => {
 				{ product: cartItem },
 				config
 			)
-			const data = await res.data
-			dispatch({
-				type: 'ADD_TO_CART',
-				payload: data.cart,
-			})
+			const data = await res.data.cart
+
+			updateCart(data)
 		} catch (error) {
-			dispatch({
-				type: 'ADD_TO_CART_ERROR',
-				payload: error.message,
-			})
+			errorInCart(error.message)
 		}
 	}
 
 	const removeFromCartAction = async id => {
 		try {
 			const res = await axios.delete(`api/user/cart/${id}`, config)
-			const data = await res.data
-			dispatch({
-				type: 'REMOVE_FROM_CART',
-				payload: data.cart,
-			})
+			const data = await res.data.cart
+			updateCart(data)
 		} catch (error) {
-			dispatch({
-				type: 'REMOVE_FROM_CART_ERROR',
-				payload: error.message,
-			})
+			errorInCart(error.message)
 		}
 	}
 
@@ -61,16 +62,16 @@ export const CartProvider = props => {
 
 	const getCartItemsAction = () => {
 		dispatch({
-			type: 'GET_CART_ITEMS',
+			type: 'UPDATE_CART',
 		})
 	}
 
 	const updateCartAction = async (val, id, e) => {
 		e.preventDefault()
-		console.log(val, id)
+
 		const cartItem = cartItems.find(item => item._id === id)
+
 		if (val === 'decrement') {
-			console.log(cartItem)
 			if (cartItem.qty === 1) {
 				removeFromCartAction(id)
 			} else {
@@ -80,16 +81,12 @@ export const CartProvider = props => {
 						{ action: { type: val } },
 						config
 					)
-					const data = await res.data
-					dispatch({
-						type: 'UPDATE_CART_ITEM',
-						payload: data.cart,
-					})
+
+					const data = await res.data.cart
+
+					updateCart(data)
 				} catch (error) {
-					dispatch({
-						type: 'UPDATE_CART_ERROR',
-						payload: error.message,
-					})
+					errorInCart(error.message)
 				}
 			}
 		} else if (val === 'increment') {
@@ -99,21 +96,13 @@ export const CartProvider = props => {
 					{ action: { type: val } },
 					config
 				)
-				const data = await res.data
-				dispatch({
-					type: 'UPDATE_CART_ITEM',
-					payload: data.cart,
-				})
+				const data = await res.data.cart
+				updateCart(data)
 			} catch (error) {
-				dispatch({
-					type: 'UPDATE_CART_ERROR',
-					payload: error.message,
-				})
+				errorInCart(error.message)
 			}
 		}
 	}
-
-	// console.log(cartItems)
 
 	return (
 		<CartContext.Provider
