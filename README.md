@@ -24,6 +24,8 @@ passwword: itsmebipul00@gmail.com
 
 -Responsive 
 
+## more features coming soon
+
 
 <br>
 
