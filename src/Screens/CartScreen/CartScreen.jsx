@@ -1,20 +1,22 @@
 import './CartScreen.css'
-import { useContext } from 'react'
-import { CartContext, WishListContext } from '../../context'
+
 import { ProductCard } from '../../Components/ProductCard/ProductCard'
 
 import { MdiTagOutline } from '../../assets/Icons/Logo'
 
+import { useWishList } from '../../actionProviders/wishListAction'
+
+import { useCart } from '../../actionProviders/cartActions'
+
 const CartScreen = () => {
-	const { toggleWishListAction, wishList } =
-		useContext(WishListContext)
+	const { toggleWishListAction, wishList } = useWishList()
 
 	const {
 		addtoCartAction,
 		updateCartAction,
 		cartItems,
 		removeFromCartAction,
-	} = useContext(CartContext)
+	} = useCart()
 
 	const updateCartHandler = (e, id) => {
 		e.preventDefault()
@@ -35,7 +37,7 @@ const CartScreen = () => {
 	}
 
 	return (
-		<div>
+		<section>
 			<div className='wish-screen'>
 				{cartItems &&
 					cartItems.length > 0 &&
@@ -65,7 +67,7 @@ const CartScreen = () => {
 				</span>
 				<p className='checkout-price'>Pay : {totalPrice} </p>
 			</div>
-		</div>
+		</section>
 	)
 }
 

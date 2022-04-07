@@ -1,11 +1,8 @@
 import './RegisterScreen.css'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { useState, useContext } from 'react'
-import { UserContext } from '../../context'
+import { useState } from 'react'
 import axios from 'axios'
-// import toast from 'react-hot-toast'
-// import { Loader } from '../../Components/Loader/Loader'
-// import { Error } from '../../Components/Error/Error'
+import { useUser } from '../../actionProviders/userActions'
 
 const RegisterScreen = () => {
 	const location = useLocation()
@@ -18,7 +15,7 @@ const RegisterScreen = () => {
 	})
 
 	const [message, setMessage] = useState('')
-	const { setUserAction, userInfo } = useContext(UserContext)
+	const { setUserAction, userInfo } = useUser()
 
 	const [showPass, setShowPass] = useState(false)
 

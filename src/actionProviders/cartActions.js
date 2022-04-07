@@ -1,17 +1,16 @@
-import { UserContext, CartContext } from '../context'
+import { CartContext } from '../context'
 import { useContext, useReducer } from 'react'
 import { cartReducer } from '../reducers/cartReducer.js'
 import axios from 'axios'
 
-export const CartProvider = props => {
+const CartProvider = props => {
 	const [{ cartItems }, dispatch] = useReducer(cartReducer, {
 		cartItems: [],
 	})
-	const { userInfo } = useContext(UserContext)
 
 	const config = {
 		headers: {
-			authorization: userInfo.encodedToken,
+			authorization: localStorage.getItem('userToken'),
 		},
 	}
 
@@ -118,3 +117,7 @@ export const CartProvider = props => {
 		</CartContext.Provider>
 	)
 }
+
+const useCart = () => useContext(CartContext)
+
+export { useCart, CartProvider }

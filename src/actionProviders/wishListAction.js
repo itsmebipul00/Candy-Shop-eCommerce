@@ -6,7 +6,7 @@ import { WishListContext } from '../context'
 
 import axios from 'axios'
 
-export const WishListProvider = props => {
+const WishListProvider = props => {
 	const [{ wishList }, dispatch] = useReducer(wishListReducer, {
 		wishList: [],
 	})
@@ -95,3 +95,7 @@ export const WishListProvider = props => {
 		</WishListContext.Provider>
 	)
 }
+
+const useWishList = () => useContext(WishListContext)
+
+export { useWishList, WishListProvider }

@@ -1,60 +1,78 @@
 // Componets: Search
 import './HomeScreen.css'
 
-import { ProductsContext } from '../../context'
+import { useProducts } from '../../actionProviders/productActions'
 
-import { useContext, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import {
+	IcTwotoneArrowCircleLeft,
+	IcTwotoneArrowCircleRight,
+} from '../../assets/Icons/Logo'
+
+import { useRef } from 'react'
 
 const HomeScreen = () => {
-	const { categories, filteredProducts } = useContext(ProductsContext)
+	const navigate = useNavigate()
+
+	const { categories, filteredProducts, handleCategories, state } =
+		useProducts()
 
 	console.log(categories, filteredProducts)
 
-	// const [currentProduct, setCurrentProduct] = useState({})
+	const gotoProducts = (name, checked) => {
+		console.log(name, checked)
+		handleCategories(name, checked)
+		setTimeout(() => navigate('/products'), 500)
+	}
 
-	// const [r, setR] = useState()
+	const sliderBtn = useRef(null)
 
-	// setR(filteredProducts)
-
-	// console.log(r)
-
-	// if (filteredProducts) {
-	// 	let randomProduct =
-	// 		filteredProducts[
-	// 			Math.floor(Math.random() * filteredProducts.length)
-	// 		]
-
-	// 	console.log(randomProduct)
-	// }
-
-	// useEffect(() => {
-	// 	if (filteredProducts && filteredProducts.length > 0) {
-	// 		const randomProduct =
-	// filteredProducts[
-	// 	Math.floor(Math.random() * filteredProducts.length)
-	// ]
-
-	// 		const prodInterval = setInterval(() => {
-	// 			setCurrentProduct(randomProduct)
-	// 		}, 1000)
-
-	// 		return () => clearInterval(prodInterval)
-	// 	}
-
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, [])
-
-	// console.log(
-	// 	filteredProducts[
-	// 		Math.floor(Math.random() * filteredProducts.length)
-	// 	]
-	// )
-
-	// console.log(currentProduct)
+	const scroll = scrollOffset => {
+		sliderBtn.current.scrollLeft += scrollOffset
+	}
 
 	return (
 		<div className='homescreen'>
-			<></>
+			<div className='categories'>
+				<button
+					onClick={() => scroll(-900)}
+					className='scroll-btn left-scroll-btn'>
+					<IcTwotoneArrowCircleLeft
+						className='left-scroll-icon'
+						width='4rem'
+						height='4rem'
+					/>
+				</button>
+
+				<div className='category-wrapper' ref={sliderBtn}>
+					{categories &&
+						categories.length > 0 &&
+						categories.map(cat => (
+							<input
+								type='image'
+								className='homepage-images'
+								src={cat.image}
+								alt={cat.categoryName}
+								name={cat.categoryName}
+								checked={!state.name}
+								readOnly
+								onClick={e =>
+									gotoProducts(e.target.name, e.target.checked)
+								}
+							/>
+						))}
+				</div>
+				<button
+					onClick={() => scroll(+900)}
+					className='scroll-btn right-scroll-btn'>
+					<IcTwotoneArrowCircleRight
+						className='right-scroll-icon'
+						width='4rem'
+						height='4rem'
+					/>
+				</button>
+			</div>
 		</div>
 	)
 }

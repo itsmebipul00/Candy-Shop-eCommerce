@@ -1,26 +1,22 @@
 import './WishScreen.css'
-import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-	CartContext,
-	ProductsContext,
-	WishListContext,
-	UserContext,
-} from '../../context'
 import { ProductCard } from '../../Components/ProductCard/ProductCard'
 import { isEmptyObject } from '../../utils/isEmptyObject'
+import { useWishList } from '../../actionProviders/wishListAction'
+import { useProducts } from '../../actionProviders/productActions'
+import { useCart } from '../../actionProviders/cartActions'
+import { useUser } from '../../actionProviders/userActions'
 
 const WishScreen = () => {
 	const navigate = useNavigate()
 
-	const { toggleWishListAction, wishList } =
-		useContext(WishListContext)
+	const { toggleWishListAction, wishList } = useWishList()
 
-	const { filteredProducts } = useContext(ProductsContext)
+	const { filteredProducts } = useProducts()
 
-	const { cartItems, addtoCartAction } = useContext(CartContext)
+	const { cartItems, addtoCartAction } = useCart()
 
-	const { userInfo } = useContext(UserContext)
+	const { userInfo } = useUser()
 
 	const isUserObjEmpty = isEmptyObject(userInfo)
 
@@ -32,10 +28,12 @@ const WishScreen = () => {
 			const cartItem = filteredProducts.find(
 				product => product._id === id
 			)
+
 			const iteminCart =
 				cartItems.findIndex(item => item._id === id) === -1
 					? false
 					: true
+
 			if (iteminCart) {
 				e.preventDefault()
 			} else {

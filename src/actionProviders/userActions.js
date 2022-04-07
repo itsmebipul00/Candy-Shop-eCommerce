@@ -1,8 +1,8 @@
 import { UserContext } from '../context'
-import { useReducer } from 'react'
+import { useReducer, useContext } from 'react'
 import { userReducers } from '../reducers/userReducers'
 
-export const UserProvider = props => {
+const UserProvider = props => {
 	const [{ userInfo }, dispatch] = useReducer(userReducers, {
 		userInfo: {},
 	})
@@ -35,3 +35,7 @@ export const UserProvider = props => {
 		</UserContext.Provider>
 	)
 }
+
+const useUser = () => useContext(UserContext)
+
+export { useUser, UserProvider }

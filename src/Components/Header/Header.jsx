@@ -1,5 +1,4 @@
 import './Header.css'
-import { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import { LogoProvider } from '../../assets/Icons/Icons'
 import { styles } from '../../utils/iconStyles'
@@ -14,12 +13,11 @@ import {
 
 import { GiCandyCanes } from 'react-icons/gi'
 import { Filters } from '../Filters/Filters'
-import {
-	CartContext,
-	UserContext,
-	WishListContext,
-} from '../../context'
+
 import { isEmptyObject } from '../../utils/isEmptyObject'
+import { useUser } from '../../actionProviders/userActions'
+import { useWishList } from '../../actionProviders/wishListAction'
+import { useCart } from '../../actionProviders/cartActions'
 
 const logoStyles = {
 	...styles,
@@ -49,9 +47,9 @@ const loginIconStyle = {
 }
 
 export const Header = () => {
-	const { userInfo, logoutUser } = useContext(UserContext)
-	const { clearWishListAction } = useContext(WishListContext)
-	const { clearCartAction } = useContext(CartContext)
+	const { userInfo, logoutUser } = useUser()
+	const { clearWishListAction } = useWishList()
+	const { clearCartAction } = useCart()
 
 	const logoutUserHandler = () => {
 		logoutUser()

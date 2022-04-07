@@ -1,0 +1,68 @@
+.homepage-images{
+    width: 15rem;
+    aspect-ratio: 1;
+}
+
+.carousel{
+    padding-top: 5rem;
+   
+}
+
+.category-wrapper{
+    display: flex;
+    overflow: auto;
+    scroll-behavior: smooth;
+    position: relative;
+    width: 100%;
+    padding: 30vh 0 10vh 0;
+
+}
+
+.scroll-btn {
+	display: none;
+}
+
+@media (min-width: 60em) {
+	.scroll-btn {
+		display: block;
+	}
+}
+
+.scroll-btn {
+	color: transparent;
+	width: 4rem;
+	height: 4rem;
+	border: 0;
+	background: unset;
+	position: absolute;
+	cursor: pointer;
+}
+
+.left-scroll-btn {
+	inset: 38% 0% 0% 6%;
+}
+
+.right-scroll-btn {
+	inset: 38% 0% 0% 92vw;
+}
+
+.left-scroll-icon,
+.right-scroll-icon {
+	color: hsl(var(--clr-blue));
+	height: 2rem;
+	width: 2rem;
+}
+
+.category-wrapper::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+	background: transparent;
+}
+
+.category-wrapper::-webkit-scrollbar-thumb {
+	background: transparent;
+	width: 0;
+	height: 0;
+}
+
+

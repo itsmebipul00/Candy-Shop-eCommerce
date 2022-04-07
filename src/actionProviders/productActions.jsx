@@ -1,28 +1,36 @@
-import {
-	ProductsContext,
-	UserContext,
-	WishListContext,
-} from '../context'
-import { filters } from '../utils/filters'
-import { useState, useEffect, useReducer, useContext } from 'react'
+import { ProductsContext } from '../context'
+import { useEffect, useReducer, useContext } from 'react'
 import { categoriesReducer } from '../reducers/categoriesReducer'
 import axios from 'axios'
+import { filterReducer } from '../reducers/filterReducer'
+import { productReducers } from '../reducers/productReducers'
 
-export const ProductsProvider = props => {
-	const [productsLoading, setProductsLoading] = useState(false)
-	const [products, setProducts] = useState([])
-	const [productsError, setProductsError] = useState('')
-	const [filterData, setFilterData] = useState(filters)
+const ProductsProvider = props => {
+	const [{ products, error: productsError }, dispatch] = useReducer(
+		productReducers,
+		{
+			products: [],
+		}
+	)
+
+	const setProducts = data =>
+		dispatch({
+			type: 'UPDATE_PRODUCTS',
+			payload: data,
+		})
+
+	const setError = data =>
+		dispatch({
+			type: 'PRODUCTS_ERROR',
+			payload: data,
+		})
 
 	const fetchProducts = async () => {
 		try {
 			const res = await axios.get('/api/products')
 			setProducts(res.data.products)
-			setProductsError(null)
-		} catch (err) {
-			setProductsError(err)
-		} finally {
-			setProductsLoading(false)
+		} catch (error) {
+			setError(error.message)
 		}
 	}
 
@@ -55,66 +63,90 @@ export const ProductsProvider = props => {
 		}
 	}
 
-	console.log(products)
 	useEffect(() => {
 		fetchProducts()
 		fetchCategories()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const handleFilters = event => {
-		const { name, value, type, checked } = event.target
-		setFilterData(prevFilterData => {
-			return {
-				...prevFilterData,
-				[name]: type === 'checkbox' ? checked : value,
-			}
+	// Better approach is to take categories from category state as initailState --- will do later
+	const initailState = {
+		marshmello: false,
+		chocolates: false,
+		darkChocolate: false,
+		fizzy: false,
+		gummies: false,
+		jellies: false,
+		lollipop: false,
+		rasberry: false,
+		sort: '',
+		rating: '',
+	}
+
+	const [state, filterDispatch] = useReducer(
+		filterReducer,
+		initailState
+	)
+
+	const handleSorting = (name, value) => {
+		filterDispatch({
+			type: 'HANDLE_SORT',
+			feild: name,
+			payload: value,
 		})
 	}
 
-	const resetFilters = () => {
-		setFilterData(() => filters)
+	const handleCategories = (name, checked) => {
+		filterDispatch({
+			type: 'FILTER_CATEGORIES',
+			feild: name,
+			payload: checked,
+		})
 	}
 
-	const getSortedData = (products, filterData) => {
+	const resetFilters = () =>
+		filterDispatch({ type: 'RESET_FILTERS', payload: initailState })
+
+	const getSortedData = (products, state) => {
 		if (
 			products &&
 			products.length > 0 &&
-			filterData.sort === 'price-high-to-low'
+			state.sort === 'price-high-to-low'
 		) {
 			return products.sort((a, b) => b['price'] - a['price'])
 		}
 		if (
 			products &&
 			products.length > 0 &&
-			filterData.sort === 'price-low-to-high'
+			state.sort === 'price-low-to-high'
 		) {
 			return products.sort((a, b) => a['price'] - b['price'])
 		}
 		if (
 			products &&
 			products.length > 0 &&
-			filterData.sort === 'rating-high-to-low'
+			state.sort === 'rating-high-to-low'
 		) {
 			return products.sort((a, b) => b['rating'] - a['rating'])
 		}
 		if (
 			products &&
 			products.length > 0 &&
-			filterData.sort === 'rating-low-to-high'
+			state.sort === 'rating-low-to-high'
 		) {
 			return products.sort((a, b) => a['rating'] - b['rating'])
 		}
-		if (products && products.length > 0 && filterData.sort === '') {
+		if (products && products.length > 0 && state.sort === '') {
 			return products
 		}
 	}
 
-	const getfilteredProducts = (products, filterData) => {
-		// getkeys from filterData if true
-		const categories = Object.keys(filterData).filter(
-			k => filterData[k] === true
+	const getfilteredProducts = (products, state) => {
+		// getkeys from state if true
+		const categories = Object.keys(state).filter(
+			k => state[k] === true
 		)
+
 		if (categories && categories.length > 0) {
 			return products.filter(({ categoryName }) =>
 				categories.includes(categoryName)
@@ -122,11 +154,8 @@ export const ProductsProvider = props => {
 		} else return products
 	}
 
-	const sortedProducts = getSortedData(products, filterData)
-	const filteredProducts = getfilteredProducts(
-		sortedProducts,
-		filterData
-	)
+	const sortedProducts = getSortedData(products, state)
+	const filteredProducts = getfilteredProducts(sortedProducts, state)
 
 	return (
 		<ProductsContext.Provider
@@ -136,12 +165,16 @@ export const ProductsProvider = props => {
 				filteredProducts,
 				categoriesError,
 				productsError,
-				productsLoading,
-				filterData,
-				handleFilters,
+				state,
+				handleSorting,
+				handleCategories,
 				resetFilters,
 			}}>
 			{props.children}
 		</ProductsContext.Provider>
 	)
 }
+
+const useProducts = () => useContext(ProductsContext)
+
+export { useProducts, ProductsProvider }

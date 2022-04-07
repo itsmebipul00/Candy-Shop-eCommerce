@@ -1,33 +1,35 @@
 // Components: Search, Pagination
 import './ProductListScreen.css'
-import { useContext } from 'react'
+
 import { Loader } from '../../Components/Loader/Loader.jsx'
+
 import { Error } from '../../Components/Error/Error.jsx'
+
 import { ProductCard } from '../../Components/ProductCard/ProductCard.jsx'
-import {
-	CartContext,
-	ProductsContext,
-	UserContext,
-	WishListContext,
-} from '../../context'
+
 import { isEmptyObject } from '../../utils/isEmptyObject'
+
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react/cjs/react.production.min'
-// import { UserContext } from '../../context'
+
+import { useProducts } from '../../actionProviders/productActions'
+
+import { useCart } from '../../actionProviders/cartActions'
+
+import { useWishList } from '../../actionProviders/wishListAction'
+
+import { useUser } from '../../actionProviders/userActions'
 
 const ProductListScreen = () => {
 	const { filteredProducts, productsLoading, productsError } =
-		useContext(ProductsContext)
+		useProducts()
 
 	const navigate = useNavigate()
 
-	const { addtoCartAction, cartItems, updateCartAction } =
-		useContext(CartContext)
+	const { addtoCartAction, cartItems, updateCartAction } = useCart()
 
-	const { toggleWishListAction, wishList } =
-		useContext(WishListContext)
+	const { toggleWishListAction, wishList } = useWishList()
 
-	const { userInfo } = useContext(UserContext)
+	const { userInfo } = useUser()
 
 	const isUserObjEmpty = isEmptyObject(userInfo)
 
@@ -39,10 +41,12 @@ const ProductListScreen = () => {
 			const cartItem = filteredProducts.find(
 				product => product._id === id
 			)
+
 			const iteminCart =
 				cartItems.findIndex(item => item._id === id) === -1
 					? false
 					: true
+
 			if (iteminCart) {
 				e.preventDefault()
 			} else {
@@ -53,7 +57,9 @@ const ProductListScreen = () => {
 
 	const updateCartHandler = (e, id) => {
 		e.preventDefault()
+
 		const { value } = e.target
+
 		updateCartAction(value, id, e)
 	}
 
