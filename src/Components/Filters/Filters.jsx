@@ -1,19 +1,16 @@
 import './Filters.css'
-import { useContext } from 'react'
-import { ProductsContext } from '../../context'
+import { useProducts } from '../../actionProviders/productActions'
 
 export const Filters = () => {
-	const { handleFilters, filterData, resetFilters } =
-		useContext(ProductsContext)
+	const { handleSorting, handleCategories, resetFilters, state } =
+		useProducts()
 
-	const isFilterDataEmpty =
-		Object.keys(filterData).filter(k => filterData[k]).length > 0
-			? false
-			: true
+	const issStateEmpty =
+		Object.keys(state).filter(k => state[k]).length > 0 ? false : true
 
 	return (
 		<div className='filter-products'>
-			{!isFilterDataEmpty && (
+			{!issStateEmpty && (
 				<button
 					className='btn btn-clear-filters fs-300 letter-spacing-5 uppercase'
 					onClick={resetFilters}>
@@ -24,6 +21,7 @@ export const Filters = () => {
 				Filters
 			</button>
 
+			{/* MAP THE STATE CATEGORIES HERE IF YOU GET TIME-- NO NEED TO HARDCODE */}
 			<ul className='filters  d-flex'>
 				<li className='filter-by-categories f-col' role='list'>
 					<h2 className='fs-400'>Categories</h2>
@@ -34,8 +32,10 @@ export const Filters = () => {
 							id='marshmello'
 							className='checkbox'
 							name='marshmello'
-							checked={filterData.marshmello}
-							onChange={handleFilters}
+							checked={state.marshmello}
+							onChange={e =>
+								handleCategories(e.target.name, e.target.checked)
+							}
 						/>
 						<span className='text'>Marshmello</span>
 					</label>
@@ -46,8 +46,10 @@ export const Filters = () => {
 							id='chocolates'
 							className='checkbox'
 							name='chocolates'
-							checked={filterData.chocolates}
-							onChange={handleFilters}
+							checked={state.chocolates}
+							onChange={e =>
+								handleCategories(e.target.name, e.target.checked)
+							}
 						/>
 						<span className='text'>Chocolates</span>
 					</label>
@@ -58,8 +60,10 @@ export const Filters = () => {
 							id='darkChocolate'
 							className='checkbox'
 							name='darkChocolate'
-							checked={filterData.darkChocolate}
-							onChange={handleFilters}
+							checked={state.darkChocolate}
+							onChange={e =>
+								handleCategories(e.target.name, e.target.checked)
+							}
 						/>
 						<span className='text'>Dark Chocolates</span>
 					</label>
@@ -70,8 +74,10 @@ export const Filters = () => {
 							id='fizzy'
 							className='checkbox'
 							name='fizzy'
-							checked={filterData.fizzy}
-							onChange={handleFilters}
+							checked={state.fizzy}
+							onChange={e =>
+								handleCategories(e.target.name, e.target.checked)
+							}
 						/>
 						<span className='text'>Fizzy</span>
 					</label>
@@ -82,8 +88,10 @@ export const Filters = () => {
 							id='gummies'
 							className='checkbox'
 							name='gummies'
-							checked={filterData.gummies}
-							onChange={handleFilters}
+							checked={state.gummies}
+							onChange={e =>
+								handleCategories(e.target.name, e.target.checked)
+							}
 						/>
 						<span className='text'>Gummies</span>
 					</label>
@@ -94,8 +102,10 @@ export const Filters = () => {
 							id='jellies'
 							className='checkbox'
 							name='jellies'
-							checked={filterData.jellies}
-							onChange={handleFilters}
+							checked={state.jellies}
+							onChange={e =>
+								handleCategories(e.target.name, e.target.checked)
+							}
 						/>
 						<span className='text'>Jellies</span>
 					</label>
@@ -106,8 +116,10 @@ export const Filters = () => {
 							id='lollipop'
 							className='checkbox'
 							name='lollipop'
-							checked={filterData.lollipop}
-							onChange={handleFilters}
+							checked={state.lollipop}
+							onChange={e =>
+								handleCategories(e.target.name, e.target.checked)
+							}
 						/>
 						<span className='text'>Lollipops</span>
 					</label>
@@ -118,8 +130,10 @@ export const Filters = () => {
 							id='rasberry'
 							className='checkbox'
 							name='rasberry'
-							checked={filterData.rasberry}
-							onChange={handleFilters}
+							checked={state.rasberry}
+							onChange={e =>
+								handleCategories(e.target.name, e.target.checked)
+							}
 						/>
 						<span className='text'>Rasberry</span>
 					</label>
@@ -137,8 +151,10 @@ export const Filters = () => {
 								value='rating-high-to-low'
 								className='radio'
 								name='sort'
-								checked={filterData.sort === 'rating-high-to-low'}
-								onChange={handleFilters}
+								checked={state.sort === 'rating-high-to-low'}
+								onChange={e =>
+									handleSorting(e.target.name, e.target.value)
+								}
 							/>
 							<span className='text'>High to Low</span>
 						</label>
@@ -150,8 +166,10 @@ export const Filters = () => {
 								value='rating-low-to-high'
 								className='radio'
 								name='sort'
-								checked={filterData.sort === 'rating-low-to-high'}
-								onChange={handleFilters}
+								checked={state.sort === 'rating-low-to-high'}
+								onChange={e =>
+									handleSorting(e.target.name, e.target.value)
+								}
 							/>
 							<span className='text'>Low to High</span>
 						</label>
@@ -171,8 +189,10 @@ export const Filters = () => {
 								value='price-high-to-low'
 								name='sort'
 								className='radio'
-								checked={filterData.sort === 'price-high-to-low'}
-								onChange={handleFilters}
+								checked={state.sort === 'price-high-to-low'}
+								onChange={e =>
+									handleSorting(e.target.name, e.target.value)
+								}
 							/>
 							<span className='text'>High to Low</span>
 						</label>
@@ -184,8 +204,10 @@ export const Filters = () => {
 								name='sort'
 								value='price-low-to-high'
 								className='radio'
-								checked={filterData.sort === 'price-low-to-high'}
-								onChange={handleFilters}
+								checked={state.sort === 'price-low-to-high'}
+								onChange={e =>
+									handleSorting(e.target.name, e.target.value)
+								}
 							/>
 							<span className='text'>Low to High</span>
 						</label>

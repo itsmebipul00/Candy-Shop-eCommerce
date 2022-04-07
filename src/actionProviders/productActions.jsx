@@ -1,89 +1,152 @@
-import {
-	ProductsContext,
-	UserContext,
-	WishListContext,
-} from '../context'
-import { filters } from '../utils/filters'
-import { useState, useEffect, useReducer, useContext } from 'react'
-import { wishListReducer } from '../reducers/productReducers'
+import { ProductsContext } from '../context'
+import { useEffect, useReducer, useContext } from 'react'
+import { categoriesReducer } from '../reducers/categoriesReducer'
 import axios from 'axios'
+import { filterReducer } from '../reducers/filterReducer'
+import { productReducers } from '../reducers/productReducers'
 
-export const ProductsProvider = props => {
-	const [productsLoading, setProductsLoading] = useState(false)
-	const [products, setProducts] = useState([])
-	const [productsError, setProductsError] = useState('')
-	const [filterData, setFilterData] = useState(filters)
+const ProductsProvider = props => {
+	const [{ products, error: productsError }, dispatch] = useReducer(
+		productReducers,
+		{
+			products: [],
+		}
+	)
+
+	const setProducts = data =>
+		dispatch({
+			type: 'UPDATE_PRODUCTS',
+			payload: data,
+		})
+
+	const setError = data =>
+		dispatch({
+			type: 'PRODUCTS_ERROR',
+			payload: data,
+		})
 
 	const fetchProducts = async () => {
 		try {
 			const res = await axios.get('/api/products')
 			setProducts(res.data.products)
-			setProductsError(null)
-		} catch (err) {
-			setProductsError(err)
-		} finally {
-			setProductsLoading(false)
+		} catch (error) {
+			setError(error.message)
 		}
 	}
 
-	console.log(products)
+	const [
+		{
+			categories,
+			loading: categoriesLoading,
+			error: categoriesError,
+		},
+		categoriesDispatcher,
+	] = useReducer(categoriesReducer, {
+		categories: [],
+	})
+
+	const successCategories = data =>
+		categoriesDispatcher({
+			type: 'CATEGORIES_SUCCESS',
+			payload: data,
+		})
+
+	const fetchCategories = async () => {
+		try {
+			categoriesDispatcher({ type: 'CATEGORIES_REQUEST' })
+
+			const res = await axios.get('/api/categories')
+
+			successCategories(res.data.categories)
+		} catch (error) {
+			categoriesDispatcher({ type: 'CATEGORIES_SUCCESS' })
+		}
+	}
+
 	useEffect(() => {
 		fetchProducts()
+		fetchCategories()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const handleFilters = event => {
-		const { name, value, type, checked } = event.target
-		setFilterData(prevFilterData => {
-			return {
-				...prevFilterData,
-				[name]: type === 'checkbox' ? checked : value,
-			}
+	// Better approach is to take categories from category state as initailState --- will do later
+	const initailState = {
+		marshmello: false,
+		chocolates: false,
+		darkChocolate: false,
+		fizzy: false,
+		gummies: false,
+		jellies: false,
+		lollipop: false,
+		rasberry: false,
+		sort: '',
+		rating: '',
+	}
+
+	const [state, filterDispatch] = useReducer(
+		filterReducer,
+		initailState
+	)
+
+	const handleSorting = (name, value) => {
+		filterDispatch({
+			type: 'HANDLE_SORT',
+			feild: name,
+			payload: value,
 		})
 	}
 
-	const resetFilters = () => {
-		setFilterData(() => filters)
+	const handleCategories = (name, checked) => {
+		filterDispatch({
+			type: 'FILTER_CATEGORIES',
+			feild: name,
+			payload: checked,
+		})
 	}
 
-	const getSortedData = (products, filterData) => {
+	const resetFilters = () =>
+		filterDispatch({ type: 'RESET_FILTERS', payload: initailState })
+
+	const getSortedData = (products, state) => {
 		if (
 			products &&
 			products.length > 0 &&
-			filterData.sort === 'price-high-to-low'
+			state.sort === 'price-high-to-low'
 		) {
 			return products.sort((a, b) => b['price'] - a['price'])
 		}
 		if (
 			products &&
 			products.length > 0 &&
-			filterData.sort === 'price-low-to-high'
+			state.sort === 'price-low-to-high'
 		) {
 			return products.sort((a, b) => a['price'] - b['price'])
 		}
 		if (
 			products &&
 			products.length > 0 &&
-			filterData.sort === 'rating-high-to-low'
+			state.sort === 'rating-high-to-low'
 		) {
 			return products.sort((a, b) => b['rating'] - a['rating'])
 		}
 		if (
 			products &&
 			products.length > 0 &&
-			filterData.sort === 'rating-low-to-high'
+			state.sort === 'rating-low-to-high'
 		) {
 			return products.sort((a, b) => a['rating'] - b['rating'])
 		}
-		if (products && products.length > 0 && filterData.sort === '') {
+		if (products && products.length > 0 && state.sort === '') {
 			return products
 		}
 	}
 
-	const getfilteredProducts = (products, filterData) => {
-		// getkeys from filterData if true
-		const categories = Object.keys(filterData).filter(
-			k => filterData[k] === true
+	const getfilteredProducts = (products, state) => {
+		// getkeys from state if true
+		const categories = Object.keys(state).filter(
+			k => state[k] === true
 		)
+
 		if (categories && categories.length > 0) {
 			return products.filter(({ categoryName }) =>
 				categories.includes(categoryName)
@@ -91,20 +154,20 @@ export const ProductsProvider = props => {
 		} else return products
 	}
 
-	const sortedProducts = getSortedData(products, filterData)
-	const filteredProducts = getfilteredProducts(
-		sortedProducts,
-		filterData
-	)
+	const sortedProducts = getSortedData(products, state)
+	const filteredProducts = getfilteredProducts(sortedProducts, state)
 
 	return (
 		<ProductsContext.Provider
 			value={{
+				categories,
+				categoriesLoading,
 				filteredProducts,
+				categoriesError,
 				productsError,
-				productsLoading,
-				filterData,
-				handleFilters,
+				state,
+				handleSorting,
+				handleCategories,
 				resetFilters,
 			}}>
 			{props.children}
@@ -112,97 +175,6 @@ export const ProductsProvider = props => {
 	)
 }
 
-export const WishListProvider = props => {
-	const [{ wishList }, dispatch] = useReducer(wishListReducer, {
-		wishList: [],
-	})
-	const { userInfo } = useContext(UserContext)
+const useProducts = () => useContext(ProductsContext)
 
-	const config = {
-		headers: {
-			authorization: userInfo.encodedToken,
-		},
-	}
-
-	console.log(userInfo)
-
-	const toggleWishListAction = async product => {
-		const itemExists =
-			wishList.findIndex(x => x._id === product._id) === -1
-				? false
-				: true
-
-		console.log(itemExists)
-
-		console.log(config)
-
-		if (itemExists) {
-			try {
-				const res = await axios.delete(
-					`/api/user/wishlist/${product._id}`,
-					config
-				)
-				const data = await res.data.wishlist
-				console.log(data)
-				dispatch({
-					type: 'REMOVE_FROM_WISHLIST',
-					payload: data,
-				})
-				// localStorage to setWishlist
-			} catch (error) {
-				console.log(error)
-				// toast Invalid request error
-			}
-		} else {
-			try {
-				const res = await axios.post(
-					`/api/user/wishlist`,
-					{ product: product },
-					config
-				)
-				const data = await res.data.wishlist
-				dispatch({
-					type: 'REMOVE_FROM_WISHLIST',
-					payload: data,
-				})
-			} catch (error) {
-				console.log(error)
-				// Invalid request toast
-			}
-		}
-
-		console.log(itemExists)
-	}
-
-	const clearWishListAction = () => {
-		dispatch({
-			type: 'CLEAR_WISHLIST',
-		})
-	}
-
-	const getWishListAction = async () => {
-		try {
-			const res = await axios.get('/api/user/wishlist', config)
-			const data = await res.data.wishlist
-			dispatch({
-				type: 'GET_WISHLIST_ITEMS',
-				payload: data,
-			})
-		} catch (error) {
-			console.log(error)
-			// Invalid toast
-		}
-	}
-
-	return (
-		<WishListContext.Provider
-			value={{
-				toggleWishListAction,
-				clearWishListAction,
-				getWishListAction,
-				wishList,
-			}}>
-			{props.children}
-		</WishListContext.Provider>
-	)
-}
+export { useProducts, ProductsProvider }

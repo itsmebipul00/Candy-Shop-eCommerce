@@ -1,21 +1,11 @@
-export const wishListReducer = (state = { wishList: [] }, action) => {
+export const productReducers = (state = { products: [] }, action) => {
 	switch (action.type) {
-		case 'ADD_TO_WISHLIST':
-			return {
-				wishList: action.payload,
-			}
-		case 'REMOVE_FROM_WISHLIST':
-			return {
-				wishList: action.payload,
-			}
-		case 'GET_WISHLIST_ITEMS':
-			return {
-				wishList: action.payload,
-			}
-		case 'CLEAR_WISHLIST':
-			return {
-				wishList: [],
-			}
+		case 'UPDATE_PRODUCTS':
+			return { products: action.payload }
+
+		case 'PRODUCTS_ERROR':
+			return { error: action.payload }
+
 		default:
 			return state
 	}

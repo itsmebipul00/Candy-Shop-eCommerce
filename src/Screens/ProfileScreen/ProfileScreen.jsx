@@ -1,6 +1,6 @@
 // Componets: Wishlist, UserInfo, OrderHisttory
 import './ProfileScreen.css'
-import { useContext } from 'react'
+
 import {
 	FaAddressCard,
 	FaUser,
@@ -14,15 +14,16 @@ import {
 	Outlet,
 	useLocation,
 } from 'react-router-dom'
-import { UserContext } from '../../context'
+
 import { isEmptyObject } from '../../utils/isEmptyObject'
+import { useUser } from '../../actionProviders/userActions'
 
 // Protected Route
 
 const ProfileScreen = () => {
 	const { pathname } = useLocation()
 
-	const { userInfo } = useContext(UserContext)
+	const { userInfo } = useUser()
 
 	const isUserInfoEmpty = isEmptyObject(userInfo)
 
@@ -32,6 +33,7 @@ const ProfileScreen = () => {
 			{isUserInfoEmpty && (
 				<Navigate to='/login' state={{ from: pathname }} />
 			)}
+
 			<div className='user-profile d-flex'>
 				<ul className='d-grid profile-lists'>
 					<li
@@ -46,6 +48,7 @@ const ProfileScreen = () => {
 							<span className='text  fs-400 '>User Profile</span>
 						</NavLink>
 					</li>
+
 					<li
 						className={`profile-list-item ${
 							pathname === '/address' && 'active-list'
@@ -58,6 +61,7 @@ const ProfileScreen = () => {
 							<span className='text  fs-400 '>Manage Address</span>
 						</NavLink>
 					</li>
+
 					<li
 						className={`profile-list-item ${
 							pathname === '/cart' && 'active-list'
@@ -70,6 +74,7 @@ const ProfileScreen = () => {
 							<span className='text  fs-400 '>Cart Items</span>
 						</NavLink>
 					</li>
+
 					<li
 						className={`profile-list-item ${
 							pathname === '/wishlist' && 'active-list'
@@ -83,7 +88,8 @@ const ProfileScreen = () => {
 						</NavLink>
 					</li>
 				</ul>
-				<section>
+
+				<section className='all-profile-screens'>
 					<Outlet />
 				</section>
 			</div>

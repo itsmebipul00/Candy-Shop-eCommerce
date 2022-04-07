@@ -1,11 +1,8 @@
 import './RegisterScreen.css'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { useState, useContext } from 'react'
-import { UserContext } from '../../context'
+import { useState } from 'react'
 import axios from 'axios'
-// import toast from 'react-hot-toast'
-// import { Loader } from '../../Components/Loader/Loader'
-// import { Error } from '../../Components/Error/Error'
+import { useUser } from '../../actionProviders/userActions'
 
 const RegisterScreen = () => {
 	const location = useLocation()
@@ -16,8 +13,15 @@ const RegisterScreen = () => {
 		password: '',
 		confirmPassword: '',
 	})
+
 	const [message, setMessage] = useState('')
-	const { setUserAction, userInfo } = useContext(UserContext)
+	const { setUserAction, userInfo } = useUser()
+
+	const [showPass, setShowPass] = useState(true)
+
+	const handlePasswordType = () => {
+		setShowPass(prev => !prev)
+	}
 
 	const navigate = useNavigate()
 
@@ -116,14 +120,16 @@ const RegisterScreen = () => {
 					<input
 						id='password'
 						className='form-password'
-						type='password'
+						type={showPass ? 'password' : 'text'}
 						minLength='8'
 						name='password'
 						onChange={handleChange}
 						value={registerFromData.password}
 						required
 					/>
-					<i className='fas fa-eye p-absolute'></i>
+					<i
+						className='fas fa-eye p-absolute'
+						onClick={handlePasswordType}></i>
 				</div>
 
 				<label htmlFor='confirm-password' className='password'>
@@ -137,14 +143,16 @@ const RegisterScreen = () => {
 					<input
 						id='confirmPassword'
 						className='form-password'
-						type='password'
+						type={showPass ? 'password' : 'text'}
 						minLength='8'
 						name='confirmPassword'
 						onChange={handleChange}
 						value={registerFromData.confirmPassword}
 						required
 					/>
-					<i className='fas fa-eye p-absolute'></i>
+					<i
+						className='fas fa-eye p-absolute'
+						onClick={handlePasswordType}></i>
 				</div>
 				<p className='fs-300 text-red'>{message}</p>
 

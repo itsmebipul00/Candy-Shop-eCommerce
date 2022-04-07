@@ -1,5 +1,4 @@
 import './Header.css'
-import { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import { LogoProvider } from '../../assets/Icons/Icons'
 import { styles } from '../../utils/iconStyles'
@@ -14,8 +13,11 @@ import {
 
 import { GiCandyCanes } from 'react-icons/gi'
 import { Filters } from '../Filters/Filters'
-import { UserContext, WishListContext } from '../../context'
+
 import { isEmptyObject } from '../../utils/isEmptyObject'
+import { useUser } from '../../actionProviders/userActions'
+import { useWishList } from '../../actionProviders/wishListAction'
+import { useCart } from '../../actionProviders/cartActions'
 
 const logoStyles = {
 	...styles,
@@ -45,13 +47,14 @@ const loginIconStyle = {
 }
 
 export const Header = () => {
-	const { userInfo, logoutUser } = useContext(UserContext)
-
-	const { clearWishListAction } = useContext(WishListContext)
+	const { userInfo, logoutUser } = useUser()
+	const { clearWishListAction } = useWishList()
+	const { clearCartAction } = useCart()
 
 	const logoutUserHandler = () => {
 		logoutUser()
 		clearWishListAction()
+		clearCartAction()
 	}
 
 	const isUserInfoEmpty = isEmptyObject(userInfo)
@@ -97,7 +100,10 @@ export const Header = () => {
 									</NavLink>
 								) : (
 									<>
-										<h4 className='fs-400 letter-spacing-5 text-blue text-underline'>{`Hi, ${userInfo.foundUser.username}`}</h4>
+										<NavLink
+											to='/userInfo'
+											state={{ from: location.pathname }}
+											className='fs-500 letter-spacing-5 text-blue text-underline'>{`Hi, ${userInfo.foundUser.username}`}</NavLink>
 										<NavLink to={location.pathname}>
 											<LogoProvider>
 												<AiOutlineLogin

@@ -1,0 +1,52 @@
+.btn-addtocart {
+	align-self: end;
+	justify-self: center;
+	display: none;
+	margin: 2rem;
+}
+
+.card:hover .btn-addtocart {
+	display: block;
+}
+
+.btn-updateCart,
+.btn-addtocart {
+	align-self: end;
+	justify-self: center;
+	display: none;
+	margin: 2rem;
+}
+
+.btn-addtocart {
+	padding: 0.5rem 1.5rem;
+}
+
+.btn-updateCart {
+	padding: 0;
+}
+
+.btn-updateCart > span {
+	text-align: center;
+}
+
+.card:hover .btn-updateCart {
+	display: flex;
+	justify-content: space-between;
+}
+
+.subBtn {
+	margin: 0;
+	width: 20%;
+	padding: 0.5rem 1.5rem;
+	cursor: pointer;
+}
+
+.card:hover .btn-updateCart > span {
+	display: flex;
+	place-items: center;
+}
+
+.btn-updateCart:hover .btn-updateCart > span {
+	cursor: unset;
+	background: hsl(var(---clr-dark));
+}

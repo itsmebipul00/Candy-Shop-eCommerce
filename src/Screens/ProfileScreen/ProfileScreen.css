@@ -44,6 +44,26 @@
 	display: none;
 }
 
+.all-profile-screens {
+	inset: 0% 0% 0% 0%;
+	height: 60vh;
+	overflow-y: auto;
+	overflow-x: hidden;
+	scroll-behavior: smooth;
+}
+
+.all-profile-screens::-webkit-scrollbar {
+	width: 5px;
+}
+
+.all-profile-screens::-webkit-scrollbar-track {
+	background: hsl(var(--clr-white));
+}
+
+.all-profile-screens::-webkit-scrollbar-thumb {
+	background: hsl(var(--clr-red));
+}
+
 @media (min-width: 60em) {
 	.user-profile .text {
 		display: inline;
