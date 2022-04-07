@@ -17,7 +17,7 @@ const RegisterScreen = () => {
 	const [message, setMessage] = useState('')
 	const { setUserAction, userInfo } = useUser()
 
-	const [showPass, setShowPass] = useState(false)
+	const [showPass, setShowPass] = useState(true)
 
 	const handlePasswordType = () => {
 		setShowPass(prev => !prev)

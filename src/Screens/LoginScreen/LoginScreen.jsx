@@ -20,7 +20,7 @@ const LoginScreen = () => {
 
 	const { setUserAction } = useUser()
 
-	const [showPass, setShowPass] = useState(false)
+	const [showPass, setShowPass] = useState(true)
 
 	const handlePasswordType = () => {
 		setShowPass(prev => !prev)
