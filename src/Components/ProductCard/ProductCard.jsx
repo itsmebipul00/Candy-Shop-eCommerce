@@ -90,7 +90,11 @@ export const ProductCard = props => {
 				<button
 					onClick={() => props.toggleWishListAction(props)}
 					className='btn-wishlist'>
-					{isInWishList ? <AiFillHeart /> : <AiOutlineHeart />}
+					{isInWishList ? (
+						<AiFillHeart style={{ fontSize: '2rem' }} />
+					) : (
+						<AiOutlineHeart style={{ fontSize: '2rem' }} />
+					)}
 				</button>
 			</div>
 		</div>
