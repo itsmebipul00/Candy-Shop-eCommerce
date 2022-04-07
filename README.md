@@ -1,28 +1,28 @@
 ## USERINFO
 
-email: itsmebipul00@gmail.com
-passwword: itsmebipul00@gmail.com
+email: itsmebipul00@gmail.com</br>
+passwword: itsmebipul00@gmail.com</br>
 
 ## FEATURES (P0 is complete as of now)
 
--HomePage with categories
--Filters on Header on listing page
--Clear Fillter button when applied filters
--Add to cart button, shows qty and updates price if qty>0 and if logged in and operated
--Toggle Wishlist Icon on login
+-HomePage with categories</br>
+-Filters on Header on listing page</br>
+-Clear Fillter button when applied filters</br>
+-Add to cart button, shows qty and updates price if qty>0 and if logged in and operated</br>
+-Toggle Wishlist Icon on login</br>
 
----Protected Routes in an Outlet---
--Inc/Dec Cart Qty, updates qty on all screens
--If moved to wishlist, removes from cart --updates on all screens
--Toggle WishList, if moved to cart removes from wishlist --updates on all screens 
--Cart Total Price and Quantity
+---Protected Routes in an Outlet---</br>
+-Inc/Dec Cart Qty, updates qty on all screens</br>
+-If moved to wishlist, removes from cart --updates on all screens</br>
+-Toggle WishList, if moved to cart removes from wishlist --updates on all screens </br>
+-Cart Total Price and Quantity</br>
 
--Auto login on Signup
--Normal Login
--Hide/Show Password
--Single Icon for login/logout
+-Auto login on Signup</br>
+-Normal Login</br>
+-Hide/Show Password</br>
+-Single Icon for login/logout</br>
 
--Responsive 
+-Responsive </br>
 
 ## more features coming soon
 
