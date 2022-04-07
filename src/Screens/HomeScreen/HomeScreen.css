@@ -66,3 +66,14 @@
 }
 
 
+.categories{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 2px solid hsl(var(--clr-blue));
+    padding-left: 1rem;
+}
+
+.categories:last-of-type{
+    border: 0;
+}

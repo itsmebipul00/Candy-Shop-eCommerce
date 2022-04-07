@@ -49,18 +49,24 @@ const HomeScreen = () => {
 					{categories &&
 						categories.length > 0 &&
 						categories.map(cat => (
-							<input
-								type='image'
-								className='homepage-images'
-								src={cat.image}
-								alt={cat.categoryName}
-								name={cat.categoryName}
-								checked={!state.name}
-								readOnly
-								onClick={e =>
-									gotoProducts(e.target.name, e.target.checked)
-								}
-							/>
+							<label
+								className='categories uppercase fs-400 text-red text-underline letter-spacing-3'
+								for={cat.categoryName}>
+								{cat.categoryName}
+								<input
+									id={cat.categoryName}
+									type='image'
+									className='homepage-images'
+									src={cat.image}
+									alt={cat.categoryName}
+									name={cat.categoryName}
+									checked={!state.name}
+									readOnly
+									onClick={e =>
+										gotoProducts(e.target.name, e.target.checked)
+									}
+								/>
+							</label>
 						))}
 				</div>
 				<button

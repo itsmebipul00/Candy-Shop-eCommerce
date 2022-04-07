@@ -169,6 +169,7 @@ const ProductsProvider = props => {
 				handleSorting,
 				handleCategories,
 				resetFilters,
+				products,
 			}}>
 			{props.children}
 		</ProductsContext.Provider>
