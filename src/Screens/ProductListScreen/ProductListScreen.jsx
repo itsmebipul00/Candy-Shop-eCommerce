@@ -1,35 +1,32 @@
 // Components: Search, Pagination
 import './ProductListScreen.css'
-
+import { useContext } from 'react'
 import { Loader } from '../../Components/Loader/Loader.jsx'
-
 import { Error } from '../../Components/Error/Error.jsx'
-
 import { ProductCard } from '../../Components/ProductCard/ProductCard.jsx'
-
+import {
+	CartContext,
+	ProductsContext,
+	UserContext,
+	WishListContext,
+} from '../../context'
 import { isEmptyObject } from '../../utils/isEmptyObject'
-
 import { useNavigate } from 'react-router-dom'
-
-import { useProducts } from '../../actionProviders/productActions'
-
-import { useCart } from '../../actionProviders/cartActions'
-
-import { useWishList } from '../../actionProviders/wishListAction'
-
-import { useUser } from '../../actionProviders/userActions'
+// import { UserContext } from '../../context'
 
 const ProductListScreen = () => {
 	const { filteredProducts, productsLoading, productsError } =
-		useProducts()
+		useContext(ProductsContext)
 
 	const navigate = useNavigate()
 
-	const { addtoCartAction, cartItems, updateCartAction } = useCart()
+	const { addtoCartAction, cartItems, updateCartAction } =
+		useContext(CartContext)
 
-	const { toggleWishListAction, wishList } = useWishList()
+	const { toggleWishListAction, wishList } =
+		useContext(WishListContext)
 
-	const { userInfo } = useUser()
+	const { userInfo } = useContext(UserContext)
 
 	const isUserObjEmpty = isEmptyObject(userInfo)
 
@@ -41,27 +38,25 @@ const ProductListScreen = () => {
 			const cartItem = filteredProducts.find(
 				product => product._id === id
 			)
-
-			const iteminCart =
-				cartItems.findIndex(item => item._id === id) === -1
-					? false
-					: true
-
-			if (iteminCart) {
-				e.preventDefault()
-			} else {
-				addtoCartAction(cartItem)
-			}
+			addtoCartAction(cartItem)
 		}
 	}
 
 	const updateCartHandler = (e, id) => {
 		e.preventDefault()
-
 		const { value } = e.target
-
 		updateCartAction(value, id, e)
 	}
+
+	const addtoWishCheck = product => {
+		if (isUserObjEmpty) {
+			navigate('/login')
+		} else {
+			toggleWishListAction(product)
+		}
+	}
+
+	// TODO: useContext whereever possible instead of passing these funcions down
 
 	return (
 		<div className='product-grid products-section-container'>
@@ -80,7 +75,7 @@ const ProductListScreen = () => {
 						title={p.title}
 						price={p.price}
 						rating={p.rating}
-						toggleWishListAction={toggleWishListAction}
+						toggleWishListAction={addtoWishCheck}
 						cartItems={cartItems}
 						wishList={wishList}
 					/>
