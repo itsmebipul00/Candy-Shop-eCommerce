@@ -2,8 +2,6 @@ import './ProductScreen.css'
 
 import { useParams } from 'react-router-dom'
 
-// import { ProductCard } from '../../Components/ProductCard/ProductCard'
-
 import { useReducer } from 'react'
 
 import { productReducer } from '../../reducers/productReducer'

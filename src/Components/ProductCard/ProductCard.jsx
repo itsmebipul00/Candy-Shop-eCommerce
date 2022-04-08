@@ -30,46 +30,60 @@ export const ProductCard = props => {
 					className='card__img'
 				/>
 
-				{iscartPage ? (
-					<span className='btn btn-updateCart uppercase btn'>
-						<button
-							className='subBtn subBtn-addtocart'
-							value='increment'
-							onClick={e => props.updateCartHandler(e, props._id)}>
-							+
-						</button>
-
-						<span>{cartItem.qty}</span>
-						<button
-							value='decrement'
-							className='subBtn subBtn-removeFromCart'
-							onClick={e => props.updateCartHandler(e, props._id)}>
-							-
-						</button>
-					</span>
-				) : cartItem && cartItem.qty > 0 ? (
-					<span className='btn btn-updateCart uppercase btn'>
-						<button
-							className='subBtn subBtn-addtocart'
-							value='increment'
-							onClick={e => props.updateCartHandler(e, props._id)}>
-							+
-						</button>
-
-						<span>{cartItem.qty}</span>
-						<button
-							value='decrement'
-							className='subBtn subBtn-removeFromCart'
-							onClick={e => props.updateCartHandler(e, props._id)}>
-							-
-						</button>
-					</span>
+				{isInWishList ? (
+					<></>
 				) : (
-					<button
-						className='btn btn-addtocart uppercase letter-spacing-5 fs-400'
-						onClick={e => props.addtocartHandler(e, props._id)}>
-						Add to cart
-					</button>
+					<>
+						{iscartPage ? (
+							<span className='btn btn-updateCart uppercase btn'>
+								<button
+									className='subBtn subBtn-addtocart'
+									value='increment'
+									onClick={e =>
+										props.updateCartHandler(e, props._id)
+									}>
+									+
+								</button>
+
+								<span>{cartItem.qty}</span>
+								<button
+									value='decrement'
+									className='subBtn subBtn-removeFromCart'
+									onClick={e =>
+										props.updateCartHandler(e, props._id)
+									}>
+									-
+								</button>
+							</span>
+						) : cartItem && cartItem.qty > 0 ? (
+							<span className='btn btn-updateCart uppercase btn'>
+								<button
+									className='subBtn subBtn-addtocart'
+									value='increment'
+									onClick={e =>
+										props.updateCartHandler(e, props._id)
+									}>
+									+
+								</button>
+
+								<span>{cartItem.qty}</span>
+								<button
+									value='decrement'
+									className='subBtn subBtn-removeFromCart'
+									onClick={e =>
+										props.updateCartHandler(e, props._id)
+									}>
+									-
+								</button>
+							</span>
+						) : (
+							<button
+								className='btn btn-addtocart uppercase letter-spacing-5 fs-400'
+								onClick={e => props.addtocartHandler(e, props._id)}>
+								Add to cart
+							</button>
+						)}
+					</>
 				)}
 			</Link>
 			<div className='card__content d-flex'>
@@ -87,15 +101,19 @@ export const ProductCard = props => {
 					</p>
 					<Rating value={props.rating} />
 				</div>
-				<button
-					onClick={() => props.toggleWishListAction(props)}
-					className='btn-wishlist'>
-					{isInWishList ? (
-						<AiFillHeart style={{ fontSize: '2rem' }} />
-					) : (
-						<AiOutlineHeart style={{ fontSize: '2rem' }} />
-					)}
-				</button>
+				{cartItem ? (
+					<></>
+				) : (
+					<button
+						onClick={() => props.toggleWishListAction(props)}
+						className='btn-wishlist'>
+						{isInWishList ? (
+							<AiFillHeart style={{ fontSize: '2rem' }} />
+						) : (
+							<AiOutlineHeart style={{ fontSize: '2rem' }} />
+						)}
+					</button>
+				)}
 			</div>
 		</div>
 	)
