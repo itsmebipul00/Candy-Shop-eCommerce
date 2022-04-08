@@ -4,9 +4,10 @@ import { LogoProvider } from '../../assets/Icons/Icons'
 import { styles } from '../../utils/iconStyles'
 import { Link, NavLink } from 'react-router-dom'
 
+import { Search } from '../Search/Search'
+
 import {
 	AiOutlineShoppingCart,
-	AiOutlineSearch,
 	AiOutlineHeart,
 	AiOutlineLogin,
 } from 'react-icons/ai'
@@ -24,11 +25,6 @@ const logoStyles = {
 	className: styles.className.concat(' candy-logo'),
 	size: '2rem',
 	color: 'red',
-}
-
-const searchIconStyle = {
-	...styles,
-	className: styles.className.concat(' search-icon'),
 }
 
 const cartIconStyle = {
@@ -135,21 +131,7 @@ export const Header = () => {
 							</div>
 						</div>
 
-						{isProductListingPage && (
-							<div className='search-candies p-relative'>
-								<label className='sr-only' htmlFor='input-search' />
-
-								<input
-									id='input-search'
-									className='input-search'
-									placeholder='Search for candies...'
-								/>
-
-								<LogoProvider>
-									<AiOutlineSearch value={searchIconStyle} />
-								</LogoProvider>
-							</div>
-						)}
+						{isProductListingPage && <Search />}
 					</div>
 				</header>
 			)}

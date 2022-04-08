@@ -4,6 +4,7 @@ import { categoriesReducer } from '../reducers/categoriesReducer'
 import axios from 'axios'
 import { filterReducer } from '../reducers/filterReducer'
 import { productReducers } from '../reducers/productReducers'
+import { useState } from 'react'
 
 const ProductsProvider = props => {
 	const [{ products, error: productsError }, dispatch] = useReducer(
@@ -154,13 +155,35 @@ const ProductsProvider = props => {
 		} else return products
 	}
 
+	const [search, setSearch] = useState('')
+
+	const searchFilters = val => {
+		setSearch(() => val)
+	}
+
+	const getSearchedProducts = (products, state) => {
+		if (products && products.length > 0) {
+			return products.filter(pro =>
+				pro.title.toLowerCase().includes(state)
+			)
+		}
+	}
+
 	const sortedProducts = getSortedData(products, state)
-	const filteredProducts = getfilteredProducts(sortedProducts, state)
+	const filteredCategories = getfilteredProducts(
+		sortedProducts,
+		state
+	)
+	const filteredProducts = getSearchedProducts(
+		filteredCategories,
+		search
+	)
 
 	return (
 		<ProductsContext.Provider
 			value={{
 				categories,
+				searchFilters,
 				categoriesLoading,
 				filteredProducts,
 				categoriesError,
