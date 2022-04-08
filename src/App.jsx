@@ -60,8 +60,12 @@ function App() {
 									/>
 									<Route
 										path='/products'
-										element={<ProductListScreen />}
-									/>
+										element={<ProductListScreen />}>
+										<Route
+											path=':pageNo'
+											element={<ProductScreen />}
+										/>
+									</Route>
 								</Routes>
 							</main>
 							<footer>

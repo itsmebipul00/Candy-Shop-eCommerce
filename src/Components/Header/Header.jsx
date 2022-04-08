@@ -58,7 +58,9 @@ export const Header = () => {
 	const location = useLocation()
 
 	const isProductListingPage =
-		location.pathname === '/products' ? true : false
+		location.pathname === '/products' || '/products/pageNo'
+			? true
+			: false
 
 	const isRegisterPage =
 		location.pathname === '/register' ? true : false

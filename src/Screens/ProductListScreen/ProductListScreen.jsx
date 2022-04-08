@@ -1,32 +1,35 @@
 // Components: Search, Pagination
 import './ProductListScreen.css'
-import { useContext } from 'react'
 import { Loader } from '../../Components/Loader/Loader.jsx'
 import { Error } from '../../Components/Error/Error.jsx'
 import { ProductCard } from '../../Components/ProductCard/ProductCard.jsx'
-import {
-	CartContext,
-	ProductsContext,
-	UserContext,
-	WishListContext,
-} from '../../context'
+
 import { isEmptyObject } from '../../utils/isEmptyObject'
 import { useNavigate } from 'react-router-dom'
+import { useProducts } from '../../actionProviders/productActions'
+import { useCart } from '../../actionProviders/cartActions'
+import { useWishList } from '../../actionProviders/wishListAction'
+import { useUser } from '../../actionProviders/userActions'
+import { useState } from 'react'
 // import { UserContext } from '../../context'
 
-const ProductListScreen = () => {
-	const { filteredProducts, productsLoading, productsError } =
-		useContext(ProductsContext)
+import { Pagination } from '../../Components/Pagination/Pagination.js'
 
+const ProductListScreen = () => {
 	const navigate = useNavigate()
 
-	const { addtoCartAction, cartItems, updateCartAction } =
-		useContext(CartContext)
+	const {
+		filteredProducts,
+		productsLoading,
+		productsError,
+		products,
+	} = useProducts()
 
-	const { toggleWishListAction, wishList } =
-		useContext(WishListContext)
+	const { addtoCartAction, cartItems, updateCartAction } = useCart()
 
-	const { userInfo } = useContext(UserContext)
+	const { toggleWishListAction, wishList } = useWishList()
+
+	const { userInfo } = useUser()
 
 	const isUserObjEmpty = isEmptyObject(userInfo)
 
@@ -56,30 +59,53 @@ const ProductListScreen = () => {
 		}
 	}
 
+	const productsPerPage = 10
+	const [thispage, setthisPage] = useState(1)
+
+	const lastProduct = thispage * productsPerPage
+	const firstProduct = lastProduct - productsPerPage
+	const currProducts =
+		filteredProducts &&
+		filteredProducts.length > 0 &&
+		filteredProducts.slice(firstProduct, lastProduct)
+
+	console.log(currProducts, products, lastProduct, firstProduct)
+
+	const paginate = pageNo => {
+		setthisPage(pageNo)
+		setTimeout(() => navigate(`/products/${pageNo}`))
+	}
+
 	// TODO: useContext whereever possible instead of passing these funcions down
 
 	return (
-		<div className='product-grid products-section-container'>
+		<div>
 			{productsLoading && <Loader />}
 			{productsError && <Error />}
-
-			{filteredProducts &&
-				filteredProducts.length > 0 &&
-				filteredProducts.map(p => (
-					<ProductCard
-						key={p.id}
-						_id={p._id}
-						addtocartHandler={addtocartHandler}
-						updateCartHandler={updateCartHandler}
-						image={p.image}
-						title={p.title}
-						price={p.price}
-						rating={p.rating}
-						toggleWishListAction={addtoWishCheck}
-						cartItems={cartItems}
-						wishList={wishList}
-					/>
-				))}
+			<div className='product-grid products-section-container'>
+				{currProducts &&
+					currProducts.length > 0 &&
+					currProducts.map(p => (
+						<ProductCard
+							key={p.id}
+							_id={p._id}
+							addtocartHandler={addtocartHandler}
+							updateCartHandler={updateCartHandler}
+							image={p.image}
+							title={p.title}
+							price={p.price}
+							rating={p.rating}
+							toggleWishListAction={addtoWishCheck}
+							cartItems={cartItems}
+							wishList={wishList}
+						/>
+					))}
+			</div>
+			<Pagination
+				productsPerPage={productsPerPage}
+				paginate={paginate}
+				productsLength={products.length}
+			/>
 		</div>
 	)
 }
