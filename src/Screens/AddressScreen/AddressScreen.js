@@ -39,21 +39,34 @@ const AddressScreen = () => {
 		})
 	}
 
-	console.log(addressData)
-
 	const handleSubmit = e => {
 		e.preventDefault()
-		const existAddress = addressData.findIndex(
-			add => add._id === addressData._id
-		)
-			? true
-			: false
-		console.log(existAddress)
-		// addressDispatcher({
-		// 	type: 'NEW_ADDRESS',
-		// 	payload: addressData,
-		// })
-		// setShowModal(false)
+
+		if (address.length > 0) {
+			const existAddress =
+				address.findIndex(add => add._id === addressData._id) === -1
+					? false
+					: true
+
+			if (existAddress) {
+				addressDispatcher({
+					type: 'UPDATE_ADDRESS',
+					payload: addressData,
+				})
+			} else {
+				addressDispatcher({
+					type: 'NEW_ADDRESS',
+					payload: addressData,
+				})
+			}
+		} else {
+			addressDispatcher({
+				type: 'NEW_ADDRESS',
+				payload: addressData,
+			})
+		}
+
+		setShowModal(false)
 	}
 
 	const handleDelete = id => {
@@ -65,14 +78,9 @@ const AddressScreen = () => {
 
 	const handleEdit = id => {
 		const editAddressData = address.find(add => add._id === id)
-		console.log(editAddressData)
 		setShowModal(true)
 		setAddressData(editAddressData)
 	}
-
-	// addressDispatcher({
-	// 	type: 'UPDATE_ADDRESS',
-	// })
 
 	return (
 		<div className='address-screen'>

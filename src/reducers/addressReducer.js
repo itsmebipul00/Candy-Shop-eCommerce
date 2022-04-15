@@ -10,7 +10,10 @@ export const addressReducer = (state, action) => {
 		case 'DELETE_ADDRESS':
 			return state.filter(add => add._id !== action.payload)
 		case 'UPDATE_ADDRESS':
-			return state
+			const trimmedState = state.filter(
+				add => add._id !== action.payload._id
+			)
+			return [...trimmedState, action.payload]
 		default:
 			return state
 	}
