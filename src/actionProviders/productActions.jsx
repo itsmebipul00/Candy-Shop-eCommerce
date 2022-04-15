@@ -169,20 +169,40 @@ const ProductsProvider = props => {
 		}
 	}
 
+	const productsPerPage = 8
+	const [thispage, setthisPage] = useState(1)
+
+	const getPaginatedProducts = (products, state) => {
+		const lastProduct = state * productsPerPage
+		const firstProduct = lastProduct - productsPerPage
+
+		if (products && products.length > 0) {
+			return products.slice(firstProduct, lastProduct)
+		}
+	}
+
 	const sortedProducts = getSortedData(products, state)
+
 	const filteredCategories = getfilteredProducts(
 		sortedProducts,
 		state
 	)
-	const filteredProducts = getSearchedProducts(
+	const searchedProducts = getSearchedProducts(
 		filteredCategories,
 		search
+	)
+
+	const filteredProducts = getPaginatedProducts(
+		searchedProducts,
+		thispage
 	)
 
 	return (
 		<ProductsContext.Provider
 			value={{
+				setthisPage,
 				categories,
+				productsPerPage,
 				searchFilters,
 				categoriesLoading,
 				filteredProducts,

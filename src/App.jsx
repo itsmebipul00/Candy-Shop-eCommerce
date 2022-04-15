@@ -14,6 +14,8 @@ import AddressScreen from './Screens/AddressScreen/AddressScreen.js'
 
 import { ProductsProvider } from './actionProviders/productActions'
 
+import { AddressProvider } from './actionProviders/addressProvider'
+
 import { WishListProvider } from './actionProviders/wishListAction'
 
 import { CartProvider } from './actionProviders/cartActions'
@@ -26,54 +28,54 @@ function App() {
 	return (
 		<ProductsProvider>
 			<UserProvider>
-				<WishListProvider>
-					<CartProvider>
-						<BrowserRouter>
-							<Header />
-							<main>
-								<Routes>
-									<Route path='/' element={<HomeScreen />} />
-									<Route path='/login' element={<LoginScreen />} />
-									<Route
-										path='/placeOrder'
-										element={<PlaceOrderScreen />}
-									/>
-									<Route
-										path='/product/:id'
-										element={<ProductScreen />}
-									/>
-									<Route path='/' element={<ProfileScreen />}>
-										<Route path='cart' element={<CartScreen />} />
-										<Route path='wishlist' element={<WishScreen />} />
+				<AddressProvider>
+					<WishListProvider>
+						<CartProvider>
+							<BrowserRouter>
+								<Header />
+								<main>
+									<Routes>
+										<Route path='/' element={<HomeScreen />} />
+										<Route path='/login' element={<LoginScreen />} />
 										<Route
-											path='userInfo'
-											element={<UserInfoScreen />}
+											path='/placeOrder'
+											element={<PlaceOrderScreen />}
 										/>
 										<Route
-											path='address'
-											element={<AddressScreen />}
-										/>
-									</Route>
-									<Route
-										path='/register'
-										element={<RegisterScreen />}
-									/>
-									<Route
-										path='/products'
-										element={<ProductListScreen />}>
-										<Route
-											path=':pageNo'
+											path='/product/:id'
 											element={<ProductScreen />}
 										/>
-									</Route>
-								</Routes>
-							</main>
-							<footer>
-								<Footer />
-							</footer>
-						</BrowserRouter>
-					</CartProvider>
-				</WishListProvider>
+										<Route path='/' element={<ProfileScreen />}>
+											<Route path='cart' element={<CartScreen />} />
+											<Route
+												path='wishlist'
+												element={<WishScreen />}
+											/>
+											<Route
+												path='userInfo'
+												element={<UserInfoScreen />}
+											/>
+											<Route
+												path='address'
+												element={<AddressScreen />}
+											/>
+										</Route>
+										<Route
+											path='/register'
+											element={<RegisterScreen />}
+										/>
+										<Route
+											path='/products'
+											element={<ProductListScreen />}></Route>
+									</Routes>
+								</main>
+								<footer>
+									<Footer />
+								</footer>
+							</BrowserRouter>
+						</CartProvider>
+					</WishListProvider>
+				</AddressProvider>
 			</UserProvider>
 		</ProductsProvider>
 	)

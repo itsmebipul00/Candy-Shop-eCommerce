@@ -35,3 +35,25 @@ export function IcTwotoneArrowCircleRight(props) {
 		</svg>
 	)
 }
+
+export function IcBaselineDeleteOutline(props) {
+	return (
+		<svg width='1em' height='1em' viewBox='0 0 24 24' {...props}>
+			<title>delete</title>
+			<path
+				fill='currentColor'
+				d='M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z'></path>
+		</svg>
+	)
+}
+
+export function IcOutlineModeEdit(props) {
+	return (
+		<svg width='1em' height='1em' viewBox='0 0 24 24' {...props}>
+			<title>Edit</title>
+			<path
+				fill='currentColor'
+				d='M3 21h3.75L17.81 9.94l-3.75-3.75L3 17.25V21zm2-2.92l9.06-9.06l.92.92L5.92 19H5v-.92zM18.37 3.29a.996.996 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83a.996.996 0 0 0 0-1.41l-2.34-2.34z'></path>
+		</svg>
+	)
+}

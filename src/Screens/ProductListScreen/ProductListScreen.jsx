@@ -10,7 +10,6 @@ import { useProducts } from '../../actionProviders/productActions'
 import { useCart } from '../../actionProviders/cartActions'
 import { useWishList } from '../../actionProviders/wishListAction'
 import { useUser } from '../../actionProviders/userActions'
-import { useState } from 'react'
 // import { UserContext } from '../../context'
 
 import { Pagination } from '../../Components/Pagination/Pagination.js'
@@ -22,10 +21,12 @@ const ProductListScreen = () => {
 		filteredProducts,
 		productsLoading,
 		productsError,
+		productsPerPage,
+		setthisPage,
 		products,
 	} = useProducts()
 
-	const { addtoCartAction, cartItems, updateCartAction } = useCart()
+	const { addtoCartAction, cartItems } = useCart()
 
 	const { toggleWishListAction, wishList } = useWishList()
 
@@ -45,12 +46,6 @@ const ProductListScreen = () => {
 		}
 	}
 
-	const updateCartHandler = (e, id) => {
-		e.preventDefault()
-		const { value } = e.target
-		updateCartAction(value, id, e)
-	}
-
 	const addtoWishCheck = product => {
 		if (isUserObjEmpty) {
 			navigate('/login')
@@ -59,21 +54,8 @@ const ProductListScreen = () => {
 		}
 	}
 
-	const productsPerPage = 10
-	const [thispage, setthisPage] = useState(1)
-
-	const lastProduct = thispage * productsPerPage
-	const firstProduct = lastProduct - productsPerPage
-	const currProducts =
-		filteredProducts &&
-		filteredProducts.length > 0 &&
-		filteredProducts.slice(firstProduct, lastProduct)
-
-	console.log(currProducts, products, lastProduct, firstProduct)
-
 	const paginate = pageNo => {
 		setthisPage(pageNo)
-		setTimeout(() => navigate(`/products/${pageNo}`))
 	}
 
 	// TODO: useContext whereever possible instead of passing these funcions down
@@ -83,14 +65,14 @@ const ProductListScreen = () => {
 			{productsLoading && <Loader />}
 			{productsError && <Error />}
 			<div className='product-grid products-section-container'>
-				{currProducts &&
-					currProducts.length > 0 &&
-					currProducts.map(p => (
+				{filteredProducts &&
+					filteredProducts.length > 0 &&
+					filteredProducts.map(p => (
 						<ProductCard
+							product={p}
 							key={p.id}
 							_id={p._id}
 							addtocartHandler={addtocartHandler}
-							updateCartHandler={updateCartHandler}
 							image={p.image}
 							title={p.title}
 							price={p.price}
