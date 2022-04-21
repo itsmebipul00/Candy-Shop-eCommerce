@@ -56,6 +56,12 @@ header {
 	display: inline;
 }
 
+.notification::after{
+	inset: -0.25rem 1.5rem;
+    z-index: 1;
+	content: attr(data-qty);
+}
+
 @media only screen and (min-width: 40em) {
 	.filters {
 		width: 80vw;

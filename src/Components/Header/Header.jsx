@@ -65,6 +65,12 @@ export const Header = () => {
 
 	const isLoginPage = location.pathname === '/login' ? true : false
 
+	const { wishList } = useWishList()
+
+	const { cartItems } = useCart()
+
+	const cartQty = cartItems?.reduce((acc, val) => val.qty + acc, 0)
+
 	return (
 		<>
 			{isRegisterPage ? (
@@ -113,18 +119,30 @@ export const Header = () => {
 
 								<NavLink
 									to='/wishlist'
+									className=' wish-icon p-relative'
 									state={{ form: location.pathname }}>
 									<LogoProvider>
 										<AiOutlineHeart value={wishlistIconStyle} />
 									</LogoProvider>
+									{wishList?.length > 0 && (
+										<span
+											data-qty={wishList.length}
+											className='notification notification-color-green'></span>
+									)}
 								</NavLink>
 
 								<NavLink
 									to='/cart'
+									className=' cart-icon p-relative'
 									state={{ form: location.pathname }}>
 									<LogoProvider>
 										<AiOutlineShoppingCart value={cartIconStyle} />
 									</LogoProvider>
+									{cartQty > 0 && (
+										<span
+											data-qty={cartQty}
+											className='notification notification-color-green'></span>
+									)}
 								</NavLink>
 
 								{isProductListingPage && <Filters />}
