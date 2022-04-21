@@ -36,7 +36,7 @@ export const categories = [
 	},
 	{
 		_id: '907def56-7a4b-49c6-a091-68360cf48fd3',
-		categoryName: 'lollipops',
+		categoryName: 'lollipop',
 		image: '/images/Whoa-ter-Melon-Lollipop.webp',
 	},
 	{

@@ -11,25 +11,18 @@ import { useCart } from '../../actionProviders/cartActions'
 const CartScreen = () => {
 	const { toggleWishListAction, wishList } = useWishList()
 
-	const {
-		addtoCartAction,
-		updateCartAction,
-		cartItems,
-		removeFromCartAction,
-	} = useCart()
+	const { addtoCartAction, cartItems, removeFromCartAction } =
+		useCart()
 
-	const updateCartHandler = (e, id) => {
-		e.preventDefault()
-		const { value } = e.target
-		updateCartAction(value, id, e)
-	}
+	const totalItems =
+		cartItems && cartItems.length > 0
+			? cartItems.reduce((sum, cv) => sum + cv.qty, 0)
+			: 0
 
-	const totalItems = cartItems.reduce((sum, cv) => sum + cv.qty, 0)
-
-	const totalPrice = cartItems.reduce(
-		(sum, cv) => sum + cv.price * cv.qty,
-		0
-	)
+	const totalPrice =
+		cartItems && cartItems.length > 0
+			? cartItems.reduce((sum, cv) => sum + cv.price * cv.qty, 0)
+			: 0
 
 	const updateWishList = pro => {
 		removeFromCartAction(pro._id)
@@ -43,10 +36,10 @@ const CartScreen = () => {
 					cartItems.length > 0 &&
 					cartItems.map(p => (
 						<ProductCard
+							product={p}
 							key={p._id}
 							_id={p._id}
 							addtoCartAction={addtoCartAction}
-							updateCartHandler={updateCartHandler}
 							image={p.image}
 							title={p.title}
 							price={p.price}

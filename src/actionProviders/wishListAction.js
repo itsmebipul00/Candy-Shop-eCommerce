@@ -34,9 +34,9 @@ const WishListProvider = props => {
 
 	const toggleWishListAction = async product => {
 		const itemExists =
-			wishList.findIndex(x => x._id === product._id) === -1
-				? false
-				: true
+			wishList &&
+			wishList.length > 0 &&
+			wishList.find(x => x._id === product._id)
 
 		if (itemExists) {
 			try {

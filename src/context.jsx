@@ -8,4 +8,12 @@ const WishListContext = createContext()
 
 const CartContext = createContext()
 
-export { ProductsContext, UserContext, WishListContext, CartContext }
+const AddressContext = createContext()
+
+export {
+	ProductsContext,
+	UserContext,
+	WishListContext,
+	CartContext,
+	AddressContext,
+}

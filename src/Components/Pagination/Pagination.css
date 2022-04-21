@@ -1,0 +1,20 @@
+.pagination-nos{
+    background-color: hsl(var(--clr-blue));
+    padding: 0.5rem 1rem;
+    width: fit-content;
+   
+}
+
+.pagination-nos > *{
+    border-right: 2px solid hsl(var(--clr-red));
+    padding: 1rem;
+}
+
+.pagination-nos > *:last-of-type{
+    border: 0;
+}
+
+.page-link{
+    border: 0;
+    background-color: inherit;
+}
