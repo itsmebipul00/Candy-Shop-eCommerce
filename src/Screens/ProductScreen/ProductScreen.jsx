@@ -66,8 +66,6 @@ const ProductScreen = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	console.log(product.rating)
-
 	const { userInfo } = useUser()
 
 	const navigate = useNavigate()

@@ -15,13 +15,9 @@ import { useRef } from 'react'
 const HomeScreen = () => {
 	const navigate = useNavigate()
 
-	const { categories, filteredProducts, handleCategories, state } =
-		useProducts()
-
-	console.log(categories, filteredProducts)
+	const { categories, handleCategories, state } = useProducts()
 
 	const gotoProducts = (name, checked) => {
-		console.log(name, checked)
 		handleCategories(name, checked)
 		setTimeout(() => navigate('/products'), 500)
 	}

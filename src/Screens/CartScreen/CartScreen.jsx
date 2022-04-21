@@ -36,6 +36,7 @@ const CartScreen = () => {
 					cartItems.length > 0 &&
 					cartItems.map(p => (
 						<ProductCard
+							product={p}
 							key={p._id}
 							_id={p._id}
 							addtoCartAction={addtoCartAction}

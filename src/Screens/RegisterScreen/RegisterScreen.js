@@ -25,8 +25,6 @@ const RegisterScreen = () => {
 
 	const navigate = useNavigate()
 
-	console.log(userInfo, setUserAction)
-
 	const handleLoginSubmit = async event => {
 		event.preventDefault()
 		if (

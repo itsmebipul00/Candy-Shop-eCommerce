@@ -10,7 +10,6 @@ import { useProducts } from '../../actionProviders/productActions'
 import { useCart } from '../../actionProviders/cartActions'
 import { useWishList } from '../../actionProviders/wishListAction'
 import { useUser } from '../../actionProviders/userActions'
-// import { UserContext } from '../../context'
 
 import { Pagination } from '../../Components/Pagination/Pagination.js'
 
@@ -26,7 +25,8 @@ const ProductListScreen = () => {
 		products,
 	} = useProducts()
 
-	const { addtoCartAction, cartItems } = useCart()
+	const { addtoCartAction, cartItems, removeFromCartAction } =
+		useCart()
 
 	const { toggleWishListAction, wishList } = useWishList()
 
@@ -36,6 +36,12 @@ const ProductListScreen = () => {
 
 	const addtocartHandler = (e, id) => {
 		e.preventDefault()
+
+		const cartInWish = wishList.find(pro => pro._id === id)
+
+		if (Boolean(cartInWish)) {
+			toggleWishListAction(cartInWish)
+		}
 		if (isUserObjEmpty) {
 			navigate('/login')
 		} else {
@@ -47,6 +53,12 @@ const ProductListScreen = () => {
 	}
 
 	const addtoWishCheck = product => {
+		const wishInCart = cartItems.find(pro => pro._id === product._id)
+
+		if (Boolean(wishInCart)) {
+			removeFromCartAction(wishInCart._id)
+		}
+
 		if (isUserObjEmpty) {
 			navigate('/login')
 		} else {

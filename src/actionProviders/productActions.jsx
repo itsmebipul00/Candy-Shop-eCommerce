@@ -70,16 +70,15 @@ const ProductsProvider = props => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	// Better approach is to take categories from category state as initailState --- will do later
+	const categoryNames = categories.map(cat => cat.categoryName)
+
+	const categoriesState = categoryNames.reduce(
+		(acc, val) => ({ ...acc, [val]: false }),
+		{}
+	)
+
 	const initailState = {
-		marshmello: false,
-		chocolates: false,
-		darkChocolate: false,
-		fizzy: false,
-		gummies: false,
-		jellies: false,
-		lollipop: false,
-		rasberry: false,
+		...categoriesState,
 		sort: '',
 		rating: '',
 	}

@@ -119,7 +119,7 @@ export const products = [
 		title: 'WaterMelon Lollipop',
 		image: '/images/Whoa-ter-Melon-Lollipop.webp',
 		price: '70',
-		categoryName: 'lollipops',
+		categoryName: 'lollipop',
 		countInStock: 5,
 		rating: 1.5,
 		description:
@@ -130,7 +130,7 @@ export const products = [
 		title: 'TOTTI FRUTI',
 		image: '/images/TuttiFrutty.webp',
 		price: '70',
-		categoryName: 'lollipops',
+		categoryName: 'lollipop',
 		countInStock: 5,
 		rating: 4.5,
 		description:

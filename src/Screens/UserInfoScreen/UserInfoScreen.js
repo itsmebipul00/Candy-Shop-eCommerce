@@ -9,8 +9,6 @@ const UserInfoScreen = () => {
 		},
 	} = useUser()
 
-	console.log(username, email)
-
 	return (
 		<section className='userInfo-wrapper'>
 			<div className='userInfo'>

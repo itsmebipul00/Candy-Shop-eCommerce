@@ -44,7 +44,6 @@ const WishScreen = () => {
 	}
 
 	const addtoWishCheck = product => {
-		console.log(product)
 		if (isUserObjEmpty) {
 			navigate('/login')
 		} else {

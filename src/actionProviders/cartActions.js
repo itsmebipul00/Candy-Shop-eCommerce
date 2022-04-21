@@ -66,13 +66,10 @@ const CartProvider = props => {
 	}
 
 	const updateCartAction = async (val, id, e, pathname) => {
-		console.log(pathname)
 		if (pathname === '/products' || pathname === '/cart') {
 			e.preventDefault()
 		}
-		console.log(val, id, e)
 		const cartItem = cartItems.find(item => item._id === id)
-		console.log(cartItem)
 
 		if (val === 'decrement') {
 			if (cartItem.qty === 1) {

@@ -15,7 +15,6 @@ export const Pagination = ({
 		pageNumbers.push(i)
 	}
 
-	console.log(pageNumbers)
 	return (
 		<nav className='pagination'>
 			<ul className='pagination-nos d-flex'>

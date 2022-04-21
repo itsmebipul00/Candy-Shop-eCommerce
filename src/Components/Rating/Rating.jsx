@@ -8,7 +8,6 @@ const BsStarHalfed = () => <BsStarHalf fill={fillColor} />
 const BsStared = () => <BsStar />
 
 export const Rating = ({ value }) => {
-	console.log(value)
 	return (
 		<span className='rating'>
 			{value >= 1 ? (

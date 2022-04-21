@@ -1,5 +1,4 @@
 export const addressReducer = (state, action) => {
-	console.log(state, state.length)
 	switch (action.type) {
 		case 'NEW_ADDRESS':
 			if (state.length > 0) {
