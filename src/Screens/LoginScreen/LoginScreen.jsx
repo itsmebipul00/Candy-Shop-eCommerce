@@ -28,6 +28,7 @@ const LoginScreen = () => {
 
 	const handleRegisterSubmit = async e => {
 		e.preventDefault()
+		console.log(e)
 		try {
 			const resLogin = await axios.post('/api/auth/login', {
 				email: loginFormData.email,
@@ -57,6 +58,15 @@ const LoginScreen = () => {
 				[name]: type === 'checkbox' ? checked : value,
 			}
 		})
+	}
+
+	const handleGuest = e => {
+		setLoginFormData({
+			email: 'itsmebipul00@gmail.com',
+			password: 'itsmebipul00@gmail.com',
+		})
+
+		setTimeout(() => handleRegisterSubmit(e), 1000)
 	}
 
 	return (
@@ -130,6 +140,12 @@ const LoginScreen = () => {
 				<Link to='/register' state={{ form: location.pathname }}>
 					Register
 				</Link>
+			</p>
+			<p>
+				<span>Hello, Guest?</span>
+				<button className='btn btn-guest' onClick={handleGuest}>
+					Guest Login
+				</button>
 			</p>
 		</form>
 	)

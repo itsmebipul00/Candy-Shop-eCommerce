@@ -41,13 +41,13 @@ header {
 
 .input-search {
 	width: 100%;
-	border: 2px solid hsl(var(---clr-dark));
-	padding: 0.25rem;
+	border: 2px solid hsl(var(--clr-dark));
+	padding: 0.35rem;
 }
 
 .search-icon {
 	position: absolute;
-	inset: 0% 0% 0% 0%;
+	inset: 5% 0% 0% 0%;
 	margin: 0 1rem 0 auto;
 }
 

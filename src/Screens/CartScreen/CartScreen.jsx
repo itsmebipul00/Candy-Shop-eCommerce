@@ -2,13 +2,18 @@ import './CartScreen.css'
 
 import { ProductCard } from '../../Components/ProductCard/ProductCard'
 
-import { MdiTagOutline } from '../../assets/Icons/Logo'
-
 import { useWishList } from '../../actionProviders/wishListAction'
 
 import { useCart } from '../../actionProviders/cartActions'
+import { useNavigate, useLocation } from 'react-router-dom'
+
+// import { useState } from 'react'
 
 const CartScreen = () => {
+	const navigate = useNavigate()
+
+	const location = useLocation()
+
 	const { toggleWishListAction, wishList } = useWishList()
 
 	const { addtoCartAction, cartItems, removeFromCartAction } =
@@ -28,6 +33,8 @@ const CartScreen = () => {
 		removeFromCartAction(pro._id)
 		toggleWishListAction(pro)
 	}
+
+	const disabledBtn = cartItems.length < 1 ? true : false
 
 	return (
 		<section>
@@ -52,13 +59,19 @@ const CartScreen = () => {
 			</div>
 			<div className='cart-summary'>
 				<p className='subtotal fs-600 '>
-					SUBTOTAL ({totalItems}) Items :{' '}
+					SUBTOTAL({totalItems}) Items: ${totalPrice}
 				</p>
-				<span className='apply-cupons'>
-					Apply Cupons
-					<MdiTagOutline width='1.25rem' height='1.25rem' />
-				</span>
-				<p className='checkout-price'>Pay : {totalPrice} </p>
+
+				<button
+					disabled={disabledBtn}
+					onClick={() =>
+						navigate('/address', {
+							state: { from: location.pathname },
+						})
+					}
+					className='checkout-price'>
+					Checkout{' '}
+				</button>
 			</div>
 		</section>
 	)

@@ -2,6 +2,8 @@ import { v4 as uuid } from 'uuid'
 
 import { useState } from 'react'
 
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+
 import { NewAddressDialog } from '../../Components/NewAddressDialog/NewAddressDialog.js'
 
 import { useAddress } from '../../actionProviders/addressProvider.js'
@@ -9,6 +11,7 @@ import { useAddress } from '../../actionProviders/addressProvider.js'
 import {
 	IcBaselineDeleteOutline,
 	IcOutlineModeEdit,
+	TeenyiconsTickCircleOutline,
 } from '../../assets/Icons/Logo'
 
 import './AddressScreen.css'
@@ -16,7 +19,14 @@ import './AddressScreen.css'
 const AddressScreen = () => {
 	const [showModal, setShowModal] = useState(false)
 
-	const { address, addressDispatcher } = useAddress()
+	const location = useLocation()
+
+	const {
+		address,
+		addressDispatcher,
+		setDeliveryAddress,
+		deliveryAddress,
+	} = useAddress()
 
 	const initialData = {
 		_id: uuid(),
@@ -26,6 +36,8 @@ const AddressScreen = () => {
 	}
 
 	const [addressData, setAddressData] = useState()
+
+	const navigate = useNavigate()
 
 	const handleNewAddress = () => {
 		setShowModal(true)
@@ -69,11 +81,18 @@ const AddressScreen = () => {
 		setShowModal(false)
 	}
 
+	const handleSelectAddress = add => {
+		setDeliveryAddress(add)
+	}
+
 	const handleDelete = id => {
 		addressDispatcher({
 			type: 'DELETE_ADDRESS',
 			payload: id,
 		})
+		if (id === deliveryAddress._id) {
+			setDeliveryAddress(undefined)
+		}
 	}
 
 	const handleEdit = id => {
@@ -82,11 +101,24 @@ const AddressScreen = () => {
 		setAddressData(editAddressData)
 	}
 
+	const handlePlaceOrder = () => {
+		navigate('/payment')
+	}
+
+	console.log(deliveryAddress)
+
 	return (
 		<div className='address-screen'>
-			<button className='btn-address' onClick={handleNewAddress}>
-				New Address
-			</button>
+			<div className='address-screens-ctas'>
+				{location.state.from === '/cart' && deliveryAddress && (
+					<button className='btn-address' onClick={handlePlaceOrder}>
+						Place Order
+					</button>
+				)}
+				<button className='btn-address' onClick={handleNewAddress}>
+					New Address
+				</button>
+			</div>
 			<NewAddressDialog
 				showModal={showModal}
 				setShowModal={setShowModal}
@@ -94,23 +126,32 @@ const AddressScreen = () => {
 				handleSubmit={handleSubmit}
 				handleChange={handleChange}
 			/>
+
 			<section className='user-address-details'>
 				{address.map((add, idx) => (
 					<div key={idx} className='individual-address'>
+						{deliveryAddress?._id === add?._id ? (
+							<TeenyiconsTickCircleOutline
+								onClick={() => handleSelectAddress(add)}
+								className='select-address-icon'
+								stroke='green'
+							/>
+						) : (
+							<TeenyiconsTickCircleOutline
+								onClick={() => handleSelectAddress(add)}
+								className='select-address-icon'
+								stroke='currentColor'
+							/>
+						)}
 						<div className='adddress-screen-icons'>
 							<button onClick={() => handleDelete(add._id)}>
 								<IcBaselineDeleteOutline
-									stroke='red'
-									width='2rem'
-									height='2rem'
+									width='1.5rem'
+									height='1.5rem'
 								/>
 							</button>
 							<button onClick={() => handleEdit(add._id)}>
-								<IcOutlineModeEdit
-									stroke='blue'
-									width='2rem'
-									height='2rem'
-								/>
+								<IcOutlineModeEdit width='1.5rem' height='1.5rem' />
 							</button>
 						</div>
 

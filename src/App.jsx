@@ -11,6 +11,7 @@ import ProductScreen from './Screens/ProductScreen/ProductScreen'
 import WishScreen from './Screens/WishScreen/WishScreen.js'
 import UserInfoScreen from './Screens/UserInfoScreen/UserInfoScreen.js'
 import AddressScreen from './Screens/AddressScreen/AddressScreen.js'
+import OrdersScreen from './Screens/OrdersScreen/OrdersScreen.js'
 
 import { ProductsProvider } from './actionProviders/productActions'
 
@@ -21,8 +22,11 @@ import { WishListProvider } from './actionProviders/wishListAction'
 import { CartProvider } from './actionProviders/cartActions'
 import { UserProvider } from './actionProviders/userActions'
 
+import { OrdersProvider } from './actionProviders/ordersActions'
+
 import { Header } from './Components/Header/Header'
 import { Footer } from './Components/Footer/Footer'
+import PaymentScreen from './Screens/PaymentScreen/PaymentScreen'
 
 function App() {
 	return (
@@ -31,15 +35,15 @@ function App() {
 				<AddressProvider>
 					<WishListProvider>
 						<CartProvider>
-							<BrowserRouter>
-								<Header />
-								<main>
+							<OrdersProvider>
+								<BrowserRouter>
+									<Header />
 									<Routes>
 										<Route path='/' element={<HomeScreen />} />
 										<Route path='/login' element={<LoginScreen />} />
 										<Route
-											path='/placeOrder'
-											element={<PlaceOrderScreen />}
+											path='/payment'
+											element={<PaymentScreen />}
 										/>
 										<Route
 											path='/product/:id'
@@ -59,6 +63,14 @@ function App() {
 												path='address'
 												element={<AddressScreen />}
 											/>
+											<Route
+												path='/placeorder'
+												element={<PlaceOrderScreen />}
+											/>
+											<Route
+												path='/orders'
+												element={<OrdersScreen />}
+											/>
 										</Route>
 										<Route
 											path='/register'
@@ -68,11 +80,11 @@ function App() {
 											path='/products'
 											element={<ProductListScreen />}></Route>
 									</Routes>
-								</main>
-								<footer>
-									<Footer />
-								</footer>
-							</BrowserRouter>
+									<footer>
+										<Footer />
+									</footer>
+								</BrowserRouter>
+							</OrdersProvider>
 						</CartProvider>
 					</WishListProvider>
 				</AddressProvider>

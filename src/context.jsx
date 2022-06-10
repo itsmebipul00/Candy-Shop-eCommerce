@@ -10,10 +10,13 @@ const CartContext = createContext()
 
 const AddressContext = createContext()
 
+const OrdersContext = createContext()
+
 export {
 	ProductsContext,
 	UserContext,
 	WishListContext,
 	CartContext,
 	AddressContext,
+	OrdersContext,
 }

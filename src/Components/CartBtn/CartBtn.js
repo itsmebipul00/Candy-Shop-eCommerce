@@ -23,10 +23,11 @@ export const CartBtn = props => {
 			? cartItems.find(item => item._id === props._id)
 			: false
 
+	console.log(props.className)
 	return (
 		<>
 			{iscartPage ? (
-				<span className='btn btn-updateCart uppercase btn'>
+				<span className={`btn btn-updateCart uppercase `}>
 					<button
 						className='subBtn subBtn-addtocart'
 						value='increment'
@@ -64,7 +65,8 @@ export const CartBtn = props => {
 					Already In Cart
 				</button>
 			) : cartItem?.qty > 0 ? (
-				<span className='btn btn-updateCart uppercase btn'>
+				<span
+					className={`btn btn-updateCart uppercase ${props.className}`}>
 					<button
 						className='subBtn subBtn-addtocart'
 						value='increment'

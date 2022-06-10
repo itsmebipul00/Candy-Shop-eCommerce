@@ -27,8 +27,12 @@ import { categories } from './backend/db/categories'
 import { products } from './backend/db/products'
 import { users } from './backend/db/users'
 
+import {
+	addOrderToOrdersHandler,
+	getOrdersHandler,
+} from './backend/controllers/OrderController'
+
 export function makeServer({ environment = 'development' } = {}) {
-	
 	return new Server({
 		serializers: {
 			application: RestSerializer,
@@ -100,6 +104,9 @@ export function makeServer({ environment = 'development' } = {}) {
 				'/user/wishlist/:productId',
 				removeItemFromWishlistHandler.bind(this)
 			)
+
+			this.get('/user/order', getOrdersHandler.bind(this))
+			this.post('/user/order', addOrderToOrdersHandler.bind(this))
 		},
 	})
 }

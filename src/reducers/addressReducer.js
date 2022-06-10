@@ -13,6 +13,7 @@ export const addressReducer = (state, action) => {
 				add => add._id !== action.payload._id
 			)
 			return [...trimmedState, action.payload]
+
 		default:
 			return state
 	}

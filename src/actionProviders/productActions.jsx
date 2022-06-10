@@ -77,10 +77,14 @@ const ProductsProvider = props => {
 		{}
 	)
 
+	console.log(categoriesState)
+
 	const initailState = {
 		...categoriesState,
 		sort: '',
 		rating: '',
+		minPriceVal: 0,
+		maxPriceVal: 500,
 	}
 
 	const [state, filterDispatch] = useReducer(
@@ -101,6 +105,14 @@ const ProductsProvider = props => {
 			type: 'FILTER_CATEGORIES',
 			feild: name,
 			payload: checked,
+		})
+	}
+
+	const handlePriceChange = (minP, maxP) => {
+		filterDispatch({
+			type: 'FILTER_PRICES',
+			minPrice: minP,
+			maxPrice: maxP,
 		})
 	}
 
@@ -154,16 +166,12 @@ const ProductsProvider = props => {
 		} else return products
 	}
 
-	const [search, setSearch] = useState('')
-
-	const searchFilters = val => {
-		setSearch(() => val)
-	}
-
-	const getSearchedProducts = (products, state) => {
+	const getFilteredPrices = (products, state) => {
 		if (products && products.length > 0) {
-			return products.filter(pro =>
-				pro.title.toLowerCase().includes(state)
+			return products.filter(
+				pro =>
+					Number(pro.price) >= Number(state.minPriceVal) &&
+					Number(pro.price) <= Number(state.maxPriceVal)
 			)
 		}
 	}
@@ -186,13 +194,11 @@ const ProductsProvider = props => {
 		sortedProducts,
 		state
 	)
-	const searchedProducts = getSearchedProducts(
-		filteredCategories,
-		search
-	)
+
+	const filteredPrices = getFilteredPrices(filteredCategories, state)
 
 	const filteredProducts = getPaginatedProducts(
-		searchedProducts,
+		filteredPrices,
 		thispage
 	)
 
@@ -202,7 +208,6 @@ const ProductsProvider = props => {
 				setthisPage,
 				categories,
 				productsPerPage,
-				searchFilters,
 				categoriesLoading,
 				filteredProducts,
 				categoriesError,
@@ -211,6 +216,7 @@ const ProductsProvider = props => {
 				handleSorting,
 				handleCategories,
 				resetFilters,
+				handlePriceChange,
 				products,
 			}}>
 			{props.children}
