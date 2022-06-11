@@ -41,9 +41,7 @@ const LoginScreen = () => {
 			setUserAction(dataLogin)
 
 			navigate(-1)
-		} catch (error) {
-			console.log('LOGIN FAILED TOAST')
-		}
+		} catch (error) {}
 	}
 
 	const handleChange = event => {
@@ -57,6 +55,15 @@ const LoginScreen = () => {
 				[name]: type === 'checkbox' ? checked : value,
 			}
 		})
+	}
+
+	const handleGuest = e => {
+		setLoginFormData({
+			email: 'itsmebipul00@gmail.com',
+			password: 'itsmebipul00@gmail.com',
+		})
+
+		setTimeout(() => handleRegisterSubmit(e), 1000)
 	}
 
 	return (
@@ -130,6 +137,12 @@ const LoginScreen = () => {
 				<Link to='/register' state={{ form: location.pathname }}>
 					Register
 				</Link>
+			</p>
+			<p>
+				<span>Hello, Guest?</span>
+				<button className='btn btn-guest' onClick={handleGuest}>
+					Guest Login
+				</button>
 			</p>
 		</form>
 	)

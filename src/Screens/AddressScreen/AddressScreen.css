@@ -1,0 +1,57 @@
+
+.address-screen{
+    height: 100%;
+}
+
+.btn-address{
+    padding: 1rem 2rem;
+    background-color: hsl(var(--clr-dark));
+    color: hsl(var(--clr-white));
+    border: 0;
+    display: flex;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+
+.user-address-details{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5rem;
+    /* gap: 1rem; */
+}
+
+.individual-address{
+    background: hsl(var(--clr-light));
+    color: hsl(var(--clr-dark));
+    padding: 2rem 6rem;
+    margin: 1rem;
+    position: relative;
+}
+
+.adddress-screen-icons{
+    margin-bottom: 0.5rem;
+}
+
+.adddress-screen-icons > svg{
+    display: inline-block;
+}
+
+.adddress-screen-icons > button{
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+}
+
+.select-address-icon{
+    position: absolute;
+    inset: 5% 0% 0% 90%;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.address-screens-ctas{
+    display: flex;
+    justify-content: flex-end;
+}

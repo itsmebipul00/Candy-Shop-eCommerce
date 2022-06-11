@@ -1,22 +1,19 @@
 import { Link } from 'react-router-dom'
 import { Rating } from '../../Components/Rating/Rating.jsx'
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import './ProductCard.css'
-import { useLocation } from 'react-router-dom'
+
+import { CartBtn } from '../CartBtn/CartBtn.js'
+
+import { WishListBtn } from '../WishListBtn/WishListBtn'
+
+import { useCart } from '../../actionProviders/cartActions.js'
 
 export const ProductCard = props => {
-	const location = useLocation()
-
-	const iscartPage = location.pathname === '/cart' ? true : false
+	const { cartItems } = useCart()
 
 	const cartItem =
-		props.cartItems && props.cartItems.length > 0
-			? props.cartItems.find(item => item._id === props._id)
-			: false
-
-	const isInWishList =
-		props.wishList && props.wishList.length > 0
-			? props.wishList.find(item => item._id === props._id)
+		cartItems && cartItems.length > 0
+			? cartItems.find(item => item._id === props._id)
 			: false
 
 	return (
@@ -30,47 +27,10 @@ export const ProductCard = props => {
 					className='card__img'
 				/>
 
-				{iscartPage ? (
-					<span className='btn btn-updateCart uppercase btn'>
-						<button
-							className='subBtn subBtn-addtocart'
-							value='increment'
-							onClick={e => props.updateCartHandler(e, props._id)}>
-							+
-						</button>
-
-						<span>{cartItem.qty}</span>
-						<button
-							value='decrement'
-							className='subBtn subBtn-removeFromCart'
-							onClick={e => props.updateCartHandler(e, props._id)}>
-							-
-						</button>
-					</span>
-				) : cartItem && cartItem.qty > 0 ? (
-					<span className='btn btn-updateCart uppercase btn'>
-						<button
-							className='subBtn subBtn-addtocart'
-							value='increment'
-							onClick={e => props.updateCartHandler(e, props._id)}>
-							+
-						</button>
-
-						<span>{cartItem.qty}</span>
-						<button
-							value='decrement'
-							className='subBtn subBtn-removeFromCart'
-							onClick={e => props.updateCartHandler(e, props._id)}>
-							-
-						</button>
-					</span>
-				) : (
-					<button
-						className='btn btn-addtocart uppercase letter-spacing-5 fs-400'
-						onClick={e => props.addtocartHandler(e, props._id)}>
-						Add to cart
-					</button>
-				)}
+				<CartBtn
+					_id={props._id}
+					addtocartHandler={props.addtocartHandler}
+				/>
 			</Link>
 			<div className='card__content d-flex'>
 				<div className=' f-col'>
@@ -87,15 +47,12 @@ export const ProductCard = props => {
 					</p>
 					<Rating value={props.rating} />
 				</div>
-				<button
-					onClick={() => props.toggleWishListAction(props)}
-					className='btn-wishlist'>
-					{isInWishList ? (
-						<AiFillHeart style={{ fontSize: '2rem' }} />
-					) : (
-						<AiOutlineHeart style={{ fontSize: '2rem' }} />
-					)}
-				</button>
+
+				<WishListBtn
+					_id={props._id}
+					toggleWishListAction={props.toggleWishListAction}
+					product={props.product}
+				/>
 			</div>
 		</div>
 	)

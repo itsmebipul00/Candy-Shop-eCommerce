@@ -17,6 +17,10 @@
     margin-bottom: 0.5rem;
 }
 
+.checkout-price{
+    border: 0;
+}
+
 .apply-cupons{
     background-color: hsl(var(--clr-blue));
     padding: 0.25rem 1rem;

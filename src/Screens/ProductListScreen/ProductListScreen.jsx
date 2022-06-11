@@ -1,31 +1,32 @@
 // Components: Search, Pagination
 import './ProductListScreen.css'
-
 import { Loader } from '../../Components/Loader/Loader.jsx'
-
 import { Error } from '../../Components/Error/Error.jsx'
-
 import { ProductCard } from '../../Components/ProductCard/ProductCard.jsx'
 
 import { isEmptyObject } from '../../utils/isEmptyObject'
-
 import { useNavigate } from 'react-router-dom'
-
 import { useProducts } from '../../actionProviders/productActions'
-
 import { useCart } from '../../actionProviders/cartActions'
-
 import { useWishList } from '../../actionProviders/wishListAction'
-
 import { useUser } from '../../actionProviders/userActions'
 
-const ProductListScreen = () => {
-	const { filteredProducts, productsLoading, productsError } =
-		useProducts()
+import { Pagination } from '../../Components/Pagination/Pagination.js'
 
+const ProductListScreen = () => {
 	const navigate = useNavigate()
 
-	const { addtoCartAction, cartItems, updateCartAction } = useCart()
+	const {
+		filteredProducts,
+		productsLoading,
+		productsError,
+		productsPerPage,
+		setthisPage,
+		products,
+	} = useProducts()
+
+	const { addtoCartAction, cartItems, removeFromCartAction } =
+		useCart()
 
 	const { toggleWishListAction, wishList } = useWishList()
 
@@ -35,56 +36,70 @@ const ProductListScreen = () => {
 
 	const addtocartHandler = (e, id) => {
 		e.preventDefault()
+
+		const cartInWish = wishList.find(pro => pro._id === id)
+
+		if (Boolean(cartInWish)) {
+			toggleWishListAction(cartInWish)
+		}
 		if (isUserObjEmpty) {
 			navigate('/login')
 		} else {
 			const cartItem = filteredProducts.find(
 				product => product._id === id
 			)
-
-			const iteminCart =
-				cartItems.findIndex(item => item._id === id) === -1
-					? false
-					: true
-
-			if (iteminCart) {
-				e.preventDefault()
-			} else {
-				addtoCartAction(cartItem)
-			}
+			addtoCartAction(cartItem)
 		}
 	}
 
-	const updateCartHandler = (e, id) => {
-		e.preventDefault()
+	const addtoWishCheck = product => {
+		const wishInCart = cartItems.find(pro => pro._id === product._id)
 
-		const { value } = e.target
+		if (Boolean(wishInCart)) {
+			removeFromCartAction(wishInCart._id)
+		}
 
-		updateCartAction(value, id, e)
+		if (isUserObjEmpty) {
+			navigate('/login')
+		} else {
+			toggleWishListAction(product)
+		}
 	}
 
+	const paginate = pageNo => {
+		setthisPage(pageNo)
+	}
+
+	// TODO: useContext whereever possible instead of passing these funcions down
+
 	return (
-		<div className='product-grid products-section-container'>
+		<div>
 			{productsLoading && <Loader />}
 			{productsError && <Error />}
-
-			{filteredProducts &&
-				filteredProducts.length > 0 &&
-				filteredProducts.map(p => (
-					<ProductCard
-						key={p.id}
-						_id={p._id}
-						addtocartHandler={addtocartHandler}
-						updateCartHandler={updateCartHandler}
-						image={p.image}
-						title={p.title}
-						price={p.price}
-						rating={p.rating}
-						toggleWishListAction={toggleWishListAction}
-						cartItems={cartItems}
-						wishList={wishList}
-					/>
-				))}
+			<div className='product-grid products-section-container'>
+				{filteredProducts &&
+					filteredProducts.length > 0 &&
+					filteredProducts.map(p => (
+						<ProductCard
+							product={p}
+							key={p.id}
+							_id={p._id}
+							addtocartHandler={addtocartHandler}
+							image={p.image}
+							title={p.title}
+							price={p.price}
+							rating={p.rating}
+							toggleWishListAction={addtoWishCheck}
+							cartItems={cartItems}
+							wishList={wishList}
+						/>
+					))}
+			</div>
+			<Pagination
+				productsPerPage={productsPerPage}
+				paginate={paginate}
+				productsLength={products.length}
+			/>
 		</div>
 	)
 }

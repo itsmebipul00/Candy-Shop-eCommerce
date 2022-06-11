@@ -1,12 +1,37 @@
 import './Filters.css'
 import { useProducts } from '../../actionProviders/productActions'
 
+import { useRef } from 'react'
+
 export const Filters = () => {
-	const { handleSorting, handleCategories, resetFilters, state } =
-		useProducts()
+	const {
+		handleSorting,
+		handleCategories,
+		resetFilters,
+		state,
+		handlePriceChange,
+		maxPriceVal,
+		minPriceVal,
+	} = useProducts()
 
 	const issStateEmpty =
 		Object.keys(state).filter(k => state[k]).length > 0 ? false : true
+
+	const minPriceRef = useRef()
+	const maxPriceRef = useRef()
+	const progressBarRef = useRef()
+
+	const handlePriceRange = () => {
+		const minP = minPriceRef.current.value
+		const maxP = maxPriceRef.current.value
+
+		progressBarRef.current.style.left =
+			(minP / maxPriceVal) * 100 + '%'
+		progressBarRef.current.style.right =
+			(maxP / minPriceVal) * 100 + '%'
+
+		handlePriceChange(minP, maxP)
+	}
 
 	return (
 		<div className='filter-products'>
@@ -174,9 +199,7 @@ export const Filters = () => {
 							<span className='text'>Low to High</span>
 						</label>
 					</fieldset>
-				</li>
 
-				<li className='sort-by' role='list'>
 					<fieldset className='sort-by-price f-col'>
 						<legend>
 							<h2 className='fs-400'>Price</h2>
@@ -216,11 +239,38 @@ export const Filters = () => {
 
 				<li className='price-range p-relative'>
 					<h2 className='fs-400 price-range-title'>Price Range:</h2>
-					{/* 2 thumbs Will work later */}
-					{/* <label htmlFor="price-range" className='d-grid grid-stacked'>
-                    <input type="range" className="price-slider-1" id='price-range' min="0" max="100" step="1"/>
-                    <input type="range" className="price-slider-2"  id='price-range' min="0" max="100" step="1"/>
-                  </label> */}
+					<div className='slider-input'>
+						<span value='0'>{state.minPriceVal}</span>-
+						<span value='99999'>{state.maxPriceVal}</span>
+					</div>
+
+					<div className='slider-range'>
+						<div className='progress' ref={progressBarRef}></div>
+						<input
+							type='range'
+							name='range-min'
+							id='range-min'
+							className='range-min'
+							min='0'
+							max='500'
+							value={state.minPriceVal}
+							step='1'
+							ref={minPriceRef}
+							onInput={handlePriceRange}
+						/>
+						<input
+							type='range'
+							name='range-max'
+							id='range-max'
+							className='range-max'
+							min='0'
+							max='500'
+							value={state.maxPriceVal}
+							step='1'
+							ref={maxPriceRef}
+							onInput={handlePriceRange}
+						/>
+					</div>
 				</li>
 			</ul>
 		</div>

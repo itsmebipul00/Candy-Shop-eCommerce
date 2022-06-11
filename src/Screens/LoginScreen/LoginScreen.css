@@ -5,6 +5,10 @@
 .already-done {
 	margin-top: 0.5rem;
 }
+
+.fa-eye{
+	cursor: pointer;
+}
 @media (max-width: 60em) {
 	.form-login {
 		width: 60%;
@@ -48,4 +52,11 @@ form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+}
+
+.btn-guest{
+	all: unset;
+	margin: 1rem 0 0 1rem;
+	color: hsl(var(--clr-blue));
+	text-decoration: underline;
 }

@@ -7,8 +7,6 @@ const UserProvider = props => {
 		userInfo: {},
 	})
 
-	console.log(userInfo)
-
 	const setUserAction = user => {
 		dispatch({
 			type: 'USER_SUCCESS',
@@ -22,7 +20,6 @@ const UserProvider = props => {
 		})
 		localStorage.removeItem('userToken')
 	}
-	console.log(userInfo)
 
 	return (
 		<UserContext.Provider

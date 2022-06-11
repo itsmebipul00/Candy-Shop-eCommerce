@@ -4,6 +4,7 @@ import { categoriesReducer } from '../reducers/categoriesReducer'
 import axios from 'axios'
 import { filterReducer } from '../reducers/filterReducer'
 import { productReducers } from '../reducers/productReducers'
+import { useState } from 'react'
 
 const ProductsProvider = props => {
 	const [{ products, error: productsError }, dispatch] = useReducer(
@@ -69,18 +70,19 @@ const ProductsProvider = props => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	// Better approach is to take categories from category state as initailState --- will do later
+	const categoryNames = categories.map(cat => cat.categoryName)
+
+	const categoriesState = categoryNames.reduce(
+		(acc, val) => ({ ...acc, [val]: false }),
+		{}
+	)
+
 	const initailState = {
-		marshmello: false,
-		chocolates: false,
-		darkChocolate: false,
-		fizzy: false,
-		gummies: false,
-		jellies: false,
-		lollipop: false,
-		rasberry: false,
+		...categoriesState,
 		sort: '',
 		rating: '',
+		minPriceVal: 0,
+		maxPriceVal: 500,
 	}
 
 	const [state, filterDispatch] = useReducer(
@@ -101,6 +103,14 @@ const ProductsProvider = props => {
 			type: 'FILTER_CATEGORIES',
 			feild: name,
 			payload: checked,
+		})
+	}
+
+	const handlePriceChange = (minP, maxP) => {
+		filterDispatch({
+			type: 'FILTER_PRICES',
+			minPrice: minP,
+			maxPrice: maxP,
 		})
 	}
 
@@ -154,13 +164,48 @@ const ProductsProvider = props => {
 		} else return products
 	}
 
+	const getFilteredPrices = (products, state) => {
+		if (products && products.length > 0) {
+			return products.filter(
+				pro =>
+					Number(pro.price) >= Number(state.minPriceVal) &&
+					Number(pro.price) <= Number(state.maxPriceVal)
+			)
+		}
+	}
+
+	const productsPerPage = 8
+	const [thispage, setthisPage] = useState(1)
+
+	const getPaginatedProducts = (products, state) => {
+		const lastProduct = state * productsPerPage
+		const firstProduct = lastProduct - productsPerPage
+
+		if (products && products.length > 0) {
+			return products.slice(firstProduct, lastProduct)
+		}
+	}
+
 	const sortedProducts = getSortedData(products, state)
-	const filteredProducts = getfilteredProducts(sortedProducts, state)
+
+	const filteredCategories = getfilteredProducts(
+		sortedProducts,
+		state
+	)
+
+	const filteredPrices = getFilteredPrices(filteredCategories, state)
+
+	const filteredProducts = getPaginatedProducts(
+		filteredPrices,
+		thispage
+	)
 
 	return (
 		<ProductsContext.Provider
 			value={{
+				setthisPage,
 				categories,
+				productsPerPage,
 				categoriesLoading,
 				filteredProducts,
 				categoriesError,
@@ -169,6 +214,7 @@ const ProductsProvider = props => {
 				handleSorting,
 				handleCategories,
 				resetFilters,
+				handlePriceChange,
 				products,
 			}}>
 			{props.children}

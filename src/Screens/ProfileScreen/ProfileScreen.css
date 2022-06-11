@@ -3,6 +3,7 @@
 	min-height: 75vh;
 	background-color: hsl(var(---clr-white-99));
 	/* position: fixed; */
+	width: 100%;
 }
 
 @media (min-width: 60em) {
@@ -46,7 +47,7 @@
 
 .all-profile-screens {
 	inset: 0% 0% 0% 0%;
-	height: 60vh;
+	height: 80vh;
 	overflow-y: auto;
 	overflow-x: hidden;
 	scroll-behavior: smooth;

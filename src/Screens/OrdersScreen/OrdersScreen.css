@@ -1,0 +1,20 @@
+.order-items{
+    margin: 2rem 0;
+}
+
+.order-id{
+    margin-left: 1rem;
+}
+
+.order-img-wrapper{
+    width: 20%;
+}
+
+.order-img{
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.order-info{
+    align-self: center;
+}

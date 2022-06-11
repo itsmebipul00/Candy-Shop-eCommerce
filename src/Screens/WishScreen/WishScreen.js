@@ -43,12 +43,21 @@ const WishScreen = () => {
 		}
 	}
 
+	const addtoWishCheck = product => {
+		if (isUserObjEmpty) {
+			navigate('/login')
+		} else {
+			toggleWishListAction(product)
+		}
+	}
+
 	return (
 		<div className='wish-screen'>
 			{wishList &&
 				wishList.length > 0 &&
 				wishList.map(p => (
 					<ProductCard
+						product={p}
 						key={p._id}
 						_id={p._id}
 						addtocartHandler={addtocartHandler}
@@ -57,7 +66,7 @@ const WishScreen = () => {
 						price={p.price}
 						rating={p.rating}
 						wishList={wishList}
-						toggleWishListAction={toggleWishListAction}
+						toggleWishListAction={addtoWishCheck}
 					/>
 				))}
 		</div>

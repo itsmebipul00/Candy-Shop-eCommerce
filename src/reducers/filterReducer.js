@@ -10,6 +10,12 @@ export const filterReducer = (state, action) => {
 				...state,
 				[action.feild]: action.payload,
 			}
+		case 'FILTER_PRICES':
+			return {
+				...state,
+				minPriceVal: action.minPrice,
+				maxPriceVal: action.maxPrice,
+			}
 		case 'RESET_FILTERS':
 			return action.payload
 		default:

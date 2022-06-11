@@ -14,6 +14,7 @@ export const users = [
 		password: 'itsmebipul00@gmail.com',
 		wishlist: [],
 		cart: [],
+		orders: [],
 		createdAt: formatDate(),
 		updatedAt: formatDate(),
 	},

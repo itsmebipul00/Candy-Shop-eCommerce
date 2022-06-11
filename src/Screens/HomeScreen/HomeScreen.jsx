@@ -11,17 +11,16 @@ import {
 } from '../../assets/Icons/Logo'
 
 import { useRef } from 'react'
+import { useEffect, useState } from 'react'
+
+import { Link } from 'react-router-dom'
 
 const HomeScreen = () => {
 	const navigate = useNavigate()
 
-	const { categories, filteredProducts, handleCategories, state } =
-		useProducts()
-
-	console.log(categories, filteredProducts)
+	const { categories, handleCategories, state } = useProducts()
 
 	const gotoProducts = (name, checked) => {
-		console.log(name, checked)
 		handleCategories(name, checked)
 		setTimeout(() => navigate('/products'), 500)
 	}
@@ -32,8 +31,25 @@ const HomeScreen = () => {
 		sliderBtn.current.scrollLeft += scrollOffset
 	}
 
+	const origin = window.location.origin
+
+	const [carousal, setCarousal] = useState(1)
+
+	useEffect(() => {
+		const timerId = setInterval(
+			() => setCarousal(prev => (prev === 5 ? 1 : prev + 1)),
+			2000
+		)
+		return () => clearInterval(timerId)
+	}, [])
+
 	return (
-		<div className='homescreen'>
+		<section>
+			<div className='cat-headiing-wrapper'>
+				<h2 className='categories-heading fs-800 letter-spacing-3 uppercase'>
+					Categories
+				</h2>
+			</div>
 			<div className='categories'>
 				<button
 					onClick={() => scroll(-900)}
@@ -79,7 +95,19 @@ const HomeScreen = () => {
 					/>
 				</button>
 			</div>
-		</div>
+			<div className='carousal-wrapper grid grid-stacked'>
+				<img
+					src={`${origin}/images/Carousel/carousel-image-${carousal}.jpg`}
+					alt={`carousel--${carousal}`}
+					className='carousal-image'
+				/>
+				<Link
+					to='/products'
+					className='btn btn-hero uppercase uppercase letter-spacing-2 fs-800'>
+					Shop Now
+				</Link>
+			</div>
+		</section>
 	)
 }
 

@@ -4,9 +4,10 @@ import { LogoProvider } from '../../assets/Icons/Icons'
 import { styles } from '../../utils/iconStyles'
 import { Link, NavLink } from 'react-router-dom'
 
+import { Search } from '../Search/Search'
+
 import {
 	AiOutlineShoppingCart,
-	AiOutlineSearch,
 	AiOutlineHeart,
 	AiOutlineLogin,
 } from 'react-icons/ai'
@@ -24,11 +25,6 @@ const logoStyles = {
 	className: styles.className.concat(' candy-logo'),
 	size: '2rem',
 	color: 'red',
-}
-
-const searchIconStyle = {
-	...styles,
-	className: styles.className.concat(' search-icon'),
 }
 
 const cartIconStyle = {
@@ -68,6 +64,12 @@ export const Header = () => {
 		location.pathname === '/register' ? true : false
 
 	const isLoginPage = location.pathname === '/login' ? true : false
+
+	const { wishList } = useWishList()
+
+	const { cartItems } = useCart()
+
+	const cartQty = cartItems?.reduce((acc, val) => val.qty + acc, 0)
 
 	return (
 		<>
@@ -117,39 +119,37 @@ export const Header = () => {
 
 								<NavLink
 									to='/wishlist'
+									className=' wish-icon p-relative'
 									state={{ form: location.pathname }}>
 									<LogoProvider>
 										<AiOutlineHeart value={wishlistIconStyle} />
 									</LogoProvider>
+									{wishList?.length > 0 && (
+										<span
+											data-qty={wishList.length}
+											className='notification notification-color-green'></span>
+									)}
 								</NavLink>
 
 								<NavLink
 									to='/cart'
+									className=' cart-icon p-relative'
 									state={{ form: location.pathname }}>
 									<LogoProvider>
 										<AiOutlineShoppingCart value={cartIconStyle} />
 									</LogoProvider>
+									{cartQty > 0 && (
+										<span
+											data-qty={cartQty}
+											className='notification notification-color-green'></span>
+									)}
 								</NavLink>
 
 								{isProductListingPage && <Filters />}
 							</div>
 						</div>
 
-						{isProductListingPage && (
-							<div className='search-candies p-relative'>
-								<label className='sr-only' htmlFor='input-search' />
-
-								<input
-									id='input-search'
-									className='input-search'
-									placeholder='Search for candies...'
-								/>
-
-								<LogoProvider>
-									<AiOutlineSearch value={searchIconStyle} />
-								</LogoProvider>
-							</div>
-						)}
+						{isProductListingPage && <Search />}
 					</div>
 				</header>
 			)}

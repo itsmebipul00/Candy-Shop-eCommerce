@@ -18,6 +18,8 @@ import {
 import { isEmptyObject } from '../../utils/isEmptyObject'
 import { useUser } from '../../actionProviders/userActions'
 
+import { ZondiconsLocationShopping } from '../../assets/Icons/Logo'
+
 // Protected Route
 
 const ProfileScreen = () => {
@@ -85,6 +87,22 @@ const ProfileScreen = () => {
 							state={{ form: pathname }}>
 							<FaHeartbeat size={size} />
 							<span className='text  fs-400 '>WishList</span>
+						</NavLink>
+					</li>
+
+					<li
+						className={`profile-list-item ${
+							pathname === '/orders' && 'active-list'
+						}`}>
+						<NavLink
+							to='/orders'
+							className='profiles-link uppercase'
+							state={{ form: pathname }}>
+							<ZondiconsLocationShopping
+								height='1.5rem'
+								width='1.5rem'
+							/>
+							<span className='text  fs-400 '>Orders</span>
 						</NavLink>
 					</li>
 				</ul>
