@@ -28,7 +28,6 @@ const LoginScreen = () => {
 
 	const handleRegisterSubmit = async e => {
 		e.preventDefault()
-		console.log(e)
 		try {
 			const resLogin = await axios.post('/api/auth/login', {
 				email: loginFormData.email,
@@ -42,9 +41,7 @@ const LoginScreen = () => {
 			setUserAction(dataLogin)
 
 			navigate(-1)
-		} catch (error) {
-			console.log('LOGIN FAILED TOAST')
-		}
+		} catch (error) {}
 	}
 
 	const handleChange = event => {

@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid'
 
 import { useState } from 'react'
 
-import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { NewAddressDialog } from '../../Components/NewAddressDialog/NewAddressDialog.js'
 
@@ -104,8 +104,6 @@ const AddressScreen = () => {
 	const handlePlaceOrder = () => {
 		navigate('/payment')
 	}
-
-	console.log(deliveryAddress)
 
 	return (
 		<div className='address-screen'>

@@ -33,8 +33,6 @@ const HomeScreen = () => {
 
 	const origin = window.location.origin
 
-	console.log(window.location.origin)
-
 	const [carousal, setCarousal] = useState(1)
 
 	useEffect(() => {

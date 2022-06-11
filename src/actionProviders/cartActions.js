@@ -28,6 +28,8 @@ const CartProvider = props => {
 		})
 	}
 
+	
+
 	const addtoCartAction = async cartItem => {
 		try {
 			const res = await axios.post(

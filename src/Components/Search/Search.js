@@ -23,8 +23,6 @@ export const Search = () => {
 	const [search, setSearch] = useState('')
 	const { products } = useProducts()
 
-	console.log(products)
-
 	const searchFilters = debounce(text => {
 		setSearch(text)
 	}, 1000)
@@ -33,7 +31,6 @@ export const Search = () => {
 		pro.title.toLowerCase().includes(search)
 	)
 
-	console.log(searchedProducts)
 	return (
 		<div className='p-relative'>
 			<div className='search-candies p-relative'>

@@ -77,8 +77,6 @@ const ProductsProvider = props => {
 		{}
 	)
 
-	console.log(categoriesState)
-
 	const initailState = {
 		...categoriesState,
 		sort: '',

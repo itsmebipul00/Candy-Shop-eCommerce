@@ -18,7 +18,6 @@ const OrdersProvider = props => {
 	}
 
 	const addOrderAction = async order => {
-		console.log(order)
 		try {
 			const res = await axios.post(
 				'/api/user/order',
@@ -27,14 +26,11 @@ const OrdersProvider = props => {
 			)
 			const data = await res.data.orders
 
-			console.log(data)
-
 			ordersDispatcher({
 				type: 'ORDER_USER',
 				payload: data,
 			})
 		} catch (error) {
-			console.log(error)
 			ordersDispatcher({
 				type: 'ORDER_ERROR',
 				payload: error,

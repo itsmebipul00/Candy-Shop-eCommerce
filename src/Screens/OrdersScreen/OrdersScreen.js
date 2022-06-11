@@ -5,8 +5,6 @@ import './OrdersScreen.css'
 const OrdersScreen = () => {
 	const { orders } = useOrders()
 
-	console.log(orders)
-
 	return (
 		<div className='order-screen'>
 			{orders?.map((item, idx) => (

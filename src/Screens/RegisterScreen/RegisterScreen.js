@@ -15,7 +15,7 @@ const RegisterScreen = () => {
 	})
 
 	const [message, setMessage] = useState('')
-	const { setUserAction, userInfo } = useUser()
+	const { setUserAction } = useUser()
 
 	const [showPass, setShowPass] = useState(true)
 
@@ -51,15 +51,10 @@ const RegisterScreen = () => {
 						localStorage.setItem('userToken', dataLogin.encodedToken)
 						setUserAction(dataLogin)
 						navigate('/products')
-					} catch (error) {
-						console.log('LOGIN FAILED TOAST')
-					}
+					} catch (error) {}
 				} else {
-					console.log('RegistrTION FAILED TOAST')
 				}
-			} catch (error) {
-				console.log('iNVAILD DATA TOAST')
-			}
+			} catch (error) {}
 		}
 	}
 

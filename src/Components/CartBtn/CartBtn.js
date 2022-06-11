@@ -23,7 +23,6 @@ export const CartBtn = props => {
 			? cartItems.find(item => item._id === props._id)
 			: false
 
-	console.log(props.className)
 	return (
 		<>
 			{iscartPage ? (

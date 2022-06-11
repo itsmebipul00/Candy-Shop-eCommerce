@@ -33,7 +33,6 @@ const PaymentScreen = () => {
 	const { addOrderAction } = useOrders()
 
 	const addtocartHandler = (e, id) => {
-		console.log(id)
 		e.preventDefault()
 		const cartItem = cartItems.find(product => product._id === id)
 		addtoCartAction(cartItem)
@@ -59,7 +58,6 @@ const PaymentScreen = () => {
 			setCuponApplied(false)
 		}
 	}
-	console.log(cuponApplied, cupon)
 
 	const [sdkReady, setSdkReady] = useState(false)
 
