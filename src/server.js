@@ -3,6 +3,7 @@ import {
 	loginHandler,
 	signupHandler,
 	authenticateUser,
+	logoutUser,
 } from './backend/controllers/AuthController'
 import {
 	addItemToCartHandler,
@@ -121,6 +122,8 @@ export function makeServer({ environment = 'development' } = {}) {
 
 			this.get('/user/order', getOrdersHandler.bind(this))
 			this.post('/user/order', addOrderToOrdersHandler.bind(this))
+
+			this.post('/user/logout', logoutUser.bind(this))
 		},
 	})
 }

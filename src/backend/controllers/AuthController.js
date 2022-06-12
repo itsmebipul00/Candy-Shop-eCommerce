@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 import { Response } from 'miragejs'
-import { formatDate } from '../utils/authUtils'
+import { formatDate, requiresAuth } from '../utils/authUtils'
 import jwt_decode from 'jwt-decode'
 const sign = require('jwt-encode')
 /**
@@ -126,6 +126,37 @@ export const authenticateUser = function (schema, request) {
 			{},
 			{ errors: ['The token is invalid. Unauthorized access error.'] }
 		)
+	} catch (error) {
+		return new Response(
+			500,
+			{},
+			{
+				error,
+			}
+		)
+	}
+}
+
+export const logoutUser = function (schema, request) {
+	const userId = requiresAuth.call(this, request)
+	try {
+		if (!userId) {
+			new Response(
+				404,
+				{},
+				{
+					errors: [
+						'The email you entered is not Registered. Not Found error',
+					],
+				}
+			)
+		}
+
+		this.db.users.update({ _id: userId }, { wishlist: [] })
+		this.db.users.update({ _id: userId }, { cart: [] })
+		this.db.users.update({ _id: userId }, { orders: [] })
+		this.db.users.update({ _id: userId }, { address: [] })
+		return new Response(200)
 	} catch (error) {
 		return new Response(
 			500,

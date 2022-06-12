@@ -22,6 +22,7 @@ import { useCart } from '../../actionProviders/cartActions'
 import { useAddress } from '../../actionProviders/addressProvider'
 import { useOrders } from '../../actionProviders/ordersActions'
 import { useProducts } from '../../actionProviders/productActions'
+import axios from 'axios'
 
 const logoStyles = {
 	...styles,
@@ -52,7 +53,13 @@ export const Header = () => {
 	const { clearAddressAction } = useAddress()
 	const { clearOrdersAction } = useOrders()
 
-	const logoutUserHandler = () => {
+	const config = {
+		headers: {
+			authorization: localStorage.getItem('userToken'),
+		},
+	}
+	const logoutUserHandler = async () => {
+		await axios.post('/api/user/logout', {}, config)
 		logoutUser()
 		clearWishListAction()
 		clearCartAction()
