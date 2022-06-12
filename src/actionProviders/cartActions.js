@@ -30,11 +30,17 @@ const CartProvider = props => {
 	}
 
 	const addtoCartAction = async cartItem => {
+		console.log(config)
 		try {
+			console.log(cartItem)
 			const res = await axios.post(
 				'/api/user/cart',
 				{ product: cartItem },
-				config
+				{
+					headers: {
+						authorization: localStorage.getItem('userToken'),
+					},
+				}
 			)
 			const data = await res.data.cart
 
@@ -44,6 +50,7 @@ const CartProvider = props => {
 
 			toast.success(`${cartItem.title} is added to cart`)
 		} catch (error) {
+			console.log(error)
 			errorInCart(error.message)
 		}
 	}
