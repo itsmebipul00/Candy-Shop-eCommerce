@@ -19,6 +19,9 @@ import { isEmptyObject } from '../../utils/isEmptyObject'
 import { useUser } from '../../actionProviders/userActions'
 import { useWishList } from '../../actionProviders/wishListAction'
 import { useCart } from '../../actionProviders/cartActions'
+import { useAddress } from '../../actionProviders/addressProvider'
+import { useOrders } from '../../actionProviders/ordersActions'
+import { useProducts } from '../../actionProviders/productActions'
 
 const logoStyles = {
 	...styles,
@@ -46,11 +49,15 @@ export const Header = () => {
 	const { userInfo, logoutUser } = useUser()
 	const { clearWishListAction } = useWishList()
 	const { clearCartAction } = useCart()
+	const { clearAddressAction } = useAddress()
+	const { clearOrdersAction } = useOrders()
 
 	const logoutUserHandler = () => {
 		logoutUser()
 		clearWishListAction()
 		clearCartAction()
+		clearAddressAction()
+		clearOrdersAction()
 	}
 
 	const isUserInfoEmpty = isEmptyObject(userInfo)

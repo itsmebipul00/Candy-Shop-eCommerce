@@ -1,19 +1,23 @@
-export const addressReducer = (state, action) => {
+export const addressReducer = (state = { address: [] }, action) => {
+	console.log(action.type)
 	switch (action.type) {
 		case 'NEW_ADDRESS':
-			if (state.length > 0) {
-				return [...state, action.payload]
-			} else {
-				return [action.payload]
+			return {
+				address: action.payload,
 			}
 		case 'DELETE_ADDRESS':
-			return state.filter(add => add._id !== action.payload)
+			return {
+				address: action.payload,
+			}
 		case 'UPDATE_ADDRESS':
-			const trimmedState = state.filter(
-				add => add._id !== action.payload._id
-			)
-			return [...trimmedState, action.payload]
-
+			return {
+				address: action.payload,
+			}
+		case 'CLEAR_ADDRESS':
+			console.log('here')
+			return {
+				address: [],
+			}
 		default:
 			return state
 	}

@@ -200,6 +200,18 @@ const ProductsProvider = props => {
 		thispage
 	)
 
+	const clearProductsAction = () => {
+		dispatch({
+			type: 'CLEAR_PRODUCTS',
+		})
+	}
+
+	const clearCategoriesAction = () => {
+		dispatch({
+			type: 'CLEAR_CATEGORIES',
+		})
+	}
+
 	return (
 		<ProductsContext.Provider
 			value={{
@@ -216,6 +228,8 @@ const ProductsProvider = props => {
 				resetFilters,
 				handlePriceChange,
 				products,
+				clearProductsAction,
+				clearCategoriesAction,
 			}}>
 			{props.children}
 		</ProductsContext.Provider>

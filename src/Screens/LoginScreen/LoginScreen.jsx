@@ -34,6 +34,7 @@ const LoginScreen = () => {
 				password: loginFormData.password,
 			})
 
+			console.log(resLogin)
 			const dataLogin = await resLogin.data
 
 			localStorage.setItem('userToken', dataLogin.encodedToken)
@@ -41,7 +42,9 @@ const LoginScreen = () => {
 			setUserAction(dataLogin)
 
 			navigate(-1)
-		} catch (error) {}
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	const handleChange = event => {
@@ -63,7 +66,7 @@ const LoginScreen = () => {
 			password: 'itsmebipul00@gmail.com',
 		})
 
-		setTimeout(() => handleRegisterSubmit(e), 1000)
+		setTimeout(() => handleRegisterSubmit(e), 2000)
 	}
 
 	return (

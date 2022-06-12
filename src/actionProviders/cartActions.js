@@ -2,6 +2,7 @@ import { CartContext } from '../context'
 import { useContext, useReducer } from 'react'
 import { cartReducer } from '../reducers/cartReducer.js'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const CartProvider = props => {
 	const [{ cartItems }, dispatch] = useReducer(cartReducer, {
@@ -28,8 +29,6 @@ const CartProvider = props => {
 		})
 	}
 
-	
-
 	const addtoCartAction = async cartItem => {
 		try {
 			const res = await axios.post(
@@ -39,7 +38,11 @@ const CartProvider = props => {
 			)
 			const data = await res.data.cart
 
+			console.log(res)
+
 			updateCart(data)
+
+			toast.success(`${cartItem.title} is added to cart`)
 		} catch (error) {
 			errorInCart(error.message)
 		}
@@ -76,6 +79,8 @@ const CartProvider = props => {
 		if (val === 'decrement') {
 			if (cartItem.qty === 1) {
 				removeFromCartAction(id)
+
+				toast.success(`${cartItem.title} is removed from cart`)
 			} else {
 				try {
 					const res = await axios.post(
@@ -87,6 +92,14 @@ const CartProvider = props => {
 					const data = await res.data.cart
 
 					updateCart(data)
+
+					console.log(cartItem)
+
+					toast.success(
+						`${cartItem.title}'s quantity is decreased to ${
+							cartItem.qty - 1
+						}`
+					)
 				} catch (error) {
 					errorInCart(error.message)
 				}
@@ -100,6 +113,11 @@ const CartProvider = props => {
 				)
 				const data = await res.data.cart
 				updateCart(data)
+				toast.success(
+					`${cartItem.title}'s quantity is increased to ${
+						cartItem.qty + 1
+					}`
+				)
 			} catch (error) {
 				errorInCart(error.message)
 			}

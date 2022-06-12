@@ -6,9 +6,19 @@ import { useReducer, useContext } from 'react'
 import { useState } from 'react'
 
 const AddressProvider = props => {
-	const [address, addressDispatcher] = useReducer(addressReducer, [])
+	const [state, addressDispatcher] = useReducer(addressReducer, [])
 
 	const [deliveryAddress, setDeliveryAddress] = useState()
+
+	const address = state?.address
+
+	const clearAddressAction = () => {
+		addressDispatcher({
+			type: 'CLEAR_ADDRESS',
+		})
+	}
+
+	console.log(address)
 
 	return (
 		<AddressContext.Provider
@@ -17,6 +27,7 @@ const AddressProvider = props => {
 				deliveryAddress,
 				setDeliveryAddress,
 				addressDispatcher,
+				clearAddressAction,
 			}}>
 			{props.children}
 		</AddressContext.Provider>

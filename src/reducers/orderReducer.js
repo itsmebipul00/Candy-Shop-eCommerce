@@ -1,4 +1,4 @@
-export const orderReducer = (state, action) => {
+export const orderReducer = (state = { orders: [] }, action) => {
 	switch (action.type) {
 		case 'ORDER_USER':
 			return {
@@ -7,6 +7,12 @@ export const orderReducer = (state, action) => {
 		case 'ORDER_ERROR':
 			return {
 				error: action.payload,
+			}
+		case 'CLEAR_ORDERS':
+			console.log('here')
+
+			return {
+				orders: [],
 			}
 		default:
 			return state

@@ -4,6 +4,8 @@ import { UserContext } from '../context'
 
 import { WishListContext } from '../context'
 
+import toast from 'react-hot-toast'
+
 import axios from 'axios'
 
 const WishListProvider = props => {
@@ -47,6 +49,7 @@ const WishListProvider = props => {
 				const data = await res.data.wishlist
 				updateWishList(data)
 				// localStorage to setWishlist
+				toast.success(`${itemExists.title} is removed from wishlist`)
 			} catch (error) {
 				wishListError(error.message)
 				// toast Invalid request error
@@ -60,6 +63,8 @@ const WishListProvider = props => {
 				)
 				const data = await res.data.wishlist
 				updateWishList(data)
+
+				toast.success(`${product.title} is added to wishlist`)
 			} catch (error) {
 				wishListError(error.message)
 				// Invalid request toast

@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-// import { Toaster } from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 import ProfileScreen from './Screens/ProfileScreen/ProfileScreen'
 import RegisterScreen from './Screens/RegisterScreen/RegisterScreen'
 import LoginScreen from './Screens/LoginScreen/LoginScreen'

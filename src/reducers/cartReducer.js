@@ -9,6 +9,8 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
 				error: action.payload,
 			}
 		case 'CLEAR_CART':
+			console.log('here')
+
 			return {
 				cartItems: [],
 			}

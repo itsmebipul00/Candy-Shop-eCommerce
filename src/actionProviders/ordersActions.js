@@ -38,8 +38,15 @@ const OrdersProvider = props => {
 		}
 	}
 
+	const clearOrdersAction = () => {
+		ordersDispatcher({
+			type: 'CLEAR_ORDERS',
+		})
+	}
+
 	return (
-		<OrdersContext.Provider value={{ addOrderAction, orders }}>
+		<OrdersContext.Provider
+			value={{ addOrderAction, orders, clearOrdersAction }}>
 			{props.children}
 		</OrdersContext.Provider>
 	)

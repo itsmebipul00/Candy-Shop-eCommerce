@@ -8,6 +8,8 @@ import { NewAddressDialog } from '../../Components/NewAddressDialog/NewAddressDi
 
 import { useAddress } from '../../actionProviders/addressProvider.js'
 
+import axios from 'axios'
+
 import {
 	IcBaselineDeleteOutline,
 	IcOutlineModeEdit,
@@ -21,6 +23,11 @@ const AddressScreen = () => {
 
 	const location = useLocation()
 
+	const config = {
+		headers: {
+			authorization: localStorage.getItem('userToken'),
+		},
+	}
 	const {
 		address,
 		addressDispatcher,
@@ -51,31 +58,61 @@ const AddressScreen = () => {
 		})
 	}
 
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault()
 
-		if (address.length > 0) {
+		if (address?.length > 0) {
 			const existAddress =
 				address.findIndex(add => add._id === addressData._id) === -1
 					? false
 					: true
 
 			if (existAddress) {
-				addressDispatcher({
-					type: 'UPDATE_ADDRESS',
-					payload: addressData,
-				})
+				try {
+					const res = await axios.put(
+						'/api/user/address',
+						{ address: addressData },
+						config
+					)
+
+					addressDispatcher({
+						type: 'UPDATE_ADDRESS',
+						payload: res.data.address,
+					})
+				} catch (error) {
+					console.log(error)
+				}
 			} else {
-				addressDispatcher({
-					type: 'NEW_ADDRESS',
-					payload: addressData,
-				})
+				try {
+					const res = await axios.post(
+						'/api/user/address',
+						{ address: addressData },
+						config
+					)
+
+					console.log(res)
+					addressDispatcher({
+						type: 'NEW_ADDRESS',
+						payload: res.data.address,
+					})
+				} catch (error) {
+					console.log(error)
+				}
 			}
 		} else {
-			addressDispatcher({
-				type: 'NEW_ADDRESS',
-				payload: addressData,
-			})
+			try {
+				const res = await axios.post(
+					'/api/user/address',
+					{ address: addressData },
+					config
+				)
+				addressDispatcher({
+					type: 'NEW_ADDRESS',
+					payload: res.data.address,
+				})
+			} catch (error) {
+				console.log(error)
+			}
 		}
 
 		setShowModal(false)
@@ -85,11 +122,22 @@ const AddressScreen = () => {
 		setDeliveryAddress(add)
 	}
 
-	const handleDelete = id => {
-		addressDispatcher({
-			type: 'DELETE_ADDRESS',
-			payload: id,
-		})
+	const handleDelete = async id => {
+		try {
+			const res = await axios.delete(
+				`/api/user/address/${id}`,
+				config
+			)
+			console.log(res)
+
+			addressDispatcher({
+				type: 'DELETE_ADDRESS',
+				payload: res.data.address,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+
 		if (id === deliveryAddress._id) {
 			setDeliveryAddress(undefined)
 		}
@@ -105,10 +153,11 @@ const AddressScreen = () => {
 		navigate('/payment')
 	}
 
+	console.log(address)
 	return (
 		<div className='address-screen'>
 			<div className='address-screens-ctas'>
-				{location.state.from === '/cart' && deliveryAddress && (
+				{location?.state?.from === '/cart' && deliveryAddress && (
 					<button className='btn-address' onClick={handlePlaceOrder}>
 						Place Order
 					</button>
@@ -126,7 +175,7 @@ const AddressScreen = () => {
 			/>
 
 			<section className='user-address-details'>
-				{address.map((add, idx) => (
+				{address?.map((add, idx) => (
 					<div key={idx} className='individual-address'>
 						{deliveryAddress?._id === add?._id ? (
 							<TeenyiconsTickCircleOutline

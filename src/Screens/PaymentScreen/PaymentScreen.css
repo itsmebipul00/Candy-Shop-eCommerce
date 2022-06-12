@@ -2,8 +2,22 @@
     padding-top: 10vh;
 }
 
+@media(max-width: 60em){
+    .payment-screen{
+        flex-direction: column;
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
 .delivery-summary{
     width: 50%;
+}
+
+@media(max-width: 60em){
+    .delivery-summary{
+        width: 100%;
+    }
 }
 
 .delivery-info{
@@ -19,8 +33,20 @@
     margin: 1rem 0;
 }
 
+@media(max-width: 60em){
+    .cartItem-product{
+        flex-direction: column;
+    }
+}
+
 .cartImg-wrapper{
     width: 30%;
+}
+
+@media(max-width: 60em){
+    .cartImg-wrapper{
+        width: 45%;
+    }
 }
 
 .cartItem-img{
@@ -45,12 +71,17 @@
     margin: 0;
 }
 
+@media(max-width: 60em){
+    .payment-cart-btn{
+        align-self: flex-start;
+    }
+}
+
 .payment-cart-btn span{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
 
 .payment-cart-btn > *{
@@ -67,6 +98,12 @@
 .billing-section{
     align-self: flex-start;
     width: 50%;
+}
+
+@media(max-width: 60em){
+    .billing-section{
+        width: 100%;
+    }
 }
 
 .cupon-svg{
@@ -114,3 +151,4 @@
     margin-top: 1rem;
     width: 70%;
 }
+

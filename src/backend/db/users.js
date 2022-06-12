@@ -15,6 +15,7 @@ export const users = [
 		wishlist: [],
 		cart: [],
 		orders: [],
+		address: [],
 		createdAt: formatDate(),
 		updatedAt: formatDate(),
 	},

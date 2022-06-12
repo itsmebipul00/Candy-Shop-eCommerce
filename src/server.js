@@ -23,6 +23,12 @@ import {
 	getWishlistItemsHandler,
 	removeItemFromWishlistHandler,
 } from './backend/controllers/WishlistController'
+import {
+	getAddressHandler,
+	addItemToAddressHandler,
+	removeItemFromAddressHandler,
+	updateItemToAddressHandler,
+} from './backend/controllers/AddressController'
 import { categories } from './backend/db/categories'
 import { products } from './backend/db/products'
 import { users } from './backend/db/users'
@@ -103,6 +109,14 @@ export function makeServer({ environment = 'development' } = {}) {
 			this.delete(
 				'/user/wishlist/:productId',
 				removeItemFromWishlistHandler.bind(this)
+			)
+
+			this.get('/user/address', getAddressHandler.bind(this))
+			this.post('/user/address', addItemToAddressHandler.bind(this))
+			this.put('/user/address', updateItemToAddressHandler.bind(this))
+			this.delete(
+				'/user/address/:addressId',
+				removeItemFromAddressHandler.bind(this)
 			)
 
 			this.get('/user/order', getOrdersHandler.bind(this))

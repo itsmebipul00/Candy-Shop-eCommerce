@@ -5,7 +5,12 @@ export const productReducers = (state = { products: [] }, action) => {
 
 		case 'PRODUCTS_ERROR':
 			return { error: action.payload }
+		case 'CLEAR_PRODUCTS':
+			console.log('here')
 
+			return {
+				products: [],
+			}
 		default:
 			return state
 	}

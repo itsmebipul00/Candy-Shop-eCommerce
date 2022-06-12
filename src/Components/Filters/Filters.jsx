@@ -35,21 +35,13 @@ export const Filters = () => {
 
 	return (
 		<div className='filter-products'>
-			{!issStateEmpty && (
-				<button
-					className='btn btn-clear-filters fs-300 letter-spacing-5 uppercase'
-					onClick={resetFilters}>
-					Clear
-				</button>
-			)}
 			<button className='btn btn-apply-filters fs-300 letter-spacing-5 uppercase'>
 				Filters
 			</button>
 
-			{/* MAP THE STATE CATEGORIES HERE IF YOU GET TIME-- NO NEED TO HARDCODE */}
-			<ul className='filters  d-flex'>
+			<ul className='filters d-flex p-relative fs-400'>
 				<li className='filter-by-categories f-col' role='list'>
-					<h2 className='fs-400'>Categories</h2>
+					<h2 className='filter-heading'>Categories</h2>
 
 					<label htmlFor='marshmello'>
 						<input
@@ -167,7 +159,7 @@ export const Filters = () => {
 				<li className='sort-by' role='list'>
 					<fieldset className='sort-by-price f-col'>
 						<legend>
-							<h2 className='fs-400'>Rating</h2>
+							<h2 className='filter-heading'>Rating</h2>
 						</legend>
 						<label htmlFor='rating-high-to-low'>
 							<input
@@ -202,7 +194,7 @@ export const Filters = () => {
 
 					<fieldset className='sort-by-price f-col'>
 						<legend>
-							<h2 className='fs-400'>Price</h2>
+							<h2 className='filter-heading'>Price</h2>
 						</legend>
 
 						<label htmlFor='price-high-to-low'>
@@ -238,7 +230,9 @@ export const Filters = () => {
 				</li>
 
 				<li className='price-range p-relative'>
-					<h2 className='fs-400 price-range-title'>Price Range:</h2>
+					<h2 className='filter-heading price-range-title'>
+						Price Range:
+					</h2>
 					<div className='slider-input'>
 						<span value='0'>{state.minPriceVal}</span>-
 						<span value='99999'>{state.maxPriceVal}</span>
@@ -272,6 +266,13 @@ export const Filters = () => {
 						/>
 					</div>
 				</li>
+				{!issStateEmpty && (
+					<button
+						className='btn btn-clear-filters fs-300 letter-spacing-5 uppercase p-absolute'
+						onClick={resetFilters}>
+						Clear filters
+					</button>
+				)}
 			</ul>
 		</div>
 	)

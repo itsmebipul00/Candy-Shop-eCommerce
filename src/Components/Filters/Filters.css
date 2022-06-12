@@ -1,6 +1,6 @@
 .filters {
 	position: absolute;
-	width: 100vw;
+	width: 80vw;
 	height: fit-content;
 	inset: 85% 0% 0% -1%;
 	z-index: 9999;
@@ -8,20 +8,19 @@
 	justify-content: space-between;
 	background: hsl(var(---clr-white-99));
 	display: none;
-	padding: 1rem ;
+	padding: 2rem 1rem;
 	gap: 1rem;
+	font-size: var(--fs-500);
 }
 
-@media only screen and (min-width: 40em) {
+@media only screen and (max-width: 40em) {
 	.filters {
-		width: 80vw;
+		font-size: var(--fs-300);
+		width: 100vw;
 		padding: 1rem;
 	}
 }
 
-.text {
-	font-size: 0.85rem;
-}
 
 .btn-apply-filters:hover + .filters,
 .filters:hover {
@@ -58,10 +57,7 @@ input[type='range'] {
 	height: 5px;
 }
 
-/* input[type='range'] + input[type='range'] {
-	position: absolute;
-	inset: 0% 0% 0% 0%;
-} */
+
 
 .price-range {
 	width: 50%;
@@ -107,6 +103,23 @@ input[type='range'] {
 	padding: 0.5rem;
 	display: inline-block;
 	margin-right: 2px;
+	inset: 82% 0% 5% 90%;
+}
+
+@media(max-width: 60em){
+	.btn-clear-filters{
+		inset: 82% 0% 2% 62%;
+	}
+}
+
+.filter-heading{
+	font-size: var(--fs-600);
+}
+
+@media(max-width: 60em){
+	.filter-heading{
+		font-size: var(--fs-400);
+	}
 }
 
 .filter-products {

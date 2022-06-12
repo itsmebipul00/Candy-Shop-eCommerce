@@ -177,13 +177,14 @@ const PaymentScreen = () => {
 						}}
 						value={cupon}
 					/>
+					<button
+						disabled={cupon.length < 1}
+						onClick={checkCupon}
+						className='btn btn-cupon letter-spacing-5 uppercase fs-300'>
+						Apply
+					</button>
 				</div>
-				<button
-					disabled={cupon.length < 1}
-					onClick={checkCupon}
-					className='btn btn-cupon letter-spacing-5 uppercase fs-300'>
-					Apply
-				</button>
+
 				<div onClick={applyCandy50} className='cupon-card'>
 					{cuponApplied && (
 						<TeenyiconsTickCircleOutline
