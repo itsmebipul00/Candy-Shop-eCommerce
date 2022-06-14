@@ -4,13 +4,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
 			return {
 				cartItems: action.payload,
 			}
-		case 'CART_ERROR':
-			return {
-				error: action.payload,
-			}
 		case 'CLEAR_CART':
-			console.log('here')
-
 			return {
 				cartItems: [],
 			}

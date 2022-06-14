@@ -18,8 +18,6 @@ const AddressProvider = props => {
 		})
 	}
 
-	console.log(address)
-
 	return (
 		<AddressContext.Provider
 			value={{

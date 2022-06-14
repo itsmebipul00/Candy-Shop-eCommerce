@@ -11,7 +11,7 @@ const OrdersScreen = () => {
 				<div key={item._id} className='order-items'>
 					<h2 className='fs-500 order-id'>OrderId: {item._id}</h2>
 					{item?.order?.map((item, idx) => (
-						<div className='d-flex'>
+						<div className='d-flex' key={idx}>
 							<div className='order-img-wrapper'>
 								<img
 									src={item.image}

@@ -88,12 +88,19 @@
 	height: 85vh;
 }
 
+@media(max-width: 40em){
+	.carousal-image{
+		height: 50vh;
+	}
+}
+
 .btn-hero{
 	margin-bottom: 5vh;
 	align-self: end;
 	justify-self: center;
-	
 }
+
+
 
 .categories-heading{
 	color: hsl(var(--clr-white));
@@ -103,7 +110,12 @@
 	text-align: center;
 	text-decoration: none;
 	margin-bottom: 2rem;
+}
 
+@media(max-width:40em){
+	.categories-heading{
+		width: fit-content;
+	}
 }
 
 .cat-headiing-wrapper{

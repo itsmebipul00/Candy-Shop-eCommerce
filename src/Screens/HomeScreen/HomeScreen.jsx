@@ -46,7 +46,7 @@ const HomeScreen = () => {
 	return (
 		<section>
 			<div className='cat-headiing-wrapper'>
-				<h2 className='categories-heading fs-800 letter-spacing-3 uppercase'>
+				<h2 className='categories-heading fs-700 letter-spacing-3 uppercase'>
 					Categories
 				</h2>
 			</div>
@@ -103,7 +103,7 @@ const HomeScreen = () => {
 				/>
 				<Link
 					to='/products'
-					className='btn btn-hero uppercase uppercase letter-spacing-2 fs-800'>
+					className='btn btn-hero uppercase uppercase letter-spacing-2 fs-700'>
 					Shop Now
 				</Link>
 			</div>

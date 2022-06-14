@@ -10,7 +10,7 @@ import { makeServer } from './server'
 makeServer()
 
 ReactDOM.render(
-	<React.StrictMode>
+	<>
 		<Toaster
 			position='bottom-left'
 			reverseOrder={true}
@@ -23,8 +23,8 @@ ReactDOM.render(
 				},
 			}}
 		/>
-		<App />
-	</React.StrictMode>,
+		<App />,
+	</>,
 	document.getElementById('root')
 )
 

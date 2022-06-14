@@ -82,7 +82,7 @@ const PaymentScreen = () => {
 	const navigate = useNavigate()
 
 	const paymentSuccessHandler = async paymentResult => {
-		if (paymentResult.status === 'COMPLETED') {
+		if (paymentResult?.status === 'COMPLETED') {
 			addOrderAction(cartItems)
 			clearCartAction()
 			navigate('/orders')
@@ -166,11 +166,12 @@ const PaymentScreen = () => {
 				</div>
 				<div className='cupon-input-wrapper'>
 					<label htmlFor='cupon-input '>
-						<span className='fs-500'>Cupon: </span>
+						<span className='fs-500 cupon-input-tag'>Cupon: </span>
 					</label>
 					<input
 						id='cupon'
 						className='cupon-input-feild'
+						placeholder='Cupon'
 						onChange={e => {
 							setCupon(e.target.value)
 							setCuponApplied(false)
@@ -194,13 +195,7 @@ const PaymentScreen = () => {
 							stroke='green'
 						/>
 					)}
-					<PhLinkSimpleBold
-						className='cupon-svg'
-						height='1.5rem'
-						width='1.5rem'
-					/>
-					<span>CANDY50: </span>
-					<small>Flat 50% off</small>
+					<strong className='fs-500'>CANDY50: FLAT 50% OFF</strong>
 				</div>
 				<div className='payment-gateway'>
 					{sdkReady &&

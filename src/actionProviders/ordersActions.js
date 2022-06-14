@@ -4,38 +4,24 @@ import { orderReducer } from '../reducers/orderReducer.js'
 
 import { useReducer, useContext } from 'react'
 
-import axios from 'axios'
+import orderService from '../Services/orderServices'
 
 const OrdersProvider = props => {
 	const [{ orders }, ordersDispatcher] = useReducer(orderReducer, {
 		orders: [],
 	})
 
-	const config = {
-		headers: {
-			authorization: localStorage.getItem('userToken'),
-		},
+	const updateOrder = data => {
+		ordersDispatcher({
+			type: 'ORDER_USER',
+			payload: data,
+		})
 	}
 
-	const addOrderAction = async order => {
-		try {
-			const res = await axios.post(
-				'/api/user/order',
-				{ order: order },
-				config
-			)
-			const data = await res.data.orders
-
-			ordersDispatcher({
-				type: 'ORDER_USER',
-				payload: data,
-			})
-		} catch (error) {
-			ordersDispatcher({
-				type: 'ORDER_ERROR',
-				payload: error,
-			})
-		}
+	const addOrderAction = order => {
+		orderService
+			.addOrderAction(order)
+			.then(data => updateOrder(data.orders))
 	}
 
 	const clearOrdersAction = () => {

@@ -1,17 +1,9 @@
 import './Pagination.css'
 
-export const Pagination = ({
-	productsLength,
-	paginate,
-	productsPerPage,
-}) => {
+export const Pagination = ({ productsLength, paginate }) => {
 	const pageNumbers = []
 
-	for (
-		let i = 1;
-		i <= Math.ceil(productsLength / productsPerPage);
-		i++
-	) {
+	for (let i = 1; i <= Math.ceil(productsLength / 8); i++) {
 		pageNumbers.push(i)
 	}
 

@@ -17,7 +17,9 @@ export const WishListBtn = props => {
 			onClick={() => toggleWishListAction(product)}
 			className='btn-wishlist'>
 			{isInWishList ? (
-				<AiFillHeart style={{ fontSize: '2rem' }} />
+				<AiFillHeart
+					style={{ color: 'hsl(338, 81%, 41%)', fontSize: '2rem' }}
+				/>
 			) : (
 				<AiOutlineHeart style={{ fontSize: '2rem' }} />
 			)}

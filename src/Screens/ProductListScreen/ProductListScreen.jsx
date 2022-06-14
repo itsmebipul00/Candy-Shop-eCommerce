@@ -20,7 +20,6 @@ const ProductListScreen = () => {
 		filteredProducts,
 		productsLoading,
 		productsError,
-		productsPerPage,
 		setthisPage,
 		products,
 	} = useProducts()
@@ -96,7 +95,6 @@ const ProductListScreen = () => {
 					))}
 			</div>
 			<Pagination
-				productsPerPage={productsPerPage}
 				paginate={paginate}
 				productsLength={products.length}
 			/>

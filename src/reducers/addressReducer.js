@@ -14,7 +14,6 @@ export const addressReducer = (state = { address: [] }, action) => {
 				address: action.payload,
 			}
 		case 'CLEAR_ADDRESS':
-			console.log('here')
 			return {
 				address: [],
 			}

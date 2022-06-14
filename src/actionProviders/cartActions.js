@@ -1,19 +1,14 @@
 import { CartContext } from '../context'
 import { useContext, useReducer } from 'react'
 import { cartReducer } from '../reducers/cartReducer.js'
-import axios from 'axios'
 import toast from 'react-hot-toast'
+
+import cartService from '../Services/cartServices'
 
 const CartProvider = props => {
 	const [{ cartItems }, dispatch] = useReducer(cartReducer, {
 		cartItems: [],
 	})
-
-	const config = {
-		headers: {
-			authorization: localStorage.getItem('userToken'),
-		},
-	}
 
 	const updateCart = data => {
 		dispatch({
@@ -22,48 +17,24 @@ const CartProvider = props => {
 		})
 	}
 
-	const errorInCart = data => {
-		dispatch({
-			type: 'CART_ERROR',
-			payload: data,
-		})
-	}
+	const addtoCartAction = cartItem =>
+		cartService
+			.addToCart(cartItem)
+			.then(data => updateCart(data.cart))
+			.then(toast.success(`${cartItem.title} is added to cart`))
 
-	const addtoCartAction = async cartItem => {
-		console.log(config)
-		try {
-			console.log(cartItem)
-			const res = await axios.post(
-				'/api/user/cart',
-				{ product: cartItem },
-				{
-					headers: {
-						authorization: localStorage.getItem('userToken'),
-					},
-				}
-			)
-			const data = await res.data.cart
+	const removeFromCartAction = id =>
+		cartService.removeFromCart(id).then(data => updateCart(data.cart))
 
-			console.log(res)
+	const incrementCartAction = id =>
+		cartService
+			.increaseCartItem(id)
+			.then(data => updateCart(data.cart))
 
-			updateCart(data)
-
-			toast.success(`${cartItem.title} is added to cart`)
-		} catch (error) {
-			console.log(error)
-			errorInCart(error.message)
-		}
-	}
-
-	const removeFromCartAction = async id => {
-		try {
-			const res = await axios.delete(`api/user/cart/${id}`, config)
-			const data = await res.data.cart
-			updateCart(data)
-		} catch (error) {
-			errorInCart(error.message)
-		}
-	}
+	const decrementCartAction = id =>
+		cartService
+			.decreaseCartItem(id)
+			.then(data => updateCart(data.cart))
 
 	const clearCartAction = () => {
 		dispatch({
@@ -89,45 +60,22 @@ const CartProvider = props => {
 
 				toast.success(`${cartItem.title} is removed from cart`)
 			} else {
-				try {
-					const res = await axios.post(
-						`api/user/cart/${id}`,
-						{ action: { type: val } },
-						config
-					)
+				decrementCartAction(id)
 
-					const data = await res.data.cart
-
-					updateCart(data)
-
-					console.log(cartItem)
-
-					toast.success(
-						`${cartItem.title}'s quantity is decreased to ${
-							cartItem.qty - 1
-						}`
-					)
-				} catch (error) {
-					errorInCart(error.message)
-				}
-			}
-		} else if (val === 'increment') {
-			try {
-				const res = await axios.post(
-					`api/user/cart/${id}`,
-					{ action: { type: val } },
-					config
-				)
-				const data = await res.data.cart
-				updateCart(data)
 				toast.success(
-					`${cartItem.title}'s quantity is increased to ${
-						cartItem.qty + 1
+					`${cartItem.title}'s quantity is decreased to ${
+						cartItem.qty - 1
 					}`
 				)
-			} catch (error) {
-				errorInCart(error.message)
 			}
+		} else if (val === 'increment') {
+			incrementCartAction(id)
+
+			toast.success(
+				`${cartItem.title}'s quantity is increased to ${
+					cartItem.qty + 1
+				}`
+			)
 		}
 	}
 

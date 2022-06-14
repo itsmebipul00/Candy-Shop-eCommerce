@@ -30,6 +30,12 @@
     position: relative;
 }
 
+@media(max-width:60em){
+    .individual-address{
+        padding: 1rem 2rem;
+    }
+}
+
 .adddress-screen-icons{
     margin-bottom: 0.5rem;
 }

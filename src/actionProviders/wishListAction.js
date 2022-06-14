@@ -1,24 +1,16 @@
 import { wishListReducer } from '../reducers/wishListReducer'
 import { useReducer, useContext } from 'react'
-import { UserContext } from '../context'
 
 import { WishListContext } from '../context'
 
 import toast from 'react-hot-toast'
 
-import axios from 'axios'
+import wishServices from '../Services/wishServices'
 
 const WishListProvider = props => {
 	const [{ wishList }, dispatch] = useReducer(wishListReducer, {
 		wishList: [],
 	})
-	const { userInfo } = useContext(UserContext)
-
-	const config = {
-		headers: {
-			authorization: userInfo.encodedToken,
-		},
-	}
 
 	const updateWishList = data => {
 		dispatch({
@@ -27,12 +19,21 @@ const WishListProvider = props => {
 		})
 	}
 
-	const wishListError = data => {
+	const clearWishListAction = () => {
 		dispatch({
-			type: 'WISHLIST_ERROR',
-			payload: data,
+			type: 'CLEAR_WISHLIST',
 		})
 	}
+
+	const removeFromWishAction = id =>
+		wishServices
+			.removeFromWishList(id)
+			.then(data => updateWishList(data.wishlist))
+
+	const addToWishAction = product =>
+		wishServices
+			.addToWishList(product)
+			.then(data => updateWishList(data.wishlist))
 
 	const toggleWishListAction = async product => {
 		const itemExists =
@@ -41,50 +42,11 @@ const WishListProvider = props => {
 			wishList.find(x => x._id === product._id)
 
 		if (itemExists) {
-			try {
-				const res = await axios.delete(
-					`/api/user/wishlist/${product._id}`,
-					config
-				)
-				const data = await res.data.wishlist
-				updateWishList(data)
-				// localStorage to setWishlist
-				toast.success(`${itemExists.title} is removed from wishlist`)
-			} catch (error) {
-				wishListError(error.message)
-				// toast Invalid request error
-			}
+			removeFromWishAction(product._id)
+			toast.success(`${product.title} is removed from wishlist`)
 		} else {
-			try {
-				const res = await axios.post(
-					`/api/user/wishlist`,
-					{ product: product },
-					config
-				)
-				const data = await res.data.wishlist
-				updateWishList(data)
-
-				toast.success(`${product.title} is added to wishlist`)
-			} catch (error) {
-				wishListError(error.message)
-				// Invalid request toast
-			}
-		}
-	}
-
-	const clearWishListAction = () => {
-		dispatch({
-			type: 'CLEAR_WISHLIST',
-		})
-	}
-
-	const getWishListAction = async () => {
-		try {
-			const res = await axios.get('/api/user/wishlist', config)
-			const data = await res.data.wishlist
-			updateWishList(data)
-		} catch (error) {
-			wishListError(error.message)
+			addToWishAction(product)
+			toast.success(`${product.title} is added to wishlist`)
 		}
 	}
 
@@ -93,7 +55,6 @@ const WishListProvider = props => {
 			value={{
 				toggleWishListAction,
 				clearWishListAction,
-				getWishListAction,
 				wishList,
 			}}>
 			{props.children}

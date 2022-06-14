@@ -1,3 +1,11 @@
+@media(max-width:60em){
+    .pagination{
+        margin-left: 2rem;
+    }
+}
+
+
+
 .pagination-nos{
     background-color: hsl(var(--clr-blue));
     padding: 0.5rem 1rem;
