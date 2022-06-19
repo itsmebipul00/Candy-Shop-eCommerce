@@ -47,21 +47,6 @@ export const CartBtn = props => {
 			{iscartPage ? (
 				<span className={`btn btn-updateCart uppercase `}>
 					<button
-						className='subBtn subBtn-addtocart'
-						value='increment'
-						onClick={e =>
-							updateCartAction(
-								e.target.value,
-								props.product._id,
-								e,
-								location.pathname
-							)
-						}>
-						+
-					</button>
-
-					<span>{cartItem.qty}</span>
-					<button
 						value='decrement'
 						className='subBtn subBtn-removeFromCart'
 						onClick={e =>
@@ -73,6 +58,21 @@ export const CartBtn = props => {
 							)
 						}>
 						-
+					</button>
+
+					<span>{cartItem.qty}</span>
+					<button
+						className='subBtn subBtn-addtocart'
+						value='increment'
+						onClick={e =>
+							updateCartAction(
+								e.target.value,
+								props.product._id,
+								e,
+								location.pathname
+							)
+						}>
+						+
 					</button>
 				</span>
 			) : cartItem?.qty > 0 && isproductPage ? (
@@ -86,21 +86,6 @@ export const CartBtn = props => {
 				<span
 					className={`btn btn-updateCart uppercase ${props.className}`}>
 					<button
-						className='subBtn subBtn-addtocart'
-						value='increment'
-						onClick={e =>
-							updateCartAction(
-								e.target.value,
-								props.product._id,
-								e,
-								location.pathname
-							)
-						}>
-						+
-					</button>
-
-					<span>{cartItem.qty}</span>
-					<button
 						value='decrement'
 						className='subBtn subBtn-removeFromCart'
 						onClick={e =>
@@ -112,6 +97,21 @@ export const CartBtn = props => {
 							)
 						}>
 						-
+					</button>
+
+					<span>{cartItem.qty}</span>
+					<button
+						className='subBtn subBtn-addtocart'
+						value='increment'
+						onClick={e =>
+							updateCartAction(
+								e.target.value,
+								props.product._id,
+								e,
+								location.pathname
+							)
+						}>
+						+
 					</button>
 				</span>
 			) : (
