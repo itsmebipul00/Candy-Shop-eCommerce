@@ -1,11 +1,17 @@
 import './RegisterScreen.css'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
-import axios from 'axios'
 import { useUser } from '../../actionProviders/userActions'
+import { PasswordEye } from '../../Components/PasswordEye/PasswordEye'
+
+import authService from '../../Services/authServices'
+
+import { useFocusInput } from '../../Hooks/useFocusInput'
 
 const RegisterScreen = () => {
 	const location = useLocation()
+
+	const inputRef = useFocusInput()
 
 	const [registerFromData, setRegisterFormData] = useState({
 		username: '',
@@ -15,13 +21,10 @@ const RegisterScreen = () => {
 	})
 
 	const [message, setMessage] = useState('')
+
 	const { setUserAction } = useUser()
 
 	const [showPass, setShowPass] = useState(true)
-
-	const handlePasswordType = () => {
-		setShowPass(prev => !prev)
-	}
 
 	const navigate = useNavigate()
 
@@ -33,28 +36,20 @@ const RegisterScreen = () => {
 			setMessage('Passwords do not match')
 		} else {
 			setMessage('')
-			try {
-				const resRegister = await axios.post('/api/auth/signup', {
-					username: registerFromData.username,
-					email: registerFromData.email,
-					password: registerFromData.password,
-				})
-				const dataRegister = await resRegister.data
-				localStorage.setItem('userToken', dataRegister.encodedToken)
-				if (dataRegister && dataRegister.createdUser) {
-					try {
-						const resLogin = await axios.post('/api/auth/login', {
-							email: dataRegister.createdUser.email,
-							password: dataRegister.createdUser.password,
-						})
-						const dataLogin = await resLogin.data
-						localStorage.setItem('userToken', dataLogin.encodedToken)
-						setUserAction(dataLogin)
-						navigate('/products')
-					} catch (error) {}
-				} else {
-				}
-			} catch (error) {}
+			authService
+				.register(
+					registerFromData.username,
+					registerFromData.email,
+					registerFromData.password
+				)
+				.then(data =>
+					authService.login(
+						data.createdUser.email,
+						data.createdUser.password
+					)
+				)
+				.then(data => setUserAction(data))
+				.then(() => navigate('/products'))
 		}
 	}
 
@@ -84,6 +79,7 @@ const RegisterScreen = () => {
 					onChange={handleChange}
 					value={registerFromData.username}
 					required
+					ref={inputRef}
 				/>
 
 				<label htmlFor='email' className='email'>
@@ -113,16 +109,13 @@ const RegisterScreen = () => {
 					<input
 						id='password'
 						className='form-password'
-						type={showPass ? 'password' : 'text'}
+						type='password'
 						minLength='8'
 						name='password'
 						onChange={handleChange}
 						value={registerFromData.password}
 						required
 					/>
-					<i
-						className='fas fa-eye p-absolute'
-						onClick={handlePasswordType}></i>
 				</div>
 
 				<label htmlFor='confirm-password' className='password'>
@@ -143,9 +136,10 @@ const RegisterScreen = () => {
 						value={registerFromData.confirmPassword}
 						required
 					/>
-					<i
-						className='fas fa-eye p-absolute'
-						onClick={handlePasswordType}></i>
+					<PasswordEye
+						setShowPass={setShowPass}
+						showPass={showPass}
+					/>
 				</div>
 				<p className='fs-300 text-red'>{message}</p>
 

@@ -56,7 +56,6 @@ export const addItemToAddressHandler = function (schema, request) {
 			createdAt: formatDate(),
 			updatedAt: formatDate(),
 		})
-		console.log(userAddress)
 		this.db.users.update({ _id: userId }, { address: userAddress })
 		return new Response(201, {}, { address: userAddress })
 	} catch (error) {
@@ -95,7 +94,6 @@ export const updateItemToAddressHandler = function (schema, request) {
 		const updatedAddress = user.address.map(item =>
 			item._id === address._id ? address : item
 		)
-		console.log(updatedAddress)
 		this.db.users.update({ _id: userId }, { address: updatedAddress })
 		return new Response(201, {}, { address: updatedAddress })
 	} catch (error) {

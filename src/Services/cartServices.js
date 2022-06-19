@@ -3,15 +3,9 @@ import axios from 'axios'
 const cartService = {
 	addToCart: async cartItem => {
 		try {
-			const res = await axios.post(
-				'/api/user/cart',
-				{ product: cartItem },
-				{
-					headers: {
-						authorization: localStorage.getItem('userToken'),
-					},
-				}
-			)
+			const res = await axios.post('/api/user/cart', {
+				product: cartItem,
+			})
 			return res.data
 		} catch (error) {
 			throw error
@@ -19,11 +13,7 @@ const cartService = {
 	},
 	removeFromCart: async id => {
 		try {
-			const res = await axios.delete(`api/user/cart/${id}`, {
-				headers: {
-					authorization: localStorage.getItem('userToken'),
-				},
-			})
+			const res = await axios.delete(`api/user/cart/${id}`)
 			return res.data
 		} catch (error) {
 			throw error
@@ -31,15 +21,9 @@ const cartService = {
 	},
 	decreaseCartItem: async id => {
 		try {
-			const res = await axios.post(
-				`api/user/cart/${id}`,
-				{ action: { type: 'decrement' } },
-				{
-					headers: {
-						authorization: localStorage.getItem('userToken'),
-					},
-				}
-			)
+			const res = await axios.post(`api/user/cart/${id}`, {
+				action: { type: 'decrement' },
+			})
 
 			return res.data
 		} catch (error) {
@@ -49,15 +33,9 @@ const cartService = {
 
 	increaseCartItem: async id => {
 		try {
-			const res = await axios.post(
-				`api/user/cart/${id}`,
-				{ action: { type: 'increment' } },
-				{
-					headers: {
-						authorization: localStorage.getItem('userToken'),
-					},
-				}
-			)
+			const res = await axios.post(`api/user/cart/${id}`, {
+				action: { type: 'increment' },
+			})
 			return res.data
 		} catch (error) {
 			throw error

@@ -7,7 +7,11 @@ import reportWebVitals from './reportWebVitals'
 
 import { makeServer } from './server'
 
+import { authorizeToken } from './utils/authorizeToken'
+
 makeServer()
+
+authorizeToken()
 
 ReactDOM.render(
 	<>

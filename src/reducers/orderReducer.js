@@ -9,8 +9,6 @@ export const orderReducer = (state = { orders: [] }, action) => {
 				error: action.payload,
 			}
 		case 'CLEAR_ORDERS':
-			console.log('here')
-
 			return {
 				orders: [],
 			}

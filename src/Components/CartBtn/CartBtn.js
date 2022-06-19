@@ -1,27 +1,46 @@
 import { useLocation } from 'react-router-dom'
-
-import { useCart } from '../../actionProviders/cartActions'
-
 import { useNavigate, useParams } from 'react-router-dom'
+import { useWishList } from '../../actionProviders/wishListAction'
+import { useCart } from '../../actionProviders/cartActions'
+import { useUser } from '../../actionProviders/userActions'
 
 export const CartBtn = props => {
-	const { cartItems, updateCartAction } = useCart()
+	const { cartItems, updateCartAction, addtoCartAction } = useCart()
+
+	const { userInfo } = useUser()
 
 	const { id } = useParams()
 
 	const location = useLocation()
+
+	const navigate = useNavigate()
+
+	const { wishList, toggleWishListAction } = useWishList()
 
 	const iscartPage = location.pathname === '/cart' ? true : false
 
 	const isproductPage =
 		location.pathname === `/product/${id}` ? true : false
 
-	const navigate = useNavigate()
-
 	const cartItem =
 		cartItems && cartItems.length > 0
-			? cartItems.find(item => item._id === props._id)
+			? cartItems.find(item => item._id === props.product._id)
 			: false
+
+	const addtocartHandler = (e, product) => {
+		e.preventDefault()
+		if (!userInfo.encodedToken) {
+			navigate('/login')
+			return
+		}
+		const cartInWish = wishList.find(pro => pro._id === product._id)
+
+		if (Boolean(cartInWish)) {
+			toggleWishListAction(cartInWish)
+		}
+
+		addtoCartAction(product)
+	}
 
 	return (
 		<>
@@ -33,7 +52,7 @@ export const CartBtn = props => {
 						onClick={e =>
 							updateCartAction(
 								e.target.value,
-								props._id,
+								props.product._id,
 								e,
 								location.pathname
 							)
@@ -48,7 +67,7 @@ export const CartBtn = props => {
 						onClick={e =>
 							updateCartAction(
 								e.target.value,
-								props._id,
+								props.product._id,
 								e,
 								location.pathname
 							)
@@ -72,7 +91,7 @@ export const CartBtn = props => {
 						onClick={e =>
 							updateCartAction(
 								e.target.value,
-								props._id,
+								props.product._id,
 								e,
 								location.pathname
 							)
@@ -87,7 +106,7 @@ export const CartBtn = props => {
 						onClick={e =>
 							updateCartAction(
 								e.target.value,
-								props._id,
+								props.product._id,
 								e,
 								location.pathname
 							)
@@ -98,7 +117,7 @@ export const CartBtn = props => {
 			) : (
 				<button
 					className='btn btn-addtocart uppercase letter-spacing-5 fs-400'
-					onClick={e => props.addtocartHandler(e, props._id)}>
+					onClick={e => addtocartHandler(e, props.product)}>
 					Add to cart
 				</button>
 			)}

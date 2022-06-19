@@ -1,3 +1,8 @@
+.order-screen{
+    width: 100%;
+    height: 100%;
+}
+
 .order-items{
     margin: 2rem 0;
 }

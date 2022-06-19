@@ -4,12 +4,17 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { useState } from 'react'
 
-import axios from 'axios'
-
 import { useUser } from '../../actionProviders/userActions'
+
+import authService from '../../Services/authServices'
+
+import { MdiEyeOutline, MdiEyeOffOutline } from '../../assets/Logo'
+import { useFocusInput } from '../../Hooks/useFocusInput'
 
 const LoginScreen = () => {
 	const navigate = useNavigate()
+
+	const inputRef = useFocusInput()
 
 	const [loginFormData, setLoginFormData] = useState({
 		email: '',
@@ -22,29 +27,12 @@ const LoginScreen = () => {
 
 	const [showPass, setShowPass] = useState(true)
 
-	const handlePasswordType = () => {
-		setShowPass(prev => !prev)
-	}
-
-	const handleRegisterSubmit = async e => {
+	const handleRegisterSubmit = e => {
 		e.preventDefault()
-		try {
-			const resLogin = await axios.post('/api/auth/login', {
-				email: loginFormData.email,
-				password: loginFormData.password,
-			})
-
-			console.log(resLogin)
-			const dataLogin = await resLogin.data
-
-			localStorage.setItem('userToken', dataLogin.encodedToken)
-
-			setUserAction(dataLogin)
-
-			navigate(-1)
-		} catch (error) {
-			console.log(error)
-		}
+		authService
+			.login(loginFormData.email, loginFormData.password)
+			.then(data => setUserAction(data))
+			.then(() => navigate(-1))
 	}
 
 	const handleChange = event => {
@@ -60,13 +48,11 @@ const LoginScreen = () => {
 		})
 	}
 
-	const handleGuest = e => {
+	const handleGuest = () => {
 		setLoginFormData({
 			email: 'itsmebipul00@gmail.com',
-			password: 'itsmebipul00@gmail.com',
+			password: 'itsmeBipul00@gmail.com',
 		})
-
-		setTimeout(() => handleRegisterSubmit(e), 2000)
 	}
 
 	return (
@@ -85,6 +71,7 @@ const LoginScreen = () => {
 				onChange={handleChange}
 				value={loginFormData.email}
 				required
+				ref={inputRef}
 			/>
 
 			<label htmlFor='password' className='password'>
@@ -106,29 +93,17 @@ const LoginScreen = () => {
 					required
 				/>
 
-				<i
-					className='fas fa-eye p-absolute'
-					onClick={handlePasswordType}></i>
-			</div>
-
-			<div className='d-flex fs-400'>
-				<span>
-					<input
-						type='checkbox'
-						id='rememberMe'
-						name='rememberMe'
-						className='rememberMe'
-						checked={loginFormData.remeberMe}
+				{showPass ? (
+					<MdiEyeOutline
+						className='fas fa-eye p-absolute'
+						onClick={() => setShowPass(prev => !prev)}
 					/>
-					<label htmlFor='rememberMe'>Remember me</label>
-				</span>
-
-				<Link
-					to='#'
-					className='forgot-password'
-					state={{ form: location.pathname }}>
-					Forgot Password ?
-				</Link>
+				) : (
+					<MdiEyeOffOutline
+						className='fas fa-eye p-absolute'
+						onClick={() => setShowPass(prev => !prev)}
+					/>
+				)}
 			</div>
 
 			<button className='btn btn-signUp uppercase letter-spacing-1'>
@@ -137,12 +112,15 @@ const LoginScreen = () => {
 
 			<p className='already-done'>
 				Yet to Register?{' '}
-				<Link to='/register' state={{ form: location.pathname }}>
+				<Link
+					to='/register'
+					className='text-blue text-underline'
+					state={{ form: location.pathname }}>
 					Register
 				</Link>
 			</p>
-			<p>
-				<span>Hello, Guest?</span>
+			<p className='d-inline'>
+				<span>Guest? </span>
 				<button className='btn btn-guest' onClick={handleGuest}>
 					Guest Login
 				</button>

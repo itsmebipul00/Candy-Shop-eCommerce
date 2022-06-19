@@ -11,7 +11,7 @@ export const users = [
 		_id: uuid(),
 		username: 'Bipul',
 		email: 'itsmebipul00@gmail.com',
-		password: 'itsmebipul00@gmail.com',
+		password: 'itsmeBipul00@gmail.com',
 		wishlist: [],
 		cart: [],
 		orders: [],

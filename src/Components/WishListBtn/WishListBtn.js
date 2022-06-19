@@ -1,20 +1,42 @@
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom'
+import { useCart } from '../../actionProviders/cartActions'
+import { useUser } from '../../actionProviders/userActions'
 
 import { useWishList } from '../../actionProviders/wishListAction'
 
 export const WishListBtn = props => {
-	const { wishList } = useWishList()
+	const { product } = props
 
-	const { toggleWishListAction, product } = props
+	const navigate = useNavigate()
+
+	const { wishList, toggleWishListAction } = useWishList()
+
+	const { cartItems, removeFromCartAction } = useCart()
+
+	const { userInfo } = useUser()
+
+	const addtoWishCheck = product => {
+		if (!userInfo.encodedToken) {
+			navigate('/login')
+			return
+		}
+		const wishInCart = cartItems.find(pro => pro._id === product._id)
+
+		if (Boolean(wishInCart)) {
+			removeFromCartAction(product._id)
+		}
+		toggleWishListAction(product)
+	}
 
 	const isInWishList =
 		wishList && wishList.length > 0
-			? wishList.find(item => item._id === props._id)
+			? wishList.find(item => item._id === product._id)
 			: false
 
 	return (
 		<button
-			onClick={() => toggleWishListAction(product)}
+			onClick={() => addtoWishCheck(product)}
 			className='btn-wishlist'>
 			{isInWishList ? (
 				<AiFillHeart

@@ -1,6 +1,6 @@
 import './Header.css'
 import { useLocation } from 'react-router-dom'
-import { LogoProvider } from '../../assets/Icons/Icons'
+import { LogoProvider } from '../../assets/Icons'
 import { styles } from '../../utils/iconStyles'
 import { Link, NavLink } from 'react-router-dom'
 
@@ -21,7 +21,6 @@ import { useWishList } from '../../actionProviders/wishListAction'
 import { useCart } from '../../actionProviders/cartActions'
 import { useAddress } from '../../actionProviders/addressProvider'
 import { useOrders } from '../../actionProviders/ordersActions'
-import { useProducts } from '../../actionProviders/productActions'
 import axios from 'axios'
 
 const logoStyles = {

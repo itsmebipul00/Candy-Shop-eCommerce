@@ -1,89 +1,57 @@
-import { isEmptyObject } from '../../utils/isEmptyObject'
-
 import { useUser } from '../../actionProviders/userActions'
 
-import { useLocation, Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import './PaymentScreen.css'
 import { useAddress } from '../../actionProviders/addressProvider'
 import { useCart } from '../../actionProviders/cartActions'
 import { CartBtn } from '../../Components/CartBtn/CartBtn'
-import { useState, useEffect } from 'react'
 
+import { useCupon } from '../../Hooks/useCupon'
 import { useOrders } from '../../actionProviders/ordersActions'
 
 import { PayPalButton } from 'react-paypal-button-v2'
 
-import {
-	PhLinkSimpleBold,
-	TeenyiconsTickCircleOutline,
-} from '../../assets/Icons/Logo'
+import { TeenyiconsTickCircleOutline } from '../../assets/Logo'
+
+import { usePaypal } from '../../Hooks/usePaypal'
 
 const PaymentScreen = () => {
+	const [
+		cuponApplied,
+		applyCandy50,
+		checkCupon,
+		cupon,
+		setCuponApplied,
+		setCupon,
+	] = useCupon()
+
 	const { userInfo } = useUser()
 
-	const isUserInfoEmpty = isEmptyObject(userInfo)
-
-	const { pathname } = useLocation()
+	const sdkReady = usePaypal()
 
 	const { deliveryAddress } = useAddress()
 
-	const { cartItems, addtoCartAction, clearCartAction } = useCart()
+	const { cartItems, clearCartAction } = useCart()
 
 	const { addOrderAction } = useOrders()
 
-	const addtocartHandler = (e, id) => {
-		e.preventDefault()
-		const cartItem = cartItems.find(product => product._id === id)
-		addtoCartAction(cartItem)
-	}
+	const navigate = useNavigate()
 
 	const subtotal = cartItems?.reduce(
 		(acc, val) => acc + val.qty * Number(val.price),
 		0
 	)
 
-	const [cupon, setCupon] = useState('')
-	const [cuponApplied, setCuponApplied] = useState(false)
-
-	const applyCandy50 = () => {
-		setCupon('CANDY50')
-		setTimeout(() => setCuponApplied(true), 1000)
-	}
-
-	const checkCupon = () => {
-		if (cupon === 'CANDY50') {
-			setCuponApplied(true)
-		} else {
-			setCuponApplied(false)
-		}
-	}
-
-	const [sdkReady, setSdkReady] = useState(false)
-
-	useEffect(() => {
-		const addPayPalScript = async () => {
-			const script = document.createElement('script')
-			script.type = 'text/javascript'
-			script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.REACT_APP_CLIENT_ID}`
-			script.async = true
-			script.onload = () => {
-				setSdkReady(true)
-			}
-			document.body.appendChild(script)
-		}
-		if (!window.paypal) {
-			addPayPalScript()
-		} else {
-			setSdkReady(true)
-		}
-	}, [])
-
-	const navigate = useNavigate()
+	const totalPriceAfterDiscount =
+		cuponApplied && cupon === 'CANDY50' ? subtotal * 0.5 : subtotal
 
 	const paymentSuccessHandler = async paymentResult => {
 		if (paymentResult?.status === 'COMPLETED') {
-			addOrderAction(cartItems)
+			addOrderAction(cartItems, {
+				totalPrice: totalPriceAfterDiscount,
+				address: deliveryAddress,
+			})
 			clearCartAction()
 			navigate('/orders')
 		}
@@ -91,9 +59,6 @@ const PaymentScreen = () => {
 
 	return (
 		<div className='d-flex payment-screen'>
-			{isUserInfoEmpty && (
-				<Navigate to='/login' state={{ from: pathname }} />
-			)}
 			<div className='delivery-summary'>
 				<h2 className='letter-spacing-5 fs-700'>
 					Delivery Information
@@ -141,11 +106,7 @@ const PaymentScreen = () => {
 								</p>
 								<p>Quatity: {item.qty}</p>
 							</div>
-							<CartBtn
-								_id={item._id}
-								addtocartHandler={addtocartHandler}
-								className='payment-cart-btn'
-							/>
+							<CartBtn product={item} className='payment-cart-btn' />
 						</div>
 					))}
 				</div>
@@ -158,7 +119,9 @@ const PaymentScreen = () => {
 							<span className='fs-500'>Subtotal:</span>{' '}
 							<s>${subtotal}</s>
 							<small className='fs-300'>-50% </small>
-							<span className='fs-500'>${subtotal * 0.5}</span>
+							<span className='fs-500'>
+								${totalPriceAfterDiscount}
+							</span>
 						</span>
 					) : (
 						<p className='fs-500'>Subtotal : ${subtotal}</p>
@@ -198,18 +161,12 @@ const PaymentScreen = () => {
 					<strong className='fs-500'>CANDY50: FLAT 50% OFF</strong>
 				</div>
 				<div className='payment-gateway'>
-					{sdkReady &&
-						(cuponApplied ? (
-							<PayPalButton
-								amount={subtotal * 0.5}
-								onSuccess={paymentSuccessHandler}
-							/>
-						) : (
-							<PayPalButton
-								amount={subtotal}
-								onSuccess={paymentSuccessHandler}
-							/>
-						))}
+					{sdkReady && (
+						<PayPalButton
+							amount={totalPriceAfterDiscount}
+							onSuccess={paymentSuccessHandler}
+						/>
+					)}
 				</div>
 			</div>
 		</div>

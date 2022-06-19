@@ -20,7 +20,7 @@ const productService = {
 	getProduct: async id => {
 		try {
 			const res = await axios.get(`/api/products/${id}`)
-			throw res.data
+			return res.data
 		} catch (error) {
 			throw error
 		}

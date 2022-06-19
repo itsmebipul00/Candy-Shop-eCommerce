@@ -10,8 +10,6 @@ export const categoriesReducer = (
 		case 'CATEGORIES_ERROR':
 			return { loading: false, error: action.payload }
 		case 'CLEAR_CATEGORIES':
-			console.log('here')
-
 			return {
 				categories: [],
 			}

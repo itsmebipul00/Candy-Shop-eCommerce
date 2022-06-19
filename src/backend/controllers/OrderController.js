@@ -34,6 +34,7 @@ export const addOrderToOrdersHandler = function (schema, request) {
 			)
 		}
 		const orders = schema.users.findBy({ _id: userId }).orders
+		console.log(request)
 		const order = JSON.parse(request.requestBody)
 		orders.push({
 			...order,

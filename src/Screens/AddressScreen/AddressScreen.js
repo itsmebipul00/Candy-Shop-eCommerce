@@ -8,29 +8,31 @@ import { NewAddressDialog } from '../../Components/NewAddressDialog/NewAddressDi
 
 import { useAddress } from '../../actionProviders/addressProvider.js'
 
-import axios from 'axios'
+import addressService from '../../Services/addressServices.js'
 
 import {
 	IcBaselineDeleteOutline,
 	IcOutlineModeEdit,
 	TeenyiconsTickCircleOutline,
-} from '../../assets/Icons/Logo'
+} from '../../assets/Logo'
 
 import './AddressScreen.css'
+import EmptyBasket from '../../Components/EmptyBasket/EmptyBasket.js'
 
 const AddressScreen = () => {
 	const [showModal, setShowModal] = useState(false)
 
+	const [addressData, setAddressData] = useState()
+
+	const navigate = useNavigate()
+
 	const location = useLocation()
 
-	const config = {
-		headers: {
-			authorization: localStorage.getItem('userToken'),
-		},
-	}
 	const {
 		address,
-		addressDispatcher,
+		addAddress,
+		deleteAddress,
+		updateAddress,
 		setDeliveryAddress,
 		deliveryAddress,
 	} = useAddress()
@@ -41,10 +43,6 @@ const AddressScreen = () => {
 		pincode: 999,
 		address: 'Hello World',
 	}
-
-	const [addressData, setAddressData] = useState()
-
-	const navigate = useNavigate()
 
 	const handleNewAddress = () => {
 		setShowModal(true)
@@ -68,79 +66,29 @@ const AddressScreen = () => {
 					: true
 
 			if (existAddress) {
-				try {
-					const res = await axios.put(
-						'/api/user/address',
-						{ address: addressData },
-						config
-					)
-
-					addressDispatcher({
-						type: 'UPDATE_ADDRESS',
-						payload: res.data.address,
-					})
-				} catch (error) {
-					console.log(error)
-				}
+				addressService
+					.editAddress(addressData)
+					.then(data => updateAddress(data.address))
 			} else {
-				try {
-					const res = await axios.post(
-						'/api/user/address',
-						{ address: addressData },
-						config
-					)
-
-					console.log(res)
-					addressDispatcher({
-						type: 'NEW_ADDRESS',
-						payload: res.data.address,
-					})
-				} catch (error) {
-					console.log(error)
-				}
+				addressService
+					.addAddress(addressData)
+					.then(data => addAddress(data.address))
 			}
 		} else {
-			try {
-				const res = await axios.post(
-					'/api/user/address',
-					{ address: addressData },
-					config
-				)
-				addressDispatcher({
-					type: 'NEW_ADDRESS',
-					payload: res.data.address,
-				})
-			} catch (error) {
-				console.log(error)
-			}
+			addressService
+				.addAddress(addressData)
+				.then(data => addAddress(data.address))
 		}
 
 		setShowModal(false)
 	}
 
-	const handleSelectAddress = add => {
-		setDeliveryAddress(add)
-	}
-
 	const handleDelete = async id => {
-		try {
-			const res = await axios.delete(
-				`/api/user/address/${id}`,
-				config
-			)
-			console.log(res)
+		addressService
+			.deleteAddress(id)
+			.then(data => deleteAddress(data.address))
 
-			addressDispatcher({
-				type: 'DELETE_ADDRESS',
-				payload: res.data.address,
-			})
-		} catch (error) {
-			console.log(error)
-		}
-
-		if (id === deliveryAddress._id) {
-			setDeliveryAddress(undefined)
-		}
+		if (id === deliveryAddress._id) setDeliveryAddress(undefined)
 	}
 
 	const handleEdit = id => {
@@ -149,16 +97,13 @@ const AddressScreen = () => {
 		setAddressData(editAddressData)
 	}
 
-	const handlePlaceOrder = () => {
-		navigate('/payment')
-	}
-
-	console.log(address)
 	return (
 		<div className='address-screen'>
 			<div className='address-screens-ctas'>
 				{location?.state?.from === '/cart' && deliveryAddress && (
-					<button className='btn-address' onClick={handlePlaceOrder}>
+					<button
+						className='btn-address'
+						onClick={() => navigate('/payment')}>
 						Place Order
 					</button>
 				)}
@@ -175,47 +120,50 @@ const AddressScreen = () => {
 			/>
 
 			<section className='user-address-details'>
-				{address?.map((add, idx) => (
-					<div key={idx} className='individual-address'>
-						{deliveryAddress?._id === add?._id ? (
+				{address && address.length > 0 ? (
+					address?.map((add, idx) => (
+						<div key={idx} className='individual-address'>
 							<TeenyiconsTickCircleOutline
-								onClick={() => handleSelectAddress(add)}
+								onClick={() => setDeliveryAddress(add)}
 								className='select-address-icon'
-								stroke='green'
+								stroke={`${
+									deliveryAddress?._id === add?._id
+										? 'green'
+										: 'currentColor'
+								}`}
 							/>
-						) : (
-							<TeenyiconsTickCircleOutline
-								onClick={() => handleSelectAddress(add)}
-								className='select-address-icon'
-								stroke='currentColor'
-							/>
-						)}
-						<div className='adddress-screen-icons'>
-							<button onClick={() => handleDelete(add._id)}>
+
+							<div className='adddress-screen-icons'>
 								<IcBaselineDeleteOutline
 									width='1.5rem'
 									height='1.5rem'
+									onClick={() => handleDelete(add._id)}
 								/>
-							</button>
-							<button onClick={() => handleEdit(add._id)}>
-								<IcOutlineModeEdit width='1.5rem' height='1.5rem' />
-							</button>
-						</div>
 
-						<p>
-							<span className='fs-500'>Mobile No: </span>
-							{add.mobile}
-						</p>
-						<p>
-							<span className='fs-500'>Pincode: </span>
-							{add.pincode}
-						</p>
-						<p>
-							<span className='fs-500'>Address: </span>
-							{add.address}
-						</p>
-					</div>
-				))}
+								<IcOutlineModeEdit
+									width='1.5rem'
+									height='1.5rem'
+									onClick={() => handleEdit(add._id)}
+								/>
+							</div>
+
+							<p>
+								<span className='fs-500'>Mobile No: </span>
+								{add.mobile}
+							</p>
+							<p>
+								<span className='fs-500'>Pincode: </span>
+								{add.pincode}
+							</p>
+							<p>
+								<span className='fs-500'>Address: </span>
+								{add.address}
+							</p>
+						</div>
+					))
+				) : (
+					<EmptyBasket basket='address' />
+				)}
 			</section>
 		</div>
 	)

@@ -35,9 +35,7 @@ export const getCartItemsHandler = function (schema, request) {
  * */
 
 export const addItemToCartHandler = function (schema, request) {
-	console.log(request)
 	const userId = requiresAuth.call(this, request)
-	console.log(userId)
 	try {
 		if (!userId) {
 			new Response(
@@ -51,16 +49,13 @@ export const addItemToCartHandler = function (schema, request) {
 			)
 		}
 		const userCart = schema.users.findBy({ _id: userId }).cart
-		console.log(userCart)
 		const { product } = JSON.parse(request.requestBody)
-		console.log(product)
 		userCart.push({
 			...product,
 			createdAt: formatDate(),
 			updatedAt: formatDate(),
 			qty: 1,
 		})
-		console.log(userCart)
 		this.db.users.update({ _id: userId }, { cart: userCart })
 		return new Response(201, {}, { cart: userCart })
 	} catch (error) {

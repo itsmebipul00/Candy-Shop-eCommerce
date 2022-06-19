@@ -1,11 +1,8 @@
 import './Pagination.css'
+import { usePaginate } from '../../Hooks/usePaginate'
 
-export const Pagination = ({ productsLength, paginate }) => {
-	const pageNumbers = []
-
-	for (let i = 1; i <= Math.ceil(productsLength / 8); i++) {
-		pageNumbers.push(i)
-	}
+export const Pagination = () => {
+	const [pageNumbers, setthisPage] = usePaginate()
 
 	return (
 		<nav className='pagination'>
@@ -13,7 +10,7 @@ export const Pagination = ({ productsLength, paginate }) => {
 				{pageNumbers.map(number => (
 					<li key={number} className='page-item'>
 						<button
-							onClick={() => paginate(number)}
+							onClick={() => setthisPage(number)}
 							className='page-link text-dark fs-500'>
 							{number}
 						</button>

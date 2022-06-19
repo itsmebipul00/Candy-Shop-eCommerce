@@ -2,15 +2,17 @@ import { AiOutlineSearch } from 'react-icons/ai'
 
 import { styles } from '../../utils/iconStyles'
 
-import { LogoProvider } from '../../assets/Icons/Icons'
+import { LogoProvider } from '../../assets/Icons'
 
 import { useProducts } from '../../actionProviders/productActions'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { debounce } from '../../utils/debounce'
+import { useClickOutside } from '../../Hooks/useClickOutside'
+
+import { useDebounce } from '../../Hooks/useDebounce'
 
 import './Search.css'
 
@@ -21,15 +23,33 @@ export const Search = () => {
 	}
 
 	const [search, setSearch] = useState('')
+
+	const [debouncedSearch, setDebouncedSearch] = useState('')
+
 	const { products } = useProducts()
 
-	const searchFilters = debounce(text => {
-		setSearch(text)
-	}, 1000)
+	const [open, setOpen] = useState(false)
+
+	const searchRef = useRef()
+
+	useClickOutside(searchRef, () => {
+		if (open) {
+			setOpen(false)
+			setSearch('')
+		}
+	})
+
+	useDebounce(() => setDebouncedSearch(search), 1000, [search])
 
 	const searchedProducts = products?.filter(pro =>
-		pro.title.toLowerCase().includes(search)
+		pro.title.toLowerCase().includes(debouncedSearch)
 	)
+
+	useEffect(() => {
+		if (debouncedSearch.length > 0) {
+			setOpen(true)
+		}
+	}, [debouncedSearch])
 
 	return (
 		<div className='p-relative'>
@@ -40,29 +60,48 @@ export const Search = () => {
 					id='input-search'
 					className='input-search'
 					placeholder='Search for candies...'
-					onChange={e => searchFilters(e.target.value.toLowerCase())}
+					autoComplete='off'
+					value={search}
+					onChange={e => setSearch(e.target.value.toLowerCase())}
 				/>
 
 				<LogoProvider>
 					<AiOutlineSearch value={searchIconStyle} />
 				</LogoProvider>
 			</div>
-			{search.length > 0 && (
-				<div className='searched-products p-absolute'>
-					{searchedProducts.map((pro, idx) => (
-						<Link
-							to={`/product/${pro._id}`}
-							className='searched-product d-flex'>
+			{
+				<div
+					className='searched-products p-absolute'
+					style={{ display: open ? 'block' : 'none' }}
+					ref={searchRef}>
+					{searchedProducts.length > 0 ? (
+						searchedProducts.map((pro, idx) => (
+							<Link
+								key={idx}
+								to={`/product/${pro._id}`}
+								className='searched-product d-flex'>
+								<img
+									src={pro.image}
+									alt={pro.image}
+									className='searched-img'
+								/>
+								<p className='searched-title fs-500'>{pro.title}</p>
+							</Link>
+						))
+					) : (
+						<div className='no-candies-wrapper'>
+							<h2 className='text-blue text-center fs-700'>
+								No candies found
+							</h2>
 							<img
-								src={pro.image}
-								alt={pro.image}
-								className='searched-img'
+								src={'/images/no-candies.png'}
+								alt='no-candies'
+								className='no-candies'
 							/>
-							<p className='searched-title fs-500'>{pro.title}</p>
-						</Link>
-					))}
+						</div>
+					)}
 				</div>
-			)}
+			}
 		</div>
 	)
 }

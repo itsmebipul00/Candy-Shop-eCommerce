@@ -18,14 +18,37 @@ const AddressProvider = props => {
 		})
 	}
 
+	const addAddress = data => {
+		addressDispatcher({
+			type: 'NEW_ADDRESS',
+			payload: data,
+		})
+	}
+
+	const updateAddress = data => {
+		addressDispatcher({
+			type: 'UPDATE_ADDRESS',
+			payload: data,
+		})
+	}
+
+	const deleteAddress = data => {
+		addressDispatcher({
+			type: 'DELETE_ADDRESS',
+			payload: data,
+		})
+	}
+
 	return (
 		<AddressContext.Provider
 			value={{
 				address,
 				deliveryAddress,
+				updateAddress,
 				setDeliveryAddress,
-				addressDispatcher,
+				addAddress,
 				clearAddressAction,
+				deleteAddress,
 			}}>
 			{props.children}
 		</AddressContext.Provider>
