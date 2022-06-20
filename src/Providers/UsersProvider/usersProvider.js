@@ -1,6 +1,6 @@
-import { UserContext } from '../context'
+import { UserContext } from '../../Context'
 import { useReducer, useContext } from 'react'
-import { userReducers } from '../reducers/userReducers'
+import { userReducers } from '../../Reducers/userReducers'
 
 const UserProvider = props => {
 	const [{ userInfo }, dispatch] = useReducer(userReducers, {

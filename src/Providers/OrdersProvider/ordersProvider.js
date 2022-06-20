@@ -1,10 +1,10 @@
-import { OrdersContext } from '../context'
+import { OrdersContext } from '../../Context'
 
-import { orderReducer } from '../reducers/orderReducer.js'
+import { orderReducer } from '../../Reducers/orderReducer'
 
 import { useReducer, useContext } from 'react'
 
-import orderService from '../Services/orderServices'
+import orderService from '../../Services/orderServices'
 
 const OrdersProvider = props => {
 	const [{ orders }, ordersDispatcher] = useReducer(orderReducer, {

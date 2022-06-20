@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
-import { Rating } from '../../Components/Rating/Rating.jsx'
+import { Rating } from '../Rating/Rating'
 import './ProductCard.css'
 
-import { CartBtn } from '../CartBtn/CartBtn.js'
+import { CartBtn } from '../CartBtn/CartBtn'
 
 import { WishListBtn } from '../WishListBtn/WishListBtn'
 
 import { useLocation } from 'react-router-dom'
 
-import { useCart } from '../../actionProviders/cartActions.js'
+import { useCart } from '../../Providers'
 
 export const ProductCard = props => {
 	const { cartItems } = useCart()
@@ -43,6 +43,7 @@ export const ProductCard = props => {
 						<span className='line-through text-dark-70 fw-200 original-price'>
 							9999
 						</span>
+						$
 						{isCartPage
 							? `${props.product.price * cartItem.qty}`
 							: props.product.price}

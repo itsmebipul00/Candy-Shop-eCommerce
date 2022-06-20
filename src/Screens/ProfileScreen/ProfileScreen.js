@@ -9,7 +9,9 @@ import {
 
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
-import { ZondiconsLocationShopping } from '../../assets/Logo'
+import { ZondiconsLocationShopping } from '../../Assets/Logo'
+
+import { ScrollToTop } from '../../Components'
 
 const ProfileScreen = () => {
 	const { pathname } = useLocation()
@@ -87,9 +89,11 @@ const ProfileScreen = () => {
 				</li>
 			</ul>
 
-			<section className='all-profile-screens'>
-				<Outlet />
-			</section>
+			<ScrollToTop>
+				<section className='all-profile-screens'>
+					<Outlet />
+				</section>
+			</ScrollToTop>
 		</div>
 	)
 }

@@ -1,5 +1,5 @@
 import './Filters.css'
-import { useProducts } from '../../actionProviders/productActions'
+import { useProducts } from '../../Providers'
 
 import { useRef } from 'react'
 

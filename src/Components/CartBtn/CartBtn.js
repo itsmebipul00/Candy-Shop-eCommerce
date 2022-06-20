@@ -1,8 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useWishList } from '../../actionProviders/wishListAction'
-import { useCart } from '../../actionProviders/cartActions'
-import { useUser } from '../../actionProviders/userActions'
+
+import { useWishList, useCart, useUser } from '../../Providers'
 
 export const CartBtn = props => {
 	const { cartItems, updateCartAction, addtoCartAction } = useCart()

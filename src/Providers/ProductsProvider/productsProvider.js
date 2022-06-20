@@ -1,11 +1,11 @@
-import { ProductsContext } from '../context'
+import { ProductsContext } from '../../Context'
 import { useEffect, useReducer, useContext } from 'react'
-import { filterReducer } from '../reducers/filterReducer'
+import { filterReducer } from '../../Reducers/filterReducer'
 import { useState } from 'react'
-import { useFilters } from '../Hooks/useFilters'
-import { getCategoryNames } from '../utils/filters'
+import { useFilters } from '../../Hooks/useFilters'
+import { getCategoryNames } from '../../Utils/filters'
 
-import productService from '../Services/productServices'
+import productService from '../../Services/productServices'
 
 const ProductsProvider = props => {
 	const [products, setProducts] = useState([])

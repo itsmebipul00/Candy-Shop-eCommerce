@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
-const EmptyBasket = props => {
+export const EmptyBasket = props => {
 	const navigate = useNavigate()
 	const location = useLocation()
 	return (
@@ -27,5 +27,3 @@ const EmptyBasket = props => {
 		</div>
 	)
 }
-
-export default EmptyBasket

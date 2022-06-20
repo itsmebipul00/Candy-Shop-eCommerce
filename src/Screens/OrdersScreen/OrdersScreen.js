@@ -1,5 +1,5 @@
-import { useOrders } from '../../actionProviders/ordersActions'
-import EmptyBasket from '../../Components/EmptyBasket/EmptyBasket'
+import { useOrders } from '../../Providers'
+import { EmptyBasket } from '../../Components'
 
 import './OrdersScreen.css'
 

@@ -1,4 +1,4 @@
-import { useProducts } from '../actionProviders/productActions'
+import { useProducts } from '../Providers'
 
 export const usePaginate = () => {
 	const { products, setthisPage } = useProducts()

@@ -1,6 +1,6 @@
 import './UserInfoScreen.css'
 
-import { useUser } from '../../actionProviders/userActions'
+import { useUser } from '../../Providers'
 
 const UserInfoScreen = () => {
 	const {

@@ -1,8 +1,8 @@
 import './RegisterScreen.css'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
-import { useUser } from '../../actionProviders/userActions'
-import { PasswordEye } from '../../Components/PasswordEye/PasswordEye'
+import { useUser } from '../../Providers'
+import { PasswordEye } from '../../Components'
 
 import authService from '../../Services/authServices'
 

@@ -1,11 +1,11 @@
-import { wishListReducer } from '../reducers/wishListReducer'
+import { wishListReducer } from '../../Reducers/wishListReducer'
 import { useReducer, useContext } from 'react'
 
-import { WishListContext } from '../context'
+import { WishListContext } from '../../Context'
 
 import toast from 'react-hot-toast'
 
-import wishServices from '../Services/wishServices'
+import wishServices from '../../Services/wishServices'
 
 const WishListProvider = props => {
 	const [{ wishList }, dispatch] = useReducer(wishListReducer, {

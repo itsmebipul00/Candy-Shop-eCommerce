@@ -1,9 +1,9 @@
-import { CartContext } from '../context'
+import { CartContext } from '../../Context'
 import { useContext, useReducer } from 'react'
-import { cartReducer } from '../reducers/cartReducer.js'
+import { cartReducer } from '../../Reducers/cartReducer'
 import toast from 'react-hot-toast'
 
-import cartService from '../Services/cartServices'
+import cartService from '../../Services/cartServices'
 
 const CartProvider = props => {
 	const [{ cartItems }, dispatch] = useReducer(cartReducer, {

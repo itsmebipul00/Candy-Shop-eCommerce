@@ -2,12 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './App.css'
 import App from './App'
-import { Toaster } from 'react-hot-toast'
 import reportWebVitals from './reportWebVitals'
-
+import { Toaster } from 'react-hot-toast'
 import { makeServer } from './server'
-
-import { authorizeToken } from './utils/authorizeToken'
+import { authorizeToken } from './Utils/authorizeToken'
+import {
+	ProductsProvider,
+	AddressProvider,
+	WishListProvider,
+	CartProvider,
+	UserProvider,
+	OrdersProvider,
+} from './Providers'
 
 makeServer()
 
@@ -27,7 +33,19 @@ ReactDOM.render(
 				},
 			}}
 		/>
-		<App />,
+		<ProductsProvider>
+			<UserProvider>
+				<AddressProvider>
+					<WishListProvider>
+						<CartProvider>
+							<OrdersProvider>
+								<App />
+							</OrdersProvider>
+						</CartProvider>
+					</WishListProvider>
+				</AddressProvider>
+			</UserProvider>
+		</ProductsProvider>
 	</>,
 	document.getElementById('root')
 )

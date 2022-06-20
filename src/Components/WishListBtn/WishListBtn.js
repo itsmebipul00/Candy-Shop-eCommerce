@@ -1,9 +1,7 @@
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
-import { useCart } from '../../actionProviders/cartActions'
-import { useUser } from '../../actionProviders/userActions'
 
-import { useWishList } from '../../actionProviders/wishListAction'
+import { useCart, useUser, useWishList } from '../../Providers'
 
 export const WishListBtn = props => {
 	const { product } = props

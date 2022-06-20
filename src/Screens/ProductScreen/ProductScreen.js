@@ -1,16 +1,10 @@
 import './ProductScreen.css'
 
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
-import { useState } from 'react'
+import { Rating, WishListBtn } from '../../Components'
 
-import { CartBtn } from '../../Components/CartBtn/CartBtn'
-
-import { WishListBtn } from '../../Components/WishListBtn/WishListBtn'
-
-import { useEffect } from 'react'
-
-import { Rating } from '../../Components/Rating/Rating'
+import { useEffect, useState } from 'react'
 
 import productService from '../../Services/productServices'
 
@@ -26,8 +20,17 @@ const ProductScreen = () => {
 		})()
 	}, [id])
 
+	const navigate = useNavigate()
+
 	return (
 		<div className='product-page'>
+			<div className='align-right'>
+				<button
+					className='btn btn-products-goBack'
+					onClick={() => navigate(-1)}>
+					Go Back
+				</button>
+			</div>
 			<div className='card  p-relative'>
 				<span className='wish-btn p-absolute'>
 					<WishListBtn product={product} />
@@ -52,7 +55,6 @@ const ProductScreen = () => {
 							</span>
 							${product.price}
 						</p>
-						<CartBtn product={product} />
 					</div>
 				</div>
 			</div>

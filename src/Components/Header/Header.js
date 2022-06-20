@@ -1,7 +1,7 @@
 import './Header.css'
 import { useLocation } from 'react-router-dom'
-import { LogoProvider } from '../../assets/Icons'
-import { styles } from '../../utils/iconStyles'
+import { LogoProvider } from '../../Assets/Icons'
+import { styles } from '../../Utils/iconStyles'
 import { Link, NavLink } from 'react-router-dom'
 
 import { Search } from '../Search/Search'
@@ -15,12 +15,16 @@ import {
 import { GiCandyCanes } from 'react-icons/gi'
 import { Filters } from '../Filters/Filters'
 
-import { isEmptyObject } from '../../utils/isEmptyObject'
-import { useUser } from '../../actionProviders/userActions'
-import { useWishList } from '../../actionProviders/wishListAction'
-import { useCart } from '../../actionProviders/cartActions'
-import { useAddress } from '../../actionProviders/addressProvider'
-import { useOrders } from '../../actionProviders/ordersActions'
+import { isEmptyObject } from '../../Utils/isEmptyObject'
+
+import {
+	useUser,
+	useWishList,
+	useCart,
+	useAddress,
+	useOrders,
+} from '../../Providers'
+
 import axios from 'axios'
 
 const logoStyles = {

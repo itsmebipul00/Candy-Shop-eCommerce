@@ -4,20 +4,21 @@ import { useState } from 'react'
 
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { NewAddressDialog } from '../../Components/NewAddressDialog/NewAddressDialog.js'
+import { NewAddressDialog, EmptyBasket } from '../../Components'
 
-import { useAddress } from '../../actionProviders/addressProvider.js'
+import { useAddress } from '../../Providers'
 
-import addressService from '../../Services/addressServices.js'
+import addressService from '../../Services/addressServices'
 
 import {
 	IcBaselineDeleteOutline,
 	IcOutlineModeEdit,
 	TeenyiconsTickCircleOutline,
-} from '../../assets/Logo'
+} from '../../Assets/Logo'
 
 import './AddressScreen.css'
-import EmptyBasket from '../../Components/EmptyBasket/EmptyBasket.js'
+
+import toast from 'react-hot-toast'
 
 const AddressScreen = () => {
 	const [showModal, setShowModal] = useState(false)
@@ -69,15 +70,18 @@ const AddressScreen = () => {
 				addressService
 					.editAddress(addressData)
 					.then(data => updateAddress(data.address))
+				toast.success('Address Updated 🚀')
 			} else {
 				addressService
 					.addAddress(addressData)
 					.then(data => addAddress(data.address))
+				toast.success('New address added 🚀')
 			}
 		} else {
 			addressService
 				.addAddress(addressData)
 				.then(data => addAddress(data.address))
+			toast.success('New address added 🚀')
 		}
 
 		setShowModal(false)
@@ -89,6 +93,7 @@ const AddressScreen = () => {
 			.then(data => deleteAddress(data.address))
 
 		if (id === deliveryAddress._id) setDeliveryAddress(undefined)
+		toast.success('Address deleted 🚀')
 	}
 
 	const handleEdit = id => {
@@ -124,7 +129,10 @@ const AddressScreen = () => {
 					address?.map((add, idx) => (
 						<div key={idx} className='individual-address'>
 							<TeenyiconsTickCircleOutline
-								onClick={() => setDeliveryAddress(add)}
+								onClick={() => {
+									setDeliveryAddress(add)
+									toast.success('Set Delivery address 🚀')
+								}}
 								className='select-address-icon'
 								stroke={`${
 									deliveryAddress?._id === add?._id

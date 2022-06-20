@@ -5,6 +5,28 @@
 	justify-content: space-between;
 }
 
+.footer-wrapper{
+	color: hsl(var(--clr-blue));
+}
+
 .footer-wrapper > * {
 	margin-left: 1rem;
+}
+
+@media(max-width: 40rem){
+	.footer-copyright{
+		margin-bottom: 1rem;
+	}
+	.candyShop-footer{
+		padding: 2rem 0 0 0;
+		flex-direction: column;
+		align-items: center;
+		font-size: var(--fs-600);
+	}
+	.footer-wrapper{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+	}
 }

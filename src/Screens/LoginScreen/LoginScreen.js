@@ -4,11 +4,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { useState } from 'react'
 
-import { useUser } from '../../actionProviders/userActions'
+import { useUser } from '../../Providers'
 
 import authService from '../../Services/authServices'
 
-import { MdiEyeOutline, MdiEyeOffOutline } from '../../assets/Logo'
+import { MdiEyeOutline, MdiEyeOffOutline } from '../../Assets/Logo'
 import { useFocusInput } from '../../Hooks/useFocusInput'
 
 const LoginScreen = () => {

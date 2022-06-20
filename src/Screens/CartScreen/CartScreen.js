@@ -1,12 +1,9 @@
 import './CartScreen.css'
 
-import { ProductCard } from '../../Components/ProductCard/ProductCard'
+import { ProductCard, EmptyBasket } from '../../Components'
 
-import { useCart } from '../../actionProviders/cartActions'
+import { useCart } from '../../Providers'
 import { useNavigate, useLocation } from 'react-router-dom'
-import EmptyBasket from '../../Components/EmptyBasket/EmptyBasket'
-
-// import { useState } from 'react'
 
 const CartScreen = () => {
 	const navigate = useNavigate()

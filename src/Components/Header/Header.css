@@ -35,6 +35,12 @@ header {
 	margin: 0 0.25rem;
 }
 
+@media(max-width: 40em){
+	.header-ctas > * {
+		margin: 0 0.1rem;
+	}
+}
+
 .candyshop-header .search-candies {
 	width: 100%;
 }

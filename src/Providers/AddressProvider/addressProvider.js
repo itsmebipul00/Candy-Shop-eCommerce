@@ -1,9 +1,8 @@
-import { AddressContext } from '../context'
+import { AddressContext } from '../../Context'
 
-import { addressReducer } from '../reducers/addressReducer.js'
+import { addressReducer } from '../../Reducers/addressReducer'
 
-import { useReducer, useContext } from 'react'
-import { useState } from 'react'
+import { useReducer, useContext, useState } from 'react'
 
 const AddressProvider = props => {
 	const [state, addressDispatcher] = useReducer(addressReducer, [])

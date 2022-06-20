@@ -1,6 +1,6 @@
 .card {
     aspect-ratio: unset;
-    margin: 2rem;
+    margin: 0 0 1rem 2rem;
     align-items: center;
     width: 80%;
   }
@@ -90,4 +90,22 @@
     .product-page .wish-btn{
         inset: 4% 0% 0% 0%;
     }
+  }
+
+  .btn-products-goBack{
+    background-color: hsl(var(--clr-blue));
+    padding: 1rem 3rem;
+    margin-left: auto;
+  }
+
+  @media(max-width:40rem){
+    .btn-products-goBack{
+      padding: 0.5rem 2rem;
+    }
+  }
+
+  .align-right{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1rem;
   }

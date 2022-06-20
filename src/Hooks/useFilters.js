@@ -3,7 +3,7 @@ import {
 	getFilteredPrices,
 	getfilteredProducts,
 	getSortedData,
-} from '../utils/filters'
+} from '../Utils/filters'
 
 export const useFilters = (state, products, thispage) => {
 	const sortedProducts = getSortedData(products, state)

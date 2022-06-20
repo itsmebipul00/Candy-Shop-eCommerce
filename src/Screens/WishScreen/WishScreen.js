@@ -1,7 +1,6 @@
 import './WishScreen.css'
-import { ProductCard } from '../../Components/ProductCard/ProductCard'
-import { useWishList } from '../../actionProviders/wishListAction'
-import EmptyBasket from '../../Components/EmptyBasket/EmptyBasket'
+import { ProductCard, EmptyBasket } from '../../Components'
+import { useWishList } from '../../Providers'
 
 const WishScreen = () => {
 	const { wishList } = useWishList()

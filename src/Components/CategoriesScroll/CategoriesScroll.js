@@ -3,9 +3,9 @@ import { useScroll } from '../../Hooks/useScroll'
 import {
 	IcTwotoneArrowCircleLeft,
 	IcTwotoneArrowCircleRight,
-} from '../../assets/Logo'
+} from '../../Assets/Logo'
 
-import { useProducts } from '../../actionProviders/productActions'
+import { useProducts } from '../../Providers'
 
 import { useNavigate } from 'react-router-dom'
 

@@ -1,6 +1,6 @@
 import { Outlet, Navigate, useLocation } from 'react-router-dom'
 
-import { useUser } from '../../actionProviders/userActions'
+import { useUser } from '../../Providers'
 
 export const ProtectedRoute = () => {
 	const location = useLocation()

@@ -1,10 +1,10 @@
 import { AiOutlineSearch } from 'react-icons/ai'
 
-import { styles } from '../../utils/iconStyles'
+import { styles } from '../../Utils/iconStyles'
 
-import { LogoProvider } from '../../assets/Icons'
+import { LogoProvider } from '../../Assets/Icons'
 
-import { useProducts } from '../../actionProviders/productActions'
+import { useProducts } from '../../Providers'
 
 import { useState, useRef, useEffect } from 'react'
 
