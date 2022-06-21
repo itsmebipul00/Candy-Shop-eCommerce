@@ -93,8 +93,7 @@
 
 <br>
 
-<div align="center">
+
 made with ❤️
-</div>
 
 <br>
