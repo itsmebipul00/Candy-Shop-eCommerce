@@ -1,9 +1,9 @@
 import { ProductsContext } from '../../Context'
 import { useEffect, useReducer, useContext } from 'react'
-import { filterReducer } from '../../Reducers/filterReducer'
+import { filterReducer } from '../../reducers/filterReducer'
 import { useState } from 'react'
 import { useFilters } from '../../Hooks/useFilters'
-import { getCategoryNames } from '../../Utils/filters'
+import { getCategoryNames } from '../../utils/filters'
 
 import productService from '../../Services/productServices'
 

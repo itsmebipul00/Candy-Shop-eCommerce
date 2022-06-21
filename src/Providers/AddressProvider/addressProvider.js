@@ -1,6 +1,6 @@
 import { AddressContext } from '../../Context'
 
-import { addressReducer } from '../../Reducers/addressReducer'
+import { addressReducer } from '../../reducers/addressReducer'
 
 import { useReducer, useContext, useState } from 'react'
 

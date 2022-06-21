@@ -1,4 +1,4 @@
-import { wishListReducer } from '../../Reducers/wishListReducer'
+import { wishListReducer } from '../../reducers/wishListReducer'
 import { useReducer, useContext } from 'react'
 
 import { WishListContext } from '../../Context'

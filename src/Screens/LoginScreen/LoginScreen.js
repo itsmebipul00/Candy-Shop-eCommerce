@@ -8,7 +8,7 @@ import { useUser } from '../../Providers'
 
 import authService from '../../Services/authServices'
 
-import { MdiEyeOutline, MdiEyeOffOutline } from '../../Assets/Logo'
+import { MdiEyeOutline, MdiEyeOffOutline } from '../../assets/Logo'
 import { useFocusInput } from '../../Hooks/useFocusInput'
 
 const LoginScreen = () => {

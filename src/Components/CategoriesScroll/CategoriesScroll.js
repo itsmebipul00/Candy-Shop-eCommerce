@@ -3,7 +3,7 @@ import { useScroll } from '../../Hooks/useScroll'
 import {
 	IcTwotoneArrowCircleLeft,
 	IcTwotoneArrowCircleRight,
-} from '../../Assets/Logo'
+} from '../../assets/Logo'
 
 import { useProducts } from '../../Providers'
 
