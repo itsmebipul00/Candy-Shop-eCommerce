@@ -5,7 +5,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { Toaster } from 'react-hot-toast'
 import { makeServer } from './server'
-import axios from 'axios'
+import { authorizeToken } from './Utils/authorizeToken'
 import {
 	ProductsProvider,
 	AddressProvider,
@@ -17,10 +17,7 @@ import {
 
 makeServer()
 
-axios.interceptors.request.use(request => {
-	request.headers.authorization = localStorage.getItem('userToken')
-	return request
-})
+authorizeToken()
 
 ReactDOM.render(
 	<>
