@@ -14,7 +14,7 @@ import {
 
 import { PayPalButton } from 'react-paypal-button-v2'
 
-import { TeenyiconsTickCircleOutline } from '../../Assets/Logo'
+import { TeenyiconsTickCircleOutline } from '../../assets/Logo'
 
 import { usePaypal } from '../../Hooks/usePaypal'
 import { useEffect } from 'react'

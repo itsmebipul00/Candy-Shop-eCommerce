@@ -1,4 +1,4 @@
-import { MdiEyeOutline, MdiEyeOffOutline } from '../../Assets/Logo'
+import { MdiEyeOutline, MdiEyeOffOutline } from '../../assets/Logo'
 export const PasswordEye = ({ setShowPass, showPass }) => {
 	return (
 		<>

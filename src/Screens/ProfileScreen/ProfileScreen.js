@@ -9,7 +9,7 @@ import {
 
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
-import { ZondiconsLocationShopping } from '../../Assets/Logo'
+import { ZondiconsLocationShopping } from '../../assets/Logo'
 
 import { ScrollToTop } from '../../Components'
 

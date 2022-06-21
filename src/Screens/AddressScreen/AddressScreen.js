@@ -14,7 +14,7 @@ import {
 	IcBaselineDeleteOutline,
 	IcOutlineModeEdit,
 	TeenyiconsTickCircleOutline,
-} from '../../Assets/Logo'
+} from '../../assets/Logo'
 
 import './AddressScreen.css'
 

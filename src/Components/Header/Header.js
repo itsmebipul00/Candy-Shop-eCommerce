@@ -1,7 +1,7 @@
 import './Header.css'
 import { useLocation } from 'react-router-dom'
-import { LogoProvider } from '../../Assets/Icons'
-import { styles } from '../../Utils/iconStyles'
+import { LogoProvider } from '../../assets/Icons'
+import { styles } from '../../utils/iconStyles'
 import { Link, NavLink } from 'react-router-dom'
 
 import { Search } from '../Search/Search'
@@ -15,7 +15,7 @@ import {
 import { GiCandyCanes } from 'react-icons/gi'
 import { Filters } from '../Filters/Filters'
 
-import { isEmptyObject } from '../../Utils/isEmptyObject'
+import { isEmptyObject } from '../../utils/isEmptyObject'
 
 import {
 	useUser,

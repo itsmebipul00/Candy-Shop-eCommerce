@@ -1,6 +1,6 @@
 import { CartContext } from '../../Context'
 import { useContext, useReducer } from 'react'
-import { cartReducer } from '../../Reducers/cartReducer'
+import { cartReducer } from '../../reducers/cartReducer'
 import toast from 'react-hot-toast'
 
 import cartService from '../../Services/cartServices'

@@ -5,7 +5,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { Toaster } from 'react-hot-toast'
 import { makeServer } from './server'
-import { authorizeToken } from './Utils/authorizeToken'
+import { authorizeToken } from './utils/authorizeToken'
 import {
 	ProductsProvider,
 	AddressProvider,

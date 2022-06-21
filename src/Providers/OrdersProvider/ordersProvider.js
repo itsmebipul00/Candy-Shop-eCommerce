@@ -1,6 +1,6 @@
 import { OrdersContext } from '../../Context'
 
-import { orderReducer } from '../../Reducers/orderReducer'
+import { orderReducer } from '../../reducers/orderReducer'
 
 import { useReducer, useContext } from 'react'
 
