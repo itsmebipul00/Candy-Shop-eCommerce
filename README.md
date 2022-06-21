@@ -1,7 +1,13 @@
-## USERINFO
+## CandyShop
 
-email: itsmebipul00@gmail.com</br>
-passwword: itsmebipul00@gmail.com</br>
+<div align="center">
+
+<img alt="candyshop" src="./public/images/gthub-readme.svg" width="1048px" height="238px" />
+
+CandyShop is an e-Commerce web app built with ReactJS where one could buy candies
+
+</div>
+
 
 ## FEATURES (P0 is complete as of now)
 
