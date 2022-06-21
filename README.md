@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img alt="candyshop" src="./public/images/github-readme.jpg" width="1048px" height="238px" />
+<img alt="candyshop" src="./public/images/github-readme.jpg" width="300px" height="300px" />
 
 CandyShop is an e-Commerce web app built with ReactJS where one could buy candies
 
