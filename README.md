@@ -11,7 +11,7 @@
 <h2>Features</h2>
 
 <strong>Payment</strong>:
-<li>  Integration with PayPal in Payment Screen</li>
+<li>  Integration with Razorpay in Payment Screen</li>
 <br>
 
 <strong>Search</strong>:
@@ -28,6 +28,10 @@
 
 <strong>Horizontal Scroll</strong>:
 <li>  Custom horizontal scroll in homepage </li>
+<br>
+
+<strong>Unit tests</strong>:
+<li> Unit tests using Jest for util functions and reducers</li>
 <br>
 
 <strong>Filter and sort</strong> :
@@ -70,7 +74,7 @@
 <br>
 
 <strong>Orders Page</strong>:
-<li> To view previous orders</li>
+<li> To view previous orders, price and delivery address</li>
 <br>
 
 <strong>Single Product Page</strong>:
