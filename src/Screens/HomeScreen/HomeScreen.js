@@ -10,8 +10,8 @@ import {
 const HomeScreen = () => {
 	return (
 		<ScrollToTop>
-			<CategoriesScroll />
 			<Carousal />
+			<CategoriesScroll />
 		</ScrollToTop>
 	)
 }

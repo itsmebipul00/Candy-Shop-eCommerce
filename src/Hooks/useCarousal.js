@@ -5,7 +5,7 @@ export const useCarousal = () => {
 
 	useEffect(() => {
 		const timerId = setInterval(
-			() => setCarousal(prev => (prev === 5 ? 1 : prev + 1)),
+			() => setCarousal(prev => (prev === 3 ? 1 : prev + 1)),
 			2000
 		)
 		return () => clearInterval(timerId)

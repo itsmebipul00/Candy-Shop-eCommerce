@@ -19,6 +19,8 @@ export const getFilteredPrices = (products, state) => {
 
 export const getfilteredProducts = (products, state) => {
 	// getkeys from state if true
+	console.log(state, products)
+
 	const categories = Object.keys(state).filter(k => state[k] === true)
 
 	if (categories && categories.length > 0) {

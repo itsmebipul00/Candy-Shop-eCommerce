@@ -14,7 +14,7 @@ export const Carousal = () => {
 			/>
 			<Link
 				to='/products'
-				className='btn btn-hero uppercase uppercase letter-spacing-2 fs-700'>
+				className='btn btn-hero uppercase uppercase letter-spacing-2 fs-500'>
 				Shop Now
 			</Link>
 		</div>

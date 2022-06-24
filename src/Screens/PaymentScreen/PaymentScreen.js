@@ -12,11 +12,11 @@ import {
 	useOrders,
 } from '../../Providers'
 
-import { PayPalButton } from 'react-paypal-button-v2'
+import {
+	TeenyiconsTickCircleOutline,
+	SimpleIconsRazorpay,
+} from '../../assets/Logo'
 
-import { TeenyiconsTickCircleOutline } from '../../assets/Logo'
-
-import { usePaypal } from '../../Hooks/usePaypal'
 import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 
@@ -31,8 +31,6 @@ const PaymentScreen = () => {
 	] = useCupon()
 
 	const { userInfo } = useUser()
-
-	const sdkReady = usePaypal()
 
 	const { deliveryAddress } = useAddress()
 
@@ -56,12 +54,67 @@ const PaymentScreen = () => {
 		}
 	}, [cupon, cuponApplied])
 
-	const paymentSuccessHandler = async paymentResult => {
-		if (paymentResult?.status === 'COMPLETED') {
-			addOrderAction(cartItems)
-			clearCartAction()
-			navigate('/orders')
+	const paymentSuccessful = async rzpResponse => {
+		addOrderAction({
+			items: cartItems,
+			paymentId: rzpResponse.razorpay_payment_id,
+			totalPrice: totalPriceAfterDiscount,
+			deliveryAddress: deliveryAddress,
+		})
+
+		clearCartAction()
+
+		navigate('/orders')
+	}
+
+	const loadScript = async url => {
+		return new Promise(resolve => {
+			const script = document.createElement('script')
+			script.src = url
+
+			script.onload = () => {
+				resolve(true)
+			}
+
+			script.onerror = () => {
+				resolve(false)
+			}
+			document.body.appendChild(script)
+		})
+	}
+
+	const displayRazorpay = async () => {
+		const res = await loadScript(
+			'https://checkout.razorpay.com/v1/checkout.js'
+		)
+		console.log(res)
+
+		if (!res) {
+			toast.error('Please check your internet connection')
+			return
 		}
+		const options = {
+			key: process.env.REACT_APP_RZP_KEY,
+			amount: totalPriceAfterDiscount * 75,
+			currency: 'INR',
+			name: 'Candy Shop',
+			description: 'Thank you for shopping with us',
+
+			handler: function (response) {
+				paymentSuccessful(response)
+			},
+			prefill: {
+				name: `${userInfo?.foundUser?.username}`,
+				email: `${userInfo?.foundUser?.email}`,
+				contact: deliveryAddress.mobile,
+			},
+			notes: {
+				address: `${userInfo?.foundUser?.username}, ${deliveryAddress?.pincode}`,
+			},
+		}
+		const paymentObject = new window.Razorpay(options)
+
+		paymentObject.open()
 	}
 
 	return (
@@ -171,14 +224,17 @@ const PaymentScreen = () => {
 						)}
 						<strong className='fs-500'>CANDY50: FLAT 50% OFF</strong>
 					</div>
-					<div className='payment-gateway'>
-						{sdkReady && (
-							<PayPalButton
-								amount={totalPriceAfterDiscount}
-								onSuccess={paymentSuccessHandler}
-							/>
-						)}
-					</div>
+					<button
+						className='payment-gateway'
+						onClick={displayRazorpay}>
+						<SimpleIconsRazorpay className='razorpay-icon' />
+						<div className='payment-button-content'>
+							<span className='razorpay-now fs-500'>Pay Now</span>
+							<small className='razorpay-secures fs-300'>
+								Secured by Razorpay
+							</small>
+						</div>
+					</button>
 				</div>
 			</div>
 		</ScrollToTop>

@@ -4,10 +4,6 @@ export const wishListReducer = (state = { wishList: [] }, action) => {
 			return {
 				wishList: action.payload,
 			}
-		case 'WISHLIST_ERROR':
-			return {
-				error: action.payload,
-			}
 		case 'CLEAR_WISHLIST':
 			return {
 				wishList: [],

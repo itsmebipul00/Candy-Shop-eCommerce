@@ -2,10 +2,15 @@ import { UserContext } from '../../Context'
 import { useReducer, useContext } from 'react'
 import { userReducers } from '../../reducers/userReducers'
 
+const initialUserState = {
+	userInfo: {},
+}
+
 const UserProvider = props => {
-	const [{ userInfo }, dispatch] = useReducer(userReducers, {
-		userInfo: {},
-	})
+	const [{ userInfo }, dispatch] = useReducer(
+		userReducers,
+		initialUserState
+	)
 
 	const setUserAction = user => {
 		dispatch({
@@ -35,4 +40,4 @@ const UserProvider = props => {
 
 const useUser = () => useContext(UserContext)
 
-export { useUser, UserProvider }
+export { useUser, UserProvider, initialUserState }

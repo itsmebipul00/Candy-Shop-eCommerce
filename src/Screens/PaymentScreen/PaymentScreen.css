@@ -170,10 +170,52 @@
 .payment-gateway{
     margin-top: 1rem;
     width: 70%;
+    display: flex;
+    background-color: hsl(var(--clr-blue));
+    border: hsl(var(--clr-blue));
+    padding: 0.5rem 1.75rem;
+  cursor: pointer;
+
+}
+
+.payment-gateway:hover{
+    transform: scale(1.025);
+
+}
+
+.payment-gateway:hover .payment-button-content ,
+.payment-gateway:hover .razorpay-icon{
+  transform: scale(1.075);
 }
 
 @media(max-width: 60em){
     .payment-gateway{
         width: 100%;
     }
+}
+
+.razorpay-icon{
+    width: 1.85rem;
+    height: 1.85rem;
+    display: inline;
+    color: hsl(var(--clr-white));
+    align-self: center;
+    
+}
+
+.payment-button-content{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    color: hsl(var(--clr-white));
+    font-style: italic;
+    font-weight: bold;
+}
+
+.razorpay-now{
+    opacity: 0.9;
+}
+
+.razorpay-secures{
+    opacity: 0.6;
 }

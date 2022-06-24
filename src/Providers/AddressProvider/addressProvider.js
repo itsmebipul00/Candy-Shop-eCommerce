@@ -4,8 +4,13 @@ import { addressReducer } from '../../reducers/addressReducer'
 
 import { useReducer, useContext, useState } from 'react'
 
+const initialAddressState = { address: [] }
+
 const AddressProvider = props => {
-	const [state, addressDispatcher] = useReducer(addressReducer, [])
+	const [state, addressDispatcher] = useReducer(
+		addressReducer,
+		initialAddressState
+	)
 
 	const [deliveryAddress, setDeliveryAddress] = useState()
 
@@ -17,9 +22,11 @@ const AddressProvider = props => {
 		})
 	}
 
+	console.table(state)
+
 	const addAddress = data => {
 		addressDispatcher({
-			type: 'NEW_ADDRESS',
+			type: 'UPDATE_ADDRESS',
 			payload: data,
 		})
 	}
@@ -33,7 +40,7 @@ const AddressProvider = props => {
 
 	const deleteAddress = data => {
 		addressDispatcher({
-			type: 'DELETE_ADDRESS',
+			type: 'UPDATE_ADDRESS',
 			payload: data,
 		})
 	}
@@ -56,4 +63,4 @@ const AddressProvider = props => {
 
 const useAddress = () => useContext(AddressContext)
 
-export { useAddress, AddressProvider }
+export { useAddress, AddressProvider, initialAddressState }

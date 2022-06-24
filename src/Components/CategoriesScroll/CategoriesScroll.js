@@ -1,8 +1,8 @@
 import { useScroll } from '../../Hooks/useScroll'
 
 import {
-	IcTwotoneArrowCircleLeft,
-	IcTwotoneArrowCircleRight,
+	MaterialSymbolsArrowBackIosRounded,
+	MaterialSymbolsArrowForwardIosRounded,
 } from '../../assets/Logo'
 
 import { useProducts } from '../../Providers'
@@ -20,18 +20,14 @@ export const CategoriesScroll = () => {
 		handleCategories(name, checked)
 		setTimeout(() => navigate('/products'), 500)
 	}
+
 	return (
 		<div>
-			<div className='cat-headiing-wrapper'>
-				<h2 className='categories-heading fs-700 letter-spacing-3 uppercase'>
-					Categories
-				</h2>
-			</div>
-			<div className='categories'>
+			<div className='categories p-relative'>
 				<button
 					onClick={() => scroll(-900)}
 					className='scroll-btn left-scroll-btn'>
-					<IcTwotoneArrowCircleLeft
+					<MaterialSymbolsArrowBackIosRounded
 						className='left-scroll-icon'
 						width='4rem'
 						height='4rem'
@@ -42,11 +38,7 @@ export const CategoriesScroll = () => {
 					{categories &&
 						categories.length > 0 &&
 						categories.map((cat, idx) => (
-							<label
-								className='categories uppercase fs-400 text-red text-underline letter-spacing-3'
-								for={cat.categoryName}
-								key={idx}>
-								{cat.categoryName}
+							<div className='grid grid-stacked homepage-images-wrapper'>
 								<input
 									id={cat.categoryName}
 									type='image'
@@ -60,13 +52,19 @@ export const CategoriesScroll = () => {
 										gotoProducts(e.target.name, e.target.checked)
 									}
 								/>
-							</label>
+								<span
+									className='categories-name uppercase fs-500 text-dark  letter-spacing-4'
+									for={cat.categoryName}
+									key={idx}>
+									{cat.categoryName}
+								</span>
+							</div>
 						))}
 				</div>
 				<button
 					onClick={() => scroll(+900)}
 					className='scroll-btn right-scroll-btn'>
-					<IcTwotoneArrowCircleRight
+					<MaterialSymbolsArrowForwardIosRounded
 						className='right-scroll-icon'
 						width='4rem'
 						height='4rem'

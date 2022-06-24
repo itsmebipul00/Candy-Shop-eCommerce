@@ -23,17 +23,16 @@ const ProductsProvider = props => {
 
 	const categoriesState = getCategoryNames(categories)
 
-	const initailState = {
+	const initialFilterState = {
 		...categoriesState,
 		sort: '',
-		rating: '',
 		minPriceVal: 0,
 		maxPriceVal: 500,
 	}
 
 	const [state, filterDispatch] = useReducer(
 		filterReducer,
-		initailState
+		initialFilterState
 	)
 
 	const handleSorting = (name, value) => {
@@ -61,7 +60,10 @@ const ProductsProvider = props => {
 	}
 
 	const resetFilters = () =>
-		filterDispatch({ type: 'RESET_FILTERS', payload: initailState })
+		filterDispatch({
+			type: 'RESET_FILTERS',
+			payload: initialFilterState,
+		})
 
 	const [thispage, setthisPage] = useState(1)
 

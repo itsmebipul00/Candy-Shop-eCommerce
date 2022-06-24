@@ -2,9 +2,12 @@ import { useOrders } from '../../Providers'
 import { EmptyBasket } from '../../Components'
 
 import './OrdersScreen.css'
+import { Fragment } from 'react/cjs/react.production.min'
 
 const OrdersScreen = () => {
 	const { orders } = useOrders()
+
+	console.log(orders)
 
 	return (
 		<div className='order-screen'>
@@ -12,21 +15,33 @@ const OrdersScreen = () => {
 				orders?.map((item, idx) => (
 					<div key={item._id} className='order-items'>
 						<h2 className='fs-500 order-id'>OrderId: {item._id}</h2>
-						{item?.order?.map((item, idx) => (
-							<div className='d-flex' key={idx}>
-								<div className='order-img-wrapper'>
-									<img
-										src={item.image}
-										alt={item.img}
-										className='order-img'
-									/>
-								</div>
-								<div className='order-info fs-500'>
-									<p>{item.title}</p>
-									<p>QTY: {item.qty}</p>
-								</div>
+						<div className='d-flex f-wrap'>
+							{item?.order?.items?.map((orderItem, idx) => (
+								<Fragment key={idx}>
+									<div className='order-img-wrapper'>
+										<img
+											src={orderItem.image}
+											alt={orderItem.img}
+											className='order-img'
+										/>
+									</div>
+									<div className='order-info fs-500'>
+										<p>{orderItem.title}</p>
+										<p>QTY: {orderItem.qty}</p>
+									</div>
+								</Fragment>
+							))}
+							<div className='fs-500 order-details'>
+								<p>Price: {item?.order?.totalPrice}</p>
+								<p>
+									Address: {item?.order?.deliveryAddress?.address}
+								</p>
+								<p>
+									Pincode: {item?.order?.deliveryAddress?.pincode}
+								</p>
+								<p>Mobile: {item?.order?.deliveryAddress?.mobile}</p>
 							</div>
-						))}
+						</div>
 					</div>
 				))
 			) : (

@@ -92,7 +92,8 @@ const AddressScreen = () => {
 			.deleteAddress(id)
 			.then(data => deleteAddress(data.address))
 
-		if (id === deliveryAddress._id) setDeliveryAddress(undefined)
+		if (deliveryAddress && id === deliveryAddress._id)
+			setDeliveryAddress(undefined)
 		toast.success('Address deleted 🚀')
 	}
 

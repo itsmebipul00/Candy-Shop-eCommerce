@@ -5,10 +5,13 @@ import toast from 'react-hot-toast'
 
 import cartService from '../../Services/cartServices'
 
+const initialCartState = { cartItems: [] }
+
 const CartProvider = props => {
-	const [{ cartItems }, dispatch] = useReducer(cartReducer, {
-		cartItems: [],
-	})
+	const [{ cartItems }, dispatch] = useReducer(
+		cartReducer,
+		initialCartState
+	)
 
 	const updateCart = data => {
 		dispatch({
@@ -96,4 +99,4 @@ const CartProvider = props => {
 
 const useCart = () => useContext(CartContext)
 
-export { useCart, CartProvider }
+export { useCart, CartProvider, initialCartState }

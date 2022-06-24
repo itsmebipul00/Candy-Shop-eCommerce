@@ -6,10 +6,13 @@ import { useReducer, useContext } from 'react'
 
 import orderService from '../../Services/orderServices'
 
+const initialOrderState = { orders: [] }
+
 const OrdersProvider = props => {
-	const [{ orders }, ordersDispatcher] = useReducer(orderReducer, {
-		orders: [],
-	})
+	const [{ orders }, ordersDispatcher] = useReducer(
+		orderReducer,
+		initialOrderState
+	)
 
 	const updateOrder = data => {
 		ordersDispatcher({
@@ -40,4 +43,4 @@ const OrdersProvider = props => {
 
 const useOrders = () => useContext(OrdersContext)
 
-export { useOrders, OrdersProvider }
+export { useOrders, OrdersProvider, initialOrderState }
