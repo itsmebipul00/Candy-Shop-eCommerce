@@ -12,10 +12,8 @@ const cartService = {
 		}
 	},
 	removeFromCart: async id => {
-		console.log(id)
 		try {
 			const res = await axios.delete(`api/user/cart/${id}`)
-			console.log(res.data)
 			return res.data
 		} catch (error) {
 			throw error

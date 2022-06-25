@@ -7,8 +7,6 @@ import { Fragment } from 'react/cjs/react.production.min'
 const OrdersScreen = () => {
 	const { orders } = useOrders()
 
-	console.log(orders)
-
 	return (
 		<div className='order-screen'>
 			{orders && orders.length > 0 ? (

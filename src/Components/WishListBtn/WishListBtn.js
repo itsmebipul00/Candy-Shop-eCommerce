@@ -20,7 +20,6 @@ export const WishListBtn = props => {
 			return
 		}
 		const wishInCart = cartItems.find(pro => pro._id === product._id)
-		console.log(wishInCart)
 		if (Boolean(wishInCart)) {
 			removeFromCartAction(wishInCart._id)
 		}

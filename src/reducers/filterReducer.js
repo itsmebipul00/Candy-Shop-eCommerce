@@ -1,5 +1,4 @@
 export const filterReducer = (state, action) => {
-	console.log(action)
 	switch (action.type) {
 		case 'HANDLE_SORT':
 			return {

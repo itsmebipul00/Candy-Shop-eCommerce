@@ -87,7 +87,6 @@ const PaymentScreen = () => {
 		const res = await loadScript(
 			'https://checkout.razorpay.com/v1/checkout.js'
 		)
-		console.log(res)
 
 		if (!res) {
 			toast.error('Please check your internet connection')
