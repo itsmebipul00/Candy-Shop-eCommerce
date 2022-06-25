@@ -54,7 +54,19 @@
 	margin: 0.5rem 0.5rem 5rem 0.5rem;
 	padding: 0.5rem;
 	box-shadow: 0 0.25rem 1rem hsl(var(--clr-dark) / 0.1);
-	height: 20%;
+	height: 25%;
+}
+
+@media(max-width:60em){
+	.card__content{
+		height: 20%;
+	}
+}
+
+@media(max-width:40em){
+	.card__content{
+		height: 18%;
+	}
 }
 
 .card__title {
@@ -122,4 +134,8 @@
 
 .product-card {
 	margin-top: 6rem;
+}
+
+.no-products{
+	margin-top: 10rem;
 }

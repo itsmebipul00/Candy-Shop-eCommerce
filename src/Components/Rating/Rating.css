@@ -1,9 +1,15 @@
 .rating {
   display: flex;
   flex-direction: row;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .rating > * {
   margin: 2px;
+}
+
+@media(max-width:60em){
+  .rating{
+    top: -2%;
+  }
 }

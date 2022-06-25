@@ -102,11 +102,10 @@ export const Header = () => {
 								<LogoProvider>
 									<GiCandyCanes value={logoStyles} />
 								</LogoProvider>
+								<h1 className='fs-600 letter-spacing-5 brand-name'>
+									CandyShop
+								</h1>
 							</Link>
-
-							<h1 className='fs-600 letter-spacing-5 brand-name'>
-								CandyShop
-							</h1>
 
 							<div className='header-ctas margin-l-auto d-flex'>
 								{isUserInfoEmpty ? (

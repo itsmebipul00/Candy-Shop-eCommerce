@@ -9,7 +9,7 @@ const BsStared = () => <BsStar />
 
 export const Rating = ({ value }) => {
 	return (
-		<span className='rating'>
+		<div className='rating'>
 			{value >= 1 ? (
 				<BsStarFilled />
 			) : value >= 0.5 ? (
@@ -45,6 +45,6 @@ export const Rating = ({ value }) => {
 			) : (
 				<BsStared />
 			)}
-		</span>
+		</div>
 	)
 }

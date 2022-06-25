@@ -11,6 +11,8 @@ import authService from '../../Services/authServices'
 import { MdiEyeOutline, MdiEyeOffOutline } from '../../assets/Logo'
 import { useFocusInput } from '../../Hooks/useFocusInput'
 
+import { toast } from 'react-hot-toast'
+
 const LoginScreen = () => {
 	const navigate = useNavigate()
 
@@ -33,6 +35,10 @@ const LoginScreen = () => {
 			.login(loginFormData.email, loginFormData.password)
 			.then(data => setUserAction(data))
 			.then(() => navigate(-1))
+			.catch(error => {
+				console.log(error.message)
+				toast.error('Invalid login credentials 🚀')
+			})
 	}
 
 	const handleChange = event => {

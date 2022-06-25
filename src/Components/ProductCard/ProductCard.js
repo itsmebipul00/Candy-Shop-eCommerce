@@ -35,9 +35,12 @@ export const ProductCard = props => {
 
 				<CartBtn product={props.product} />
 			</Link>
+
 			<div className='card__content d-flex'>
 				<div className=' f-col'>
 					<h3 className='card__title'>{props.product.title}</h3>
+					<Rating value={props.product.rating} />
+
 					<p className='card__price'>
 						Price:
 						<span className='line-through text-dark-70 fw-200 original-price'>
@@ -48,7 +51,6 @@ export const ProductCard = props => {
 							? `${props.product.price * cartItem.qty}`
 							: props.product.price}
 					</p>
-					<Rating value={props.product.rating} />
 				</div>
 
 				<WishListBtn product={props.product} />
