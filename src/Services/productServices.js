@@ -4,6 +4,7 @@ const productService = {
 	getProducts: async () => {
 		try {
 			const res = await axios.get('/api/products')
+			console.log(res.data.products)
 			return res.data
 		} catch (error) {
 			throw error
@@ -12,6 +13,7 @@ const productService = {
 	getCategories: async () => {
 		try {
 			const res = await axios.get('/api/categories')
+			console.log(res.data.categories)
 			return res.data
 		} catch (error) {
 			throw error

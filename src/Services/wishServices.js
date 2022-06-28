@@ -14,6 +14,7 @@ const wishServices = {
 			const res = await axios.post(`/api/user/wishlist`, {
 				product: product,
 			})
+			console.log(res.data)
 			return res.data
 		} catch (error) {
 			throw error

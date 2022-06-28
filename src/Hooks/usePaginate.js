@@ -2,7 +2,7 @@ import { useProducts } from '../Providers'
 
 export const usePaginate = () => {
 	const { products, setthisPage } = useProducts()
-	const productsLength = products.length
+	const productsLength = products?.length
 
 	const pageNumbers = []
 

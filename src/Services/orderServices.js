@@ -6,6 +6,7 @@ const orderService = {
 			const res = await axios.post('/api/user/order', {
 				order: order,
 			})
+			console.log(res.data)
 			return res.data
 		} catch (error) {
 			throw error

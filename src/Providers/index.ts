@@ -3,7 +3,10 @@ export {
 	WishListProvider,
 } from './WishListProvider/wishListProvider'
 
-export { useUser, UserProvider } from './UsersProvider/usersProvider'
+export {
+	useUser,
+	UserProvider,
+} from './UsersProvider/usersProvider'
 
 export {
 	useProducts,
@@ -15,7 +18,10 @@ export {
 	OrdersProvider,
 } from './OrdersProvider/ordersProvider'
 
-export { useCart, CartProvider } from './CartProvider/cartProvider'
+export {
+	useCart,
+	CartProvider,
+} from './CartProvider/cartProvider'
 
 export {
 	useAddress,

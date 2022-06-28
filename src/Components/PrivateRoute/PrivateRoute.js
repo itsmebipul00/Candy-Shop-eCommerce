@@ -7,7 +7,7 @@ export const PrivateRoute = () => {
 
 	const { userInfo } = useUser()
 
-	if (userInfo.encodedToken) return <Outlet />
+	if (userInfo?.encodedToken) return <Outlet />
 	else
 		return <Navigate to='/login' state={{ from: location }} replace />
 }

@@ -7,7 +7,7 @@ export const ProtectedRoute = () => {
 
 	const { userInfo } = useUser()
 
-	if (userInfo.encodedToken)
+	if (userInfo?.encodedToken)
 		return (
 			<Navigate to='/products' state={{ from: location }} replace />
 		)

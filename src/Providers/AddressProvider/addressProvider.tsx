@@ -2,45 +2,40 @@ import { AddressContext } from '../../Context'
 
 import { addressReducer } from '../../reducers/addressReducer'
 
-import { useReducer, useContext, useState } from 'react'
+import { actionKind } from '../../types/action/actionKind.type'
+import { Address } from '../../types/data/address.type'
 
+
+import { useReducer, useContext, useState } from 'react'
+type Action = {
+	type: actionKind,
+	payload?: Address[],
+}
+
+type State = {
+	address?: Address[],
+}
 const initialAddressState = { address: [] }
 
-const AddressProvider = props => {
-	const [state, addressDispatcher] = useReducer(
+const AddressProvider = (props:React.PropsWithChildren<{}>) => {
+	const [state, addressDispatcher] = useReducer<React.Reducer<State, Action>>(
 		addressReducer,
-		initialAddressState
+		initialAddressState,
 	)
 
 	const [deliveryAddress, setDeliveryAddress] = useState()
 
-	const address = state?.address
+	const address: Address[]|undefined = state?.address
 
 	const clearAddressAction = () => {
 		addressDispatcher({
-			type: 'CLEAR_ADDRESS',
+			type: actionKind.ClearAddress,
 		})
 	}
 
-	console.table(state)
-
-	const addAddress = data => {
+	const setAddress = (data: Address[]) => {
 		addressDispatcher({
-			type: 'UPDATE_ADDRESS',
-			payload: data,
-		})
-	}
-
-	const updateAddress = data => {
-		addressDispatcher({
-			type: 'UPDATE_ADDRESS',
-			payload: data,
-		})
-	}
-
-	const deleteAddress = data => {
-		addressDispatcher({
-			type: 'UPDATE_ADDRESS',
+			type: actionKind.UpdateAddress,
 			payload: data,
 		})
 	}
@@ -50,11 +45,9 @@ const AddressProvider = props => {
 			value={{
 				address,
 				deliveryAddress,
-				updateAddress,
+				setAddress,
 				setDeliveryAddress,
-				addAddress,
 				clearAddressAction,
-				deleteAddress,
 			}}>
 			{props.children}
 		</AddressContext.Provider>

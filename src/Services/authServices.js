@@ -6,6 +6,7 @@ const authService = {
 				email,
 				password,
 			})
+			console.log(res.data)
 			localStorage.setItem('userToken', res.data.encodedToken)
 			return res.data
 		} catch (error) {

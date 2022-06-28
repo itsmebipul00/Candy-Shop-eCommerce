@@ -65,6 +65,6 @@ export const getSortedData = (products, state) => {
 
 export const getCategoryNames = categories => {
 	return categories
-		.map(cat => cat.categoryName)
-		.reduce((acc, val) => ({ ...acc, [val]: false }), {})
+		?.map(cat => cat.categoryName)
+		?.reduce((acc, val) => ({ ...acc, [val]: false }), {})
 }

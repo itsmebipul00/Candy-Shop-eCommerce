@@ -1,63 +1,74 @@
 import { CartContext } from '../../Context'
 import { useContext, useReducer } from 'react'
 import { cartReducer } from '../../reducers/cartReducer'
+
+import cartService from '../../Services/cartServices.js'
 import toast from 'react-hot-toast'
 
-import cartService from '../../Services/cartServices'
+import { actionKind } from '../../types/action/actionKind.type'
+import {  CartItem } from '../../types/data/cart.type'
 
-const initialCartState = { cartItems: [] }
+const initialCartState = { cartItems: undefined }
 
-const CartProvider = props => {
-	const [{ cartItems }, dispatch] = useReducer(
+type Action = {
+	type: actionKind,
+	payload?: CartItem[],
+}
+
+type State = {
+	cartItems?: CartItem[],
+}
+
+
+const CartProvider = (props:React.PropsWithChildren<{}>) => {
+	const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
 		cartReducer,
 		initialCartState
 	)
 
-	const updateCart = data => {
+	const cartItems: CartItem[]|undefined= state?.cartItems
+
+	const updateCart = (data: CartItem[]) => {
 		dispatch({
-			type: 'UPDATE_CART',
+			type: actionKind.UpdateCart,
 			payload: data,
 		})
 	}
 
-	const addtoCartAction = cartItem =>
+	const addtoCartAction = (cartItem: CartItem) =>{
 		cartService
-			.addToCart(cartItem)
-			.then(data => updateCart(data.cart))
-			.then(toast.success(`${cartItem.title} is added to cart`))
+		.addToCart(cartItem)
+		.then(data => updateCart(data.cart))
+		toast.success(`${cartItem.title} is added to cart`)
+	}
+	
 
-	const removeFromCartAction = id =>
+	const removeFromCartAction = (id: string) =>
 		cartService.removeFromCart(id).then(data => updateCart(data.cart))
 
-	const incrementCartAction = id =>
+	const incrementCartAction = (id: string) =>
 		cartService
 			.increaseCartItem(id)
 			.then(data => updateCart(data.cart))
 
-	const decrementCartAction = id =>
+	const decrementCartAction = (id: string) =>
 		cartService
 			.decreaseCartItem(id)
 			.then(data => updateCart(data.cart))
 
 	const clearCartAction = () => {
 		dispatch({
-			type: 'CLEAR_CART',
+			type: actionKind.ClearCart,
 		})
 	}
 
-	const getCartItemsAction = () => {
-		dispatch({
-			type: 'UPDATE_CART',
-		})
-	}
-
-	const updateCartAction = async (val, id, e, pathname) => {
+	const updateCartAction = async (val: string, id: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>, pathname?: string) => {
 		if (pathname === '/products' || pathname === '/cart') {
 			e.preventDefault()
 		}
-		const cartItem = cartItems.find(item => item._id === id)
+		const cartItem = cartItems?.find((item?:CartItem) => item?._id === id)
 
-		if (val === 'decrement') {
+		if (cartItem && val === 'decrement') {
 			if (cartItem.qty === 1) {
 				removeFromCartAction(id)
 
@@ -71,7 +82,7 @@ const CartProvider = props => {
 					}`
 				)
 			}
-		} else if (val === 'increment') {
+		} else if (cartItem && val === 'increment') {
 			incrementCartAction(id)
 
 			toast.success(
@@ -88,7 +99,6 @@ const CartProvider = props => {
 				addtoCartAction,
 				removeFromCartAction,
 				clearCartAction,
-				getCartItemsAction,
 				cartItems,
 				updateCartAction,
 			}}>

@@ -36,6 +36,7 @@ const cartService = {
 			const res = await axios.post(`api/user/cart/${id}`, {
 				action: { type: 'increment' },
 			})
+			console.log(res.data.cart)
 			return res.data
 		} catch (error) {
 			throw error

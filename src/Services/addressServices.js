@@ -6,6 +6,7 @@ const addressService = {
 			const res = await axios.post('/api/user/address', {
 				address: addressData,
 			})
+			console.log(res.data)
 			return res.data
 		} catch (error) {
 			throw error

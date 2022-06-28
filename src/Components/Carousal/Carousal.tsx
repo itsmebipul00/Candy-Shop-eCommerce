@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useCarousal } from '../../Hooks/useCarousal'
 
-export const Carousal = () => {
-	const carousal = useCarousal()
+export const Carousal:React.FC = () => {
+	const carousal:number = useCarousal()
 
 	return (
 		<div className='carousal-wrapper grid grid-stacked'>

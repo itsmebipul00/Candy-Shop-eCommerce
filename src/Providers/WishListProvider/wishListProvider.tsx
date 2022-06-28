@@ -1,41 +1,57 @@
 import { wishListReducer } from '../../reducers/wishListReducer'
-import { useReducer, useContext } from 'react'
+import React, { useReducer, useContext } from 'react'
 
 import { WishListContext } from '../../Context'
 
+import {actionKind} from '../../types/action/actionKind.type'
+import {WishItem} from '../../types/data/wishList.type'
+
 import toast from 'react-hot-toast'
 
-import wishServices from '../../Services/wishServices'
+import wishServices from '../../Services/wishServices.js'
 
-const WishListProvider = props => {
-	const [{ wishList }, dispatch] = useReducer(wishListReducer, {
-		wishList: [],
-	})
+const initialWishListState = {wishList: undefined}
 
-	const updateWishList = data => {
+type State={
+	wishList?: WishItem[]
+}
+
+type Action={
+	type: actionKind
+	payload?: WishItem[]
+}
+
+
+
+const WishListProvider = (props:React.PropsWithChildren<{}>) => {
+	const [state, dispatch] = useReducer<React.Reducer<State, Action>>(wishListReducer, initialWishListState)
+
+	const wishList:WishItem[]|undefined=  state?.wishList
+
+	const updateWishList = (data: WishItem[]) => {
 		dispatch({
-			type: 'UPDATE_WISHLIST',
+			type: actionKind.UpdateWishList,
 			payload: data,
 		})
 	}
 
 	const clearWishListAction = () => {
 		dispatch({
-			type: 'CLEAR_WISHLIST',
+			type: actionKind.ClearWishList,
 		})
 	}
 
-	const removeFromWishAction = id =>
+	const removeFromWishAction = (id: string) =>
 		wishServices
 			.removeFromWishList(id)
 			.then(data => updateWishList(data.wishlist))
 
-	const addToWishAction = product =>
+	const addToWishAction = (product: WishItem) =>
 		wishServices
 			.addToWishList(product)
 			.then(data => updateWishList(data.wishlist))
 
-	const toggleWishListAction = async product => {
+	const toggleWishListAction = async (product: WishItem) => {
 		const itemExists =
 			wishList &&
 			wishList.length > 0 &&
@@ -64,4 +80,4 @@ const WishListProvider = props => {
 
 const useWishList = () => useContext(WishListContext)
 
-export { useWishList, WishListProvider }
+export { useWishList, WishListProvider, initialWishListState }

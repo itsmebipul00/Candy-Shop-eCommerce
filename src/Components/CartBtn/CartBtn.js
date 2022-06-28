@@ -32,7 +32,7 @@ export const CartBtn = props => {
 			navigate('/login')
 			return
 		}
-		const cartInWish = wishList.find(pro => pro._id === product._id)
+		const cartInWish = wishList?.find(pro => pro._id === product._id)
 
 		if (Boolean(cartInWish)) {
 			toggleWishListAction(cartInWish)

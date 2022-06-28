@@ -1,0 +1,17 @@
+export enum actionKind{
+    ClearAddress= 'CLEAR_ADDRESS',
+    UpdateAddress= 'UPDATE_ADDRESS',
+    UpdateCart = 'UPDATE_CART',
+    ClearCart= 'CLEAR_CART',
+    OrderUser='ORDER_USER',
+   ClearOrders ='CLEAR_ORDERS',
+   UpdateOrder= 'UPDATE_ORDERS',
+   HandleSort='HANDLE_SORT',
+   FilterCategories='FILTER_CATEGORIES',
+   FilterPrices='FILTER_PRICES',
+   ResetFilters='RESET_FILTERS',
+    UserSuccess='USER_SUCCESS',
+    LogoutUser='LOGOUT_USER',
+   UpdateWishList ='UPDATE_WISHLIST',
+    ClearWishList='CLEAR_WISHLIST',
+}

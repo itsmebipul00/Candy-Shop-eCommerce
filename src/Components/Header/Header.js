@@ -15,8 +15,6 @@ import {
 import { GiCandyCanes } from 'react-icons/gi'
 import { Filters } from '../Filters/Filters'
 
-import { isEmptyObject } from '../../utils/isEmptyObject'
-
 import {
 	useUser,
 	useWishList,
@@ -70,8 +68,6 @@ export const Header = () => {
 		clearOrdersAction()
 	}
 
-	const isUserInfoEmpty = isEmptyObject(userInfo)
-
 	const location = useLocation()
 
 	const isProductListingPage =
@@ -108,7 +104,7 @@ export const Header = () => {
 							</Link>
 
 							<div className='header-ctas margin-l-auto d-flex'>
-								{isUserInfoEmpty ? (
+								{!userInfo ? (
 									<NavLink
 										to='/login'
 										state={{ form: location.pathname }}>

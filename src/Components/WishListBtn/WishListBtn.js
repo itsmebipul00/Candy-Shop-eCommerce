@@ -19,7 +19,7 @@ export const WishListBtn = props => {
 			navigate('/login')
 			return
 		}
-		const wishInCart = cartItems.find(pro => pro._id === product._id)
+		const wishInCart = cartItems?.find(pro => pro._id === product._id)
 		if (Boolean(wishInCart)) {
 			removeFromCartAction(wishInCart._id)
 		}

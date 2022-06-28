@@ -29,14 +29,8 @@ const AddressScreen = () => {
 
 	const location = useLocation()
 
-	const {
-		address,
-		addAddress,
-		deleteAddress,
-		updateAddress,
-		setDeliveryAddress,
-		deliveryAddress,
-	} = useAddress()
+	const { address, setDeliveryAddress, deliveryAddress, setAddress } =
+		useAddress()
 
 	const initialData = {
 		_id: uuid(),
@@ -69,18 +63,18 @@ const AddressScreen = () => {
 			if (existAddress) {
 				addressService
 					.editAddress(addressData)
-					.then(data => updateAddress(data.address))
+					.then(data => setAddress(data.address))
 				toast.success('Address Updated 🚀')
 			} else {
 				addressService
 					.addAddress(addressData)
-					.then(data => addAddress(data.address))
+					.then(data => setAddress(data.address))
 				toast.success('New address added 🚀')
 			}
 		} else {
 			addressService
 				.addAddress(addressData)
-				.then(data => addAddress(data.address))
+				.then(data => setAddress(data.address))
 			toast.success('New address added 🚀')
 		}
 
@@ -90,7 +84,7 @@ const AddressScreen = () => {
 	const handleDelete = async id => {
 		addressService
 			.deleteAddress(id)
-			.then(data => deleteAddress(data.address))
+			.then(data => setAddress(data.address))
 
 		if (deliveryAddress && id === deliveryAddress._id)
 			setDeliveryAddress(undefined)

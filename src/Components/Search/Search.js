@@ -74,8 +74,8 @@ export const Search = () => {
 					className='searched-products p-absolute'
 					style={{ display: open ? 'block' : 'none' }}
 					ref={searchRef}>
-					{searchedProducts.length > 0 ? (
-						searchedProducts.map((pro, idx) => (
+					{searchedProducts?.length > 0 ? (
+						searchedProducts?.map((pro, idx) => (
 							<Link
 								key={idx}
 								to={`/product/${pro._id}`}
