@@ -28,7 +28,7 @@ export const CartBtn = props => {
 
 	const addtocartHandler = (e, product) => {
 		e.preventDefault()
-		if (!userInfo.encodedToken) {
+		if (!userInfo?.encodedToken) {
 			navigate('/login')
 			return
 		}

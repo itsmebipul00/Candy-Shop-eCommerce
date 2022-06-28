@@ -2,14 +2,15 @@ import { ProductsContext } from '../../Context'
 import React, { useEffect, useReducer, useContext } from 'react'
 import { filterReducer } from '../../reducers/filterReducer'
 import { useState } from 'react'
-import { useFilters } from '../../Hooks/useFilters.js'
+import { useFilters } from '../../Hooks/useFilters'
 import { getCategoryNames } from '../../utils/filters'
 
-import productService from '../../Services/productServices.js'
+import productService from '../../Services/productServices'
 
 import {actionKind} from '../../types/action/actionKind.type'
 import {CategoryState, Category} from '../../types/data/categories.types'
 import {Product} from '../../types/data/products.types'
+import {ProductsContextValue} from '../../types/providers/productsProvider.type'
 
 type Action={
 	type: actionKind,
@@ -108,6 +109,6 @@ const ProductsProvider = (props:React.PropsWithChildren<{}>) => {
 	)
 }
 
-const useProducts = () => useContext(ProductsContext)
+const useProducts = () => useContext(ProductsContext) as ProductsContextValue
 
 export { useProducts, ProductsProvider }

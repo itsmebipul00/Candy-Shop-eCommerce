@@ -1,7 +1,7 @@
 import { useState } from 'react'
 export const useCupon = () => {
-	const [cupon, setCupon] = useState('')
-	const [cuponApplied, setCuponApplied] = useState(false)
+	const [cupon, setCupon] = useState<string>('')
+	const [cuponApplied, setCuponApplied] = useState<Boolean>(false)
 
 	const applyCandy50 = () => {
 		setCupon('CANDY50')

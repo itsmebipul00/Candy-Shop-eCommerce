@@ -1,3 +1,4 @@
+import { CategoryState } from '../types/data/categories.types'
 import {
 	getPaginatedProducts,
 	getFilteredPrices,
@@ -5,7 +6,9 @@ import {
 	getSortedData,
 } from '../utils/filters'
 
-export const useFilters = (state, products, thispage) => {
+import {Product} from '../types/data/products.types'
+
+export const useFilters = (state?: CategoryState, products?: Product[], thispage?: number) => {
 	const sortedProducts = getSortedData(products, state)
 
 	const filteredCategories = getfilteredProducts(

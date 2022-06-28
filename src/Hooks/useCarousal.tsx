@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 export const useCarousal = () => {
-	const [carousal, setCarousal] = useState(1)
+	const [carousal, setCarousal] = useState<number>(1)
 
 	useEffect(() => {
 		const timerId = setInterval(

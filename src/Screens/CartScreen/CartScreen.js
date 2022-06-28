@@ -22,7 +22,7 @@ const CartScreen = () => {
 			? cartItems.reduce((sum, cv) => sum + cv.price * cv.qty, 0)
 			: 0
 
-	const disabledBtn = cartItems.length < 1 ? true : false
+	const disabledBtn = cartItems?.length < 1 ? true : false
 
 	return (
 		<section className='cart-page'>

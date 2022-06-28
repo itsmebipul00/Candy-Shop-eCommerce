@@ -15,7 +15,7 @@ export const WishListBtn = props => {
 	const { userInfo } = useUser()
 
 	const addtoWishCheck = product => {
-		if (!userInfo.encodedToken) {
+		if (!userInfo?.encodedToken) {
 			navigate('/login')
 			return
 		}
