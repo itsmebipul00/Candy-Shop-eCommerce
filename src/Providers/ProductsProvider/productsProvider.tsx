@@ -26,7 +26,6 @@ const ProductsProvider = (props:React.PropsWithChildren<{}>) => {
 	const [products, setProducts] = useState<Product[]|undefined>(undefined)
 	const [categories, setCategories] = useState<Category[]|undefined>(undefined)
 
-	console.log(products)
 
 	useEffect(() => {
 		Promise.allSettled([

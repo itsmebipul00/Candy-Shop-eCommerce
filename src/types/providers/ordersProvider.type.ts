@@ -1,7 +1,7 @@
-import {Order} from '../data/orders.type'
+import {Order, OrderDetails} from '../data/orders.type'
 
 export interface OrderContextValue{
-    addOrderAction: (order: Order) => void,
+    addOrderAction: (order: OrderDetails) => void,
     orders?: Order[],
     clearOrdersAction: () => void
 }

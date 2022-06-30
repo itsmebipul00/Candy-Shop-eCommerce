@@ -15,14 +15,14 @@ export interface CategoryState {
     maxPriceVal?:number,
     minPriceVal?:number,
     sort?: string,
-    chocolates?: Boolean,
-    darkChocolate?:Boolean,
-    fizzy?:Boolean,
-    gummies?:Boolean,
-    jellies?:Boolean,
-    lollipop?:Boolean,
-    marshmello?:Boolean,
-    rasberry?:Boolean,
+    chocolates?: boolean,
+    darkChocolate?:boolean,
+    fizzy?:boolean,
+    gummies?:boolean,
+    jellies?:boolean,
+    lollipop?:boolean,
+    marshmello?:boolean,
+    rasberry?:boolean,
 }
 
 //define type for initial state in the provider

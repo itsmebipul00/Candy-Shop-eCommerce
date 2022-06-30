@@ -1,11 +1,10 @@
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 
-export const useScroll = () => {
-	const sliderBtn = useRef<HTMLElement>()
+export const useScroll = () : [React.RefObject<HTMLDivElement>, (scrollOffset: number) => void] => {
+	const sliderBtn = useRef<HTMLDivElement>(null)
 
 	const scroll = (scrollOffset: number) => {
-		let element = sliderBtn.current as HTMLElement
-		element.scrollLeft += scrollOffset
+		(sliderBtn.current as HTMLElement).scrollLeft += scrollOffset
 	}
 
 	return [sliderBtn, scroll]

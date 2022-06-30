@@ -4,10 +4,11 @@ import { orderReducer } from '../../reducers/orderReducer'
 
 import { useReducer, useContext } from 'react'
 
-import orderService from '../../Services/orderServices.js'
+import orderService from '../../Services/orderServices'
 
 import { actionKind } from '../../types/action/actionKind.type'
-import {  Order } from '../../types/data/orders.type'
+import {  Order, OrderDetails } from '../../types/data/orders.type'
+import { OrderContextValue } from '../../types/providers/ordersProvider.type'
 
 const initialOrderState = { orders: undefined }
 
@@ -28,17 +29,15 @@ const OrdersProvider = (props:React.PropsWithChildren<{}>) => {
 
 	const orders: Order[]|undefined = state?.orders
 
-	console.log(orders)
 
 	const updateOrder = (data: Order[]) => {
-		console.log(data)
 		ordersDispatcher({
 			type: actionKind.UpdateOrder,
 			payload: data,
 		})
 	}
 
-	const addOrderAction = (order: Order) => {
+	const addOrderAction = (order: OrderDetails) => {
 		orderService
 			.addOrderAction(order)
 			.then(data => updateOrder(data.orders))
@@ -58,6 +57,6 @@ const OrdersProvider = (props:React.PropsWithChildren<{}>) => {
 	)
 }
 
-const useOrders = () => useContext(OrdersContext)
+const useOrders = () => useContext(OrdersContext) as OrderContextValue
 
 export { useOrders, OrdersProvider, initialOrderState }

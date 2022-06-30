@@ -2,14 +2,14 @@
 export interface WishItem {
     categoryName: string,
     countInStock: number,
-    createdAt: string,
+    createdAt?: string,
     description: string,
     id: string,
     image: string,
     price: string,
     rating: number,
     title:string,
-    updatedAt: string,
+    updatedAt?: string,
     _id: string,
 }
 

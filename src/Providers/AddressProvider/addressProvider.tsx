@@ -7,6 +7,7 @@ import { Address } from '../../types/data/address.type'
 
 
 import { useReducer, useContext, useState } from 'react'
+import { AddressContextValue } from '../../types/providers/addressProvider.type'
 type Action = {
 	type: actionKind,
 	payload?: Address[],
@@ -23,7 +24,7 @@ const AddressProvider = (props:React.PropsWithChildren<{}>) => {
 		initialAddressState,
 	)
 
-	const [deliveryAddress, setDeliveryAddress] = useState()
+	const [deliveryAddress, setDeliveryAddress] = useState<Address>()
 
 	const address: Address[]|undefined = state?.address
 
@@ -54,6 +55,6 @@ const AddressProvider = (props:React.PropsWithChildren<{}>) => {
 	)
 }
 
-const useAddress = () => useContext(AddressContext)
+const useAddress = () => useContext(AddressContext) as AddressContextValue
 
 export { useAddress, AddressProvider, initialAddressState }

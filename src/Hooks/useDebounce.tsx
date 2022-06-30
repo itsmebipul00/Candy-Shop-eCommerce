@@ -1,7 +1,7 @@
 import { useTimeout } from './useTimeout'
 import { useEffect } from 'react'
 
-export const useDebounce = (callback: () => void, delay: number, dependencies: string) => {
+export const useDebounce = (callback: () => void, delay: number, dependencies: string[]) => {
 	const { reset, clear } = useTimeout(callback, delay)
 
 	//everytime the dependeices changes we want to reset the timer so that we call the callback exactly after the delay

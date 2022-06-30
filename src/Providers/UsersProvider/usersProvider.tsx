@@ -4,6 +4,7 @@ import { userReducers } from '../../reducers/userReducers'
 
 import {actionKind} from '../../types/action/actionKind.type'
 import {User} from '../../types/data/user.type'
+import { UserContextValue } from '../../types/providers/usersProvider.type'
 
 const initialUserState = {
 	userInfo: undefined,
@@ -52,6 +53,6 @@ const UserProvider = (props:React.PropsWithChildren<{}>) => {
 	)
 }
 
-const useUser = () => useContext(UserContext)
+const useUser = () => useContext(UserContext) as UserContextValue
 
 export { useUser, UserProvider, initialUserState }

@@ -1,7 +1,10 @@
 import { useState } from 'react'
-export const useCupon = () => {
+
+type CuponReturnType = [boolean, () => void, () => void, string,  React.Dispatch<React.SetStateAction<boolean>>, React.Dispatch<React.SetStateAction<string>>]
+
+export const useCupon = () : CuponReturnType => {
 	const [cupon, setCupon] = useState<string>('')
-	const [cuponApplied, setCuponApplied] = useState<Boolean>(false)
+	const [cuponApplied, setCuponApplied] = useState<boolean>(false)
 
 	const applyCandy50 = () => {
 		setCupon('CANDY50')

@@ -24,9 +24,9 @@ export interface OrderDetails{
 
 export interface Order{
     order: OrderDetails
-    createdAt: string,
-    updatedAt: string,
-    _id: string,
+    createdAt?: string,
+    updatedAt?: string,
+    _id?: string,
 }
 
 export type Orders= {

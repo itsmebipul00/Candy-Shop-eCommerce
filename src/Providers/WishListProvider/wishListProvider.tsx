@@ -8,7 +8,8 @@ import {WishItem} from '../../types/data/wishList.type'
 
 import toast from 'react-hot-toast'
 
-import wishServices from '../../Services/wishServices.js'
+import wishServices from '../../Services/wishServices'
+import { WishContextValue } from '../../types/providers/wishProvider.type'
 
 const initialWishListState = {wishList: undefined}
 
@@ -78,6 +79,6 @@ const WishListProvider = (props:React.PropsWithChildren<{}>) => {
 	)
 }
 
-const useWishList = () => useContext(WishListContext)
+const useWishList = () => useContext(WishListContext) as WishContextValue
 
 export { useWishList, WishListProvider, initialWishListState }

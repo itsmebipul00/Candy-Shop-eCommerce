@@ -1,7 +1,7 @@
 import { useEventListener } from './useEventListner'
-import {RefObject} from 'react'
+import { RefObject } from 'react'
 
-export const useClickOutside = (ref: RefObject<HTMLElement>, cb:((e:Event) => void)) => {
+export const useClickOutside = (ref: RefObject<HTMLDivElement>, cb:(e:Event)=> void) => {
 	useEventListener(
 		'click',
 		e => {

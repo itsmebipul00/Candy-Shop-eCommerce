@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useCarousal } from '../../Hooks/useCarousal'
 
-export const Carousal:React.FC = () => {
+export const Carousal = () => {
 	const carousal:number = useCarousal()
 
 	return (

@@ -4,6 +4,6 @@ export interface AddressContextValue{
     address?: Address[],
     deliveryAddress?: Address,
     setAddress: (data: Address[]) => void,
-    setDeliveryAddress: React.Dispatch<React.SetStateAction<undefined>>,
+    setDeliveryAddress: React.Dispatch<React.SetStateAction<Address|undefined>>,
     clearAddressAction: () => void
 }

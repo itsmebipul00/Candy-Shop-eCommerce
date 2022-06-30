@@ -1,7 +1,7 @@
 import { useProducts } from '../Providers'
 
 
-export const usePaginate = () => {
+export const usePaginate = (): [number[], React.Dispatch<React.SetStateAction<number>>] => {
 	const { products, setthisPage } = useProducts()
 	const productsLength = products?.length as number
 

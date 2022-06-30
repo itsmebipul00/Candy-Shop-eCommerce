@@ -2,11 +2,13 @@ import { CartContext } from '../../Context'
 import { useContext, useReducer } from 'react'
 import { cartReducer } from '../../reducers/cartReducer'
 
-import cartService from '../../Services/cartServices.js'
+import cartService from '../../Services/cartServices'
 import toast from 'react-hot-toast'
 
 import { actionKind } from '../../types/action/actionKind.type'
 import {  CartItem } from '../../types/data/cart.type'
+import { CartContextValue } from '../../types/providers/cartProvider.type'
+import { Product } from '../../types/data/products.types'
 
 const initialCartState = { cartItems: undefined }
 
@@ -35,7 +37,7 @@ const CartProvider = (props:React.PropsWithChildren<{}>) => {
 		})
 	}
 
-	const addtoCartAction = (cartItem: CartItem) =>{
+	const addtoCartAction = (cartItem: Product) =>{
 		cartService
 		.addToCart(cartItem)
 		.then(data => updateCart(data.cart))
@@ -107,6 +109,6 @@ const CartProvider = (props:React.PropsWithChildren<{}>) => {
 	)
 }
 
-const useCart = () => useContext(CartContext)
+const useCart = () => useContext(CartContext) as CartContextValue
 
 export { useCart, CartProvider, initialCartState }
