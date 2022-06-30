@@ -4,7 +4,7 @@
 
 <img alt="candyshop" src="./public/images/github-readme.jpg" width="200px" height="200px" />
 
-<h3>CandyShop is an e-Commerce web app built with ReactJS where one could buy candies</h3>
+<h3>CandyShop is an e-Commerce web app built with React and TypeScript where one could buy candies</h3>
 </div>
 <div>
 
