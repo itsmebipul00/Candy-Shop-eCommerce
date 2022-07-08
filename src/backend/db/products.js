@@ -13,7 +13,7 @@ export const products = [
 		countInStock: 2,
 		rating: 3.5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: 'b2c3f463-b875-4f2e-92b0-88ee9001c52e',
@@ -24,7 +24,7 @@ export const products = [
 		countInStock: 12,
 		rating: 5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: '3a0cb883-566d-428e-82f7-aa8df2ff361f',
@@ -35,7 +35,7 @@ export const products = [
 		countInStock: 8,
 		rating: 4.5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: '2ab96b05-a8cb-4a68-9b7c-88af5afc08f3',
@@ -46,7 +46,7 @@ export const products = [
 		countInStock: 8,
 		rating: 2.5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: 'f7e41c27-702c-40a0-9225-4a896c0467ae',
@@ -57,7 +57,7 @@ export const products = [
 		countInStock: 7,
 		rating: 2.5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: '2f5fd373-baa2-4f49-adf9-2c48972f23dd',
@@ -68,7 +68,7 @@ export const products = [
 		countInStock: 7,
 		rating: 2.5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: '7bf9272d-b8da-4c05-b87a-d78a4d82fee5',
@@ -79,7 +79,7 @@ export const products = [
 		countInStock: 4,
 		rating: 5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: '68f81544-96a3-45bf-81ed-aedd85da1dff',
@@ -90,7 +90,7 @@ export const products = [
 		countInStock: 4.5,
 		rating: 5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: '44cd7dcb-3e86-498f-bf9e-50315058b78e',
@@ -101,7 +101,7 @@ export const products = [
 		countInStock: 7,
 		rating: 3,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: '9cf465a1-f131-4c81-a23f-44087b108314',
@@ -112,7 +112,7 @@ export const products = [
 		countInStock: 7,
 		rating: 4,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: 'dcc0f7b9-158f-4025-9ef7-19ba2ae2911e',
@@ -123,7 +123,7 @@ export const products = [
 		countInStock: 5,
 		rating: 1.5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: '76ce46b0-8a55-4ee4-9ccd-8fc0b1839bcc',
@@ -134,7 +134,7 @@ export const products = [
 		countInStock: 5,
 		rating: 4.5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: 'e527a784-fd40-4a6e-8643-3764b99916e3',
@@ -145,7 +145,7 @@ export const products = [
 		countInStock: 5,
 		rating: 5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: 'cb73bb42-db5a-40a5-9ec3-e9c7178f6996',
@@ -156,7 +156,7 @@ export const products = [
 		countInStock: 5,
 		rating: 4.5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: 'de0f54c9-29ac-478b-b540-5dd8603d8b30',
@@ -167,7 +167,7 @@ export const products = [
 		countInStock: 6,
 		rating: 4.5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 	{
 		_id: '3b5f4806-19fd-4e6c-ba49-d9d06072f738',
@@ -178,6 +178,6 @@ export const products = [
 		countInStock: 3,
 		rating: 3.5,
 		description:
-			'Fusce feugiat, tellus at tempus aliquam, arcu massa scelerisque justo, vel vulputate enim justo eget ante. Proin vestibulum vehicula rhoncus.',
+			'Kids love, adults adore and the desserts desire. These are the ultimate party hits, gift items and the best festival fetish.',
 	},
 ]
